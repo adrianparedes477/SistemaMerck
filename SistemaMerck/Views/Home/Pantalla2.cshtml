@@ -1,0 +1,44 @@
+﻿@model SistemaMerck.Modelos.Usuario
+@{
+    ViewData["Title"] = "Pantalla2";
+}
+
+<div class="resultados-container">
+    <p class="reserva-texto">EDAD ACTUAL: @Model.EdadActual</p>
+    <p class="reserva-texto">1ERA MENSTRUACIÓN MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
+    <p class="reserva-texto">RESERVA OVÁRICA:</p>
+</div>
+
+<script src="~/js/maps.js"></script>
+
+<div class="icon-container">
+    <div class="bx @(Model.ReservaOvarica <= 10 ? "selected-icon" : "unselected-icon")">
+        <i class="bx bxs-leaf"></i>
+        <p class="reserva-texto">Bajo</p>
+    </div>
+    <div class="bx @(Model.ReservaOvarica > 10 && Model.ReservaOvarica <= 20 ? "selected-icon" : "unselected-icon")">
+        <i class="bx bxs-leaf"></i>
+        <p class="reserva-texto">Medio</p>
+    </div>
+    <div class="bx @(Model.ReservaOvarica > 20 ? "selected-icon" : "unselected-icon")">
+        <i class="bx bxs-leaf"></i>
+        <p class="reserva-texto">Alto</p>
+    </div>
+</div>
+
+<div class="map-container">
+    <div id="mapa"></div>
+</div>
+
+@if (Model.ReservaOvarica <= 20)
+{
+    
+    <script>
+        // Llama a la función definida en maps.js
+        initMap();
+    </script>
+}
+
+
+
+

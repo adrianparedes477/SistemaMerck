@@ -1,0 +1,45 @@
+﻿@model SistemaMerck.Modelos.ViewModels.UsuarioVM
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="post" asp-action="Pantalla2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <h2 class="titulo-formulario">Formulario</h2>
+
+                <div class="form-group mt-2">
+                    <label class="dropdown-label" asp-for="EdadActual">
+                        Edad Actual:
+                    </label>
+
+                    <div class="d-flex justify-content-center">
+                        <i class="bi bi-people dropdown-icon"></i>
+                        <select name="EdadActual" id="EdadActual" asp-items="@Model.Edades" class="form-control"></select>
+                    </div>
+                    <span asp-validation-for="EdadActual" class="text-danger"></span>
+                </div>
+
+                <hr />
+
+                <div class="form-group mt-2">
+                    <label class="dropdown-labeltwo" asp-for="EdadPrimeraMentruacion">
+                        Edad Primera Menstruación:
+                    </label>
+
+                    <div class="d-flex justify-content-center">
+                        <i class="bi bi-moisture dropdown-icontwo"></i>
+                        <select name="EdadPrimeraMentruacion" id="EdadPrimeraMentruacion" asp-items="@Model.Edades" class="form-control"></select>
+                    </div>
+                    <span asp-validation-for="EdadPrimeraMentruacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-2">
+                    <button type="submit" class="btn btn-siguiente">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
