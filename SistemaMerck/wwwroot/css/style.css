@@ -3,19 +3,29 @@ body {
 }
 
 .body2-bajo {
-    background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
+    background: linear-gradient(to bottom, #00FFFF 30%, #fff 30%);
 }
 
 .body2-medio {
-    background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
+    background: linear-gradient(to bottom, #00FFFF 30%, #fff 30%);
 }
 
 .body2-alto {
-    background: linear-gradient(to bottom, #c33b80 40%, #fff 40%);
+    background: linear-gradient(to bottom, #c33b80 50%, #fff 40%);
 }
 
 .bg-dark-half {
-    background: linear-gradient(to right, #c33b80 50%, #fff 50%);
+    background: linear-gradient(to right, #c33b80 40%, #fff 40%);
+}
+
+.map-container {
+    margin-top: 100px; 
+}
+
+.reserva-texto {
+    font-weight: bold;
+    color: #c33b80;
+    margin-bottom: 50px;
 }
 
 .common-icon i {
@@ -100,9 +110,9 @@ body {
 }
 
 .custom-square {
-    width: 50px; /* Ajusta el ancho según sea necesario */
-    height: 50px; /* Ajusta la altura según sea necesario */
-}
+        width: 50px; /* Ajusta el ancho según sea necesario */
+        height: 50px; /* Ajusta la altura según sea necesario */
+    }
 
 
 #mapa {
@@ -113,19 +123,6 @@ body {
     margin-top: 200px; /* Ajusta según sea necesario */
 }
 
-.map-container {
-    margin-top: 100px; /* Ajusta según sea necesario */
-}
-
-
-
-
-
-.reserva-texto {
-    font-weight: bold;
-    color: #c33b80;
-    margin-bottom: 50px;
-}
 
 .color-texto {
     color: #000
@@ -133,4 +130,8 @@ body {
 
 .font-family-roboto {
     font-family: 'Roboto', sans-serif;
+}
+
+.position-relative {
+    position: relative;
 }

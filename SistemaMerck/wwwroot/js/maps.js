@@ -1,6 +1,6 @@
 ﻿function initMap() {
     var map = new Microsoft.Maps.Map('#mapa', {
-        credentials: 'AqGFJA3iDNKgY4ad4oo6TFACD4c9mPuLfCrbCvG6nyp6kbTjBIbFvAHavsM4sB3q' /*key*/
+        credentials: '' /*key*/
     });
 
     
