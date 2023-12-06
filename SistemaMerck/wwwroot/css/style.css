@@ -1,70 +1,62 @@
-
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
     background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
 }
 
+.body2-bajo {
+    background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
+}
+
+.body2-medio {
+    background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
+}
+
+.body2-alto {
+    background: linear-gradient(to bottom, #c33b80 40%, #fff 40%);
+}
+
+.bg-dark-half {
+    background: linear-gradient(to right, #c33b80 50%, #fff 50%);
+}
+
+.common-icon i {
+    font-size: 24px; /* O ajusta el tamaño deseado */
+}
+
+.text-white-half {
+    background: linear-gradient(to right, #c33b80 50%, #fff 50%);
+    padding: 0 5px; 
+}
 
 .container {
     padding: 20px;
     margin-top: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .titulo-formulario {
     color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 .dropdown-label {
     color: #1e3799;
-    font-weight: bold;
-    margin-top: 10px;
 }
 
-.dropdown-labeltwo{
-    color:red;
+.dropdown-labeltwo {
+    color: red;
 }
 
-.dropdown-icon {
-    color: #1e3799;
-    font-size: 24px;
-    margin-right: 10px;
-}
-
-.dropdown {
-    width: 150px; 
-}
-
-.btn-siguiente {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.dropdown-icon {
-    background-color: lightgrey; 
+.dropdown-icon,
+.dropdown-icontwo {
+    background-color: lightgrey;
     color: blue;
     border-radius: 5px;
     padding: 5px;
     margin-right: 5px;
+    font-size: 24px;
 }
 
 .dropdown-icontwo {
-    background-color: lightgrey;
     color: red;
-    border-radius: 5px;
-    padding: 5px;
-    margin-right: 5px;
 }
 
 .dropdown-container {
@@ -73,71 +65,72 @@ body {
     justify-content: center;
 }
 
-.form-control {
-    width: 80px;
-    
-}
-
-
 .icon-container {
     display: flex;
-    justify-content: space-around; 
+    justify-content: space-around;
     margin-top: 10px;
 }
 
-.bx {
-    text-align: center; 
-}
-
-.selected-icon i {
-    background-color: #28a745; 
+.selected-icon {
+    background-color: #c33b80 !important;
     color: #fff;
     border-radius: 5px;
     padding: 5px;
 }
 
-.unselected-icon i {
-    background-color: #f1f1f1; 
+.unselected-icon {
+    background-color: #f1f1f1 !important;
     color: #000;
     border-radius: 5px;
     padding: 5px;
 }
 
-
-
-.icono-reserva {
-    margin-top: 20px; /* Ajusta este valor según sea necesario */
+.selected-icon-high {
+    background-color: #00FFFF !important;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
 }
 
-.resultados-container,
-.icon-container,
-.map-container {
-    margin-top: 20px; /* Ajusta según sea necesario */
+.unselected-icon-high {
+    background-color: #f1f1f1 !important;
+    color: #000;
+    border-radius: 5px;
+    padding: 5px;
 }
+
+.custom-square {
+    width: 50px; /* Ajusta el ancho según sea necesario */
+    height: 50px; /* Ajusta la altura según sea necesario */
+}
+
 
 #mapa {
-    width: 200px;
+    width: 400px;
     height: 200px;
-    border-radius: 5px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 200px; /* Ajusta según sea necesario */
+}
+
+.map-container {
+    margin-top: 100px; /* Ajusta según sea necesario */
 }
 
 
 
-.resultados-container p,
-.resultados-container .reserva-texto {
-    margin-bottom: 10px;
-    color: #fff;
-}
+
 
 .reserva-texto {
     font-weight: bold;
-    color: #1e3799;
+    color: #c33b80;
+    margin-bottom: 50px;
 }
 
+.color-texto {
+    color: #000
+}
 
-
-
-
-
-
-
+.font-family-roboto {
+    font-family: 'Roboto', sans-serif;
+}

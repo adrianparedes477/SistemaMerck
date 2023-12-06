@@ -1,9 +1,9 @@
 ﻿function initMap() {
     var map = new Microsoft.Maps.Map('#mapa', {
-        credentials: '' /*key*/
+        credentials: 'AqGFJA3iDNKgY4ad4oo6TFACD4c9mPuLfCrbCvG6nyp6kbTjBIbFvAHavsM4sB3q' /*key*/
     });
 
-    // Ejemplo de coordenadas ficticias de clínicas (reemplaza con las coordenadas reales)
+    
     var clinicas = [
         { nombre: 'AlBOR', latitud: -38.94905271209734, longitud: -68.07196047417949 },
         { nombre: 'CEGYR', latitud: -34.59604720625888, longitud: -58.38489195948186 },

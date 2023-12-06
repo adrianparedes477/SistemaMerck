@@ -30,20 +30,24 @@ namespace SistemaMerck.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Pantalla2(UsuarioVM viewModel)
+        public IActionResult Pantalla2(UsuarioVM viewModel)
         {
-            
+            if (viewModel.EdadPrimeraMentruacion > viewModel.EdadActual)
+            {
+                ModelState.AddModelError("EdadPrimeraMentruacion", "La Edad Primera Menstruación no puede ser mayor a la Edad Actual.");
+                viewModel.Edades = Enumerable.Range(8, 50).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
+                return View("Index", viewModel); // Devuelve la vista con los errores de validación
+            }
+
             var usuarioDto = new UsuarioDto
             {
                 EdadActual = viewModel.EdadActual,
                 EdadPrimeraMentruacion = viewModel.EdadPrimeraMentruacion
             };
 
-            
-            var reservaOvarica = await Task.Run(() => CalcularReservaOvarica(usuarioDto));
+            var reservaOvarica = CalcularReservaOvarica(usuarioDto);
 
-            
-            var usuario = new Usuario
+            var usuario = new UsuarioVM
             {
                 EdadActual = viewModel.EdadActual,
                 EdadPrimeraMentruacion = viewModel.EdadPrimeraMentruacion,
@@ -52,6 +56,7 @@ namespace SistemaMerck.Controllers
 
             return View(usuario);
         }
+
 
         private double CalcularReservaOvarica(UsuarioDto usuarioDto)
         {

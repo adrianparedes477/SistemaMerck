@@ -1,44 +1,70 @@
-﻿@model SistemaMerck.Modelos.Usuario
+﻿@model SistemaMerck.Modelos.ViewModels.UsuarioVM
 @{
     ViewData["Title"] = "Pantalla2";
 }
 
-<div class="resultados-container">
-    <p class="reserva-texto">EDAD ACTUAL: @Model.EdadActual</p>
-    <p class="reserva-texto">1ERA MENSTRUACIÓN MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
-    <p class="reserva-texto">RESERVA OVÁRICA:</p>
-</div>
-
-<script src="~/js/maps.js"></script>
-
-<div class="icon-container">
-    <div class="bx @(Model.ReservaOvarica <= 10 ? "selected-icon" : "unselected-icon")">
-        <i class="bx bxs-leaf"></i>
-        <p class="reserva-texto">Bajo</p>
+<body class="@(Model.ReservaOvarica <= 10 ? "body2-bajo" : (Model.ReservaOvarica > 10 && Model.ReservaOvarica <= 20 ? "body2-medio" : "body2-alto"))">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <p class="reserva-texto text-white font-family-roboto">EDAD ACTUAL: @Model.EdadActual</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <p class="reserva-texto text-white font-family-roboto">1ERA MENSTRUACIÓN MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <p class="reserva-texto">
+                    RESERVA OVÁRICA:
+                    <span class="text-c33b80">
+                        @if (Model.ReservaOvarica <= 20)
+                        {
+                            <script>
+                                // Llama a la función definida en maps.js
+                                initMap();
+                            </script>
+                        }
+                    </span>
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="bx @(Model.ReservaOvarica > 10 && Model.ReservaOvarica <= 20 ? "selected-icon" : "unselected-icon")">
-        <i class="bx bxs-leaf"></i>
-        <p class="reserva-texto">Medio</p>
+
+    <script src="~/js/maps.js"></script>
+
+    <div class="icon-container">
+        <div class="position-relative">
+            <div class="bx @(Model.ReservaOvarica <= 10 ? "selected-icon" : "unselected-icon") custom-square">
+                <i class="bx bxs-leaf fs-4"></i>
+            </div>
+            <p class="color-texto fs-5 font-family-roboto position-absolute bottom-5 start-50 translate-middle-x mb-0">Bajo</p>
+        </div>
+
+        <div class="position-relative">
+            <div class="bx @(Model.ReservaOvarica > 10 && Model.ReservaOvarica <= 20 ? "selected-icon" : "unselected-icon") custom-square">
+                <i class="bx bxs-leaf fs-4"></i>
+            </div>
+            <p class="color-texto fs-5 font-family-roboto position-absolute bottom-5 start-50 translate-middle-x mb-0">Medio</p>
+        </div>
+
+        <div class="position-relative">
+            <div class="bx @(Model.ReservaOvarica > 20 ? "selected-icon-high" : "unselected-icon-high") custom-square">
+                <i class="bx bxs-leaf fs-4"></i>
+            </div>
+            <p class="color-texto fs-5 font-family-roboto position-absolute bottom-5 start-50 translate-middle-x mb-0">Alto</p>
+        </div>
     </div>
-    <div class="bx @(Model.ReservaOvarica > 20 ? "selected-icon" : "unselected-icon")">
-        <i class="bx bxs-leaf"></i>
-        <p class="reserva-texto">Alto</p>
+
+
+    <div class="map-container text-center my-auto">
+        <div id="mapa" class="mx-auto">
+        </div>
     </div>
-</div>
-
-<div class="map-container">
-    <div id="mapa"></div>
-</div>
-
-@if (Model.ReservaOvarica <= 20)
-{
-    
-    <script>
-        // Llama a la función definida en maps.js
-        initMap();
-    </script>
-}
 
 
 
+</body>
 
