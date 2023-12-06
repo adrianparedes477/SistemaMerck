@@ -42,11 +42,14 @@
         </main>
     </div>
 
-    
+    <div id="mapa" data-api-key="@ViewBag.MapsKey" style="display:none;"></div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src=""></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/maps.js" asp-append-version="true"></script>
+    <script>
+        var mapsKey = '@ViewBag.MapsKey';
+    </script>
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=@ViewBag.MapsKey"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -23,8 +23,10 @@
                         @if (Model.ReservaOvarica <= 20)
                         {
                             <script>
-                                // Llama a la función definida en maps.js
-                                initMap();
+                                var apiKey = '@ViewBag.MapsKey';
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    initMap(apiKey);
+                                });
                             </script>
                         }
                     </span>

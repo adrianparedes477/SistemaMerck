@@ -11,18 +11,19 @@ namespace SistemaMerck.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfiguration _configuration;
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.MapsKey = _configuration.GetSection("MicrosoftMaps:ApiKey").Value;
             var modelo = new UsuarioVM
             {
-                
                 Edades = Enumerable.Range(8, 50).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList()
             };
 
