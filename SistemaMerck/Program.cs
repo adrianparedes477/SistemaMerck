@@ -1,3 +1,4 @@
+using SistemaMerck.Helpers;
 using SistemaMerck.Modelos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSection("MicrosoftMaps"));
+builder.Services.AddScoped<LocacionService>();
 
 var app = builder.Build();
 
