@@ -30,6 +30,7 @@ namespace SistemaMerck.Controllers
                 Edades = Enumerable.Range(8, 50).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList()
             };
 
+
             return View(modelo);
         }
 
@@ -40,7 +41,7 @@ namespace SistemaMerck.Controllers
             {
                 ModelState.AddModelError("EdadPrimeraMentruacion", "La Edad Primera Menstruación no puede ser mayor a la Edad Actual.");
                 viewModel.Edades = Enumerable.Range(8, 50).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
-                return View("Index", viewModel); // Devuelve la vista con los errores de validación
+                return View("Index", viewModel); 
             }
 
             var usuarioDto = new UsuarioDto
@@ -61,6 +62,15 @@ namespace SistemaMerck.Controllers
             return View(usuario);
         }
 
+        [HttpGet]
+        public IActionResult ObtenerLocacionesJson()
+        {
+            var csvFilePath = "https://raw.githubusercontent.com/adrianparedes477/Archivo/main/clinicas.csv";
+            var locaciones = _locacionService.ObtenerLocacionesDesdeCSV(csvFilePath);
+            var locacionesDto = _locacionService.ConvertirLocacionesALocacionDto(locaciones);
+            return Json(locacionesDto);
+        }
+
 
         private double CalcularReservaOvarica(UsuarioDto usuarioDto)
         {
@@ -68,29 +78,7 @@ namespace SistemaMerck.Controllers
             return (usuarioDto.EdadActual + usuarioDto.EdadPrimeraMentruacion) / 2.0;
         }
 
-        [HttpGet]
-        public IActionResult Locaciones()
-        {
-            // Ruta del archivo CSV
-            var csvFilePath = "https://raw.githubusercontent.com/adrianparedes477/Archivo/main/clinicas.csv";
-
-            // Obtener locaciones desde el CSV
-            var locaciones = _locacionService.ObtenerLocacionesDesdeCSV(csvFilePath);
-
-            // Convertir locaciones a LocacionDto
-            var locacionesDto = _locacionService.ConvertirLocacionesALocacionDto(locaciones);
-
-            // Pasa las locacionesDto a la vista
-            return View(locacionesDto);
-        }
-
-
-
-        [HttpGet]
-        public IActionResult OtraAccionLocaciones()
-        {
-            return View();
-        }
+        
 
         public IActionResult Privacy()
         {

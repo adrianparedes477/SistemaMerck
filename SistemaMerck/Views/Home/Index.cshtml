@@ -5,20 +5,22 @@
 
 <form method="post" asp-action="Pantalla2">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3 text-center">
-                <h2 class="titulo-formulario mt-4">Formulario</h2>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6 text-center">
+                <h2 class="titulo-formulario">Formulario</h2>
 
                 <div class="form-group mt-4">
                     <label class="dropdown-label" asp-for="EdadActual">
                         Edad Actual:
                     </label>
 
-                    <div class="input-group">
+                    <div class="input-group mt-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text bi bi-people dropdown-icon"></span>
                         </div>
-                        <select name="EdadActual" id="EdadActual" asp-items="@Model.Edades" class="form-select ps-2 gy-4"></select>
+                        <select name="EdadActual" id="EdadActual" asp-items="@Model.Edades" class="form-select ps-2">
+                            <option value="8">8</option>
+                        </select>
                     </div>
                     <span asp-validation-for="EdadActual" class="text-danger"></span>
                 </div>
@@ -30,11 +32,13 @@
                         Edad Primera Menstruación:
                     </label>
 
-                    <div class="input-group">
+                    <div class="input-group mt-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text bi bi-moisture dropdown-icontwo"></span>
                         </div>
-                        <select name="EdadPrimeraMentruacion" id="EdadPrimeraMentruacion" asp-items="@Model.Edades" class="form-select ps-2 gy-4" data-val="true" data-val-range="La Edad Primera Menstruación no puede ser mayor que la Edad Actual."></select>
+                        <select name="EdadPrimeraMentruacion" id="EdadPrimeraMentruacion" asp-items="@Model.Edades" class="form-select ps-2" data-val="true" data-val-range="La Edad Primera Menstruación no puede ser mayor que la Edad Actual.">
+                            <option value="8">8</option>
+                        </select>
                     </div>
                     <span asp-validation-for="EdadPrimeraMentruacion" class="text-danger"></span>
                 </div>
@@ -46,6 +50,10 @@
         </div>
     </div>
 </form>
+
+
+
+
 
 
 

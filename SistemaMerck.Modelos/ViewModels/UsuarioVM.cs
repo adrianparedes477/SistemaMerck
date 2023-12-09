@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using SistemaMerck.Modelos.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,11 +12,19 @@ namespace SistemaMerck.Modelos.ViewModels
     public class UsuarioVM
     {
         [Display(Name = "Edad Actual")]
+        [Required(ErrorMessage = "Por favor, selecciona la Edad Actual.")]
         public int EdadActual { get; set; }
+
         [Display(Name = "Edad Primera Menstruación")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "La Edad Primera Menstruación no puede ser mayor que la Edad Actual.")]
+        [Required(ErrorMessage = "Por favor, selecciona la Edad de la Primera Menstruación.")]
+        [Range(typeof(int), "8", "100", ErrorMessage = "La Edad Primera Menstruación no puede ser mayor que la Edad Actual.")]
         public int EdadPrimeraMentruacion { get; set; }
+
         public double ReservaOvarica { get; set; }
+
         public List<SelectListItem> Edades { get; set; }
+
+        public List<LocacionDto> Locaciones { get; set; }
     }
+
 }

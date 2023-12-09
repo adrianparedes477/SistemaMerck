@@ -1,19 +1,23 @@
-﻿
-function initMap() {
+﻿function initMap(apiKey) {
     var map = new Microsoft.Maps.Map('#mapa', {
-        credentials: mapsKey
+        credentials: apiKey
     });
 
-    var clinicas = [
-        { nombre: 'AlBOR', latitud: -38.94905271209734, longitud: -68.07196047417949 },
-        { nombre: 'CEGYR', latitud: -34.59604720625888, longitud: -58.38489195948186 },
-        { nombre: 'CER', latitud: -34.57898399672684, longitud: -58.4223511436052 }
-    ];
-
-    clinicas.forEach(function (clinica) {
-        var ubicacion = new Microsoft.Maps.Location(clinica.latitud, clinica.longitud);
-        var pin = new Microsoft.Maps.Pushpin(ubicacion, { title: clinica.nombre });
-        map.entities.push(pin);
+    // Realizar una solicitud AJAX para obtener las locaciones
+    $.ajax({
+        url: '/Home/ObtenerLocacionesJson',
+        type: 'GET',
+        dataType: 'json',
+        success: function (locaciones) {
+            locaciones.forEach(function (clinica) {
+                var ubicacion = new Microsoft.Maps.Location(clinica.latitud, clinica.longitud);
+                var pin = new Microsoft.Maps.Pushpin(ubicacion, { title: clinica.nombre });
+                map.entities.push(pin);
+            });
+        },
+        error: function (error) {
+            console.error('Error al obtener las locaciones:', error);
+        }
     });
 }
 
@@ -22,3 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var apiKey = document.getElementById('mapa').getAttribute('data-api-key');
     initMap(apiKey);
 });
+
+
+
+

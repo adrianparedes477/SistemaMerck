@@ -29,7 +29,7 @@ body {
 }
 
 .common-icon i {
-    font-size: 24px; /* O ajusta el tamaño deseado */
+    font-size: 24px; 
 }
 
 .text-white-half {
@@ -110,9 +110,9 @@ body {
 }
 
 .custom-square {
-        width: 50px; /* Ajusta el ancho según sea necesario */
-        height: 50px; /* Ajusta la altura según sea necesario */
-    }
+        width: 50px; 
+        height: 50px; 
+}
 
 
 #mapa {
@@ -120,7 +120,7 @@ body {
     height: 200px;
     border-radius: 15px;
     overflow: hidden;
-    margin-top: 200px; /* Ajusta según sea necesario */
+    margin-top: 200px; 
 }
 
 
@@ -134,4 +134,12 @@ body {
 
 .position-relative {
     position: relative;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group .input-group {
+    margin-top: 20px; 
 }
