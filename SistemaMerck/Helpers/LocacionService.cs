@@ -30,7 +30,7 @@ namespace SistemaMerck.Helpers
             }
             catch (Exception ex)
             {
-                // Manejar la excepción según tus necesidades
+                
                 throw new Exception($"Error al obtener locaciones desde el archivo CSV. Detalles: {ex.Message}", ex);
             }
         }

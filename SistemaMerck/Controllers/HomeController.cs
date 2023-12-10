@@ -74,7 +74,6 @@ namespace SistemaMerck.Controllers
 
         private double CalcularReservaOvarica(UsuarioDto usuarioDto)
         {
-            
             return (usuarioDto.EdadActual + usuarioDto.EdadPrimeraMentruacion) / 2.0;
         }
 
