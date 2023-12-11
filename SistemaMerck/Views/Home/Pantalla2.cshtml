@@ -19,23 +19,10 @@
             <div class="col-md-6 offset-md-3 text-center">
                 <p class="reserva-texto">
                     RESERVA OVÁRICA:
-                    <span class="text-c33b80">
-                        @if (Model.ReservaOvarica <= 20)
-                        {
-                            <script>
-                                var apiKey = '@ViewBag.MapsKey';
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    initMap(apiKey);
-                                });
-                            </script>
-                        }
-                    </span>
                 </p>
             </div>
         </div>
     </div>
-
-    <script src="~/js/maps.js"></script>
 
     <div class="icon-container">
         <div class="position-relative">
