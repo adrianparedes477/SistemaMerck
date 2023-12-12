@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using SistemaMerck.AccesoDatos.Data;
+using SistemaMerck.AccesoDatos.Repositorio;
+using SistemaMerck.AccesoDatos.Repositorio.Interfaces;
 using SistemaMerck.Helpers;
 using SistemaMerck.Helpers.Interface;
 using SistemaMerck.Modelos;
@@ -5,11 +9,26 @@ using SistemaMerck.Modelos;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure Microsoft Maps options
 builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSection("MicrosoftMaps"));
+
+// builder.Services.AddScoped<ILocacionRepository, BaseDatosLocacionRepository>();
+builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provider =>
+{
+    var filePath = "https://raw.githubusercontent.com/adrianparedes477/Archivo/main/clinicas.csv";
+    return new ArchivoLocacionRepository(filePath);
+});
+
 builder.Services.AddScoped<LocacionService>();
 builder.Services.AddTransient<ICorreoService, CorreoService>();
+
 
 var app = builder.Build();
 

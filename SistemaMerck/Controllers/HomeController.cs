@@ -74,9 +74,8 @@ namespace SistemaMerck.Controllers
 
         public IActionResult ObtenerLocacionesJson()
         {
-            var csvFilePath = "https://raw.githubusercontent.com/adrianparedes477/Archivo/main/clinicas.csv";
-            var locaciones = _locacionService.ObtenerLocacionesDesdeCSV(csvFilePath);
-            var locacionesDto = _locacionService.ConvertirLocacionesALocacionDto(locaciones);
+            
+            var locacionesDto = _locacionService.ObtenerLocaciones();
             return Json(locacionesDto);
         }
 
@@ -99,16 +98,12 @@ namespace SistemaMerck.Controllers
 
                 TempData["exitoso"] = "Formulario enviado con éxito";
 
-                // Resto de la lógica después de enviar el formulario, si es necesario
-
                 return RedirectToAction("Pantalla3", viewModel);
             }
             catch (Exception ex)
             {
-                // Manejo de errores según tus necesidades
                 TempData["error"] = "Ocurrió un error al enviar el formulario. Por favor, inténtalo de nuevo.";
 
-                // Puedes redirigir a la vista de Pantalla3 incluso en caso de error si es necesario
                 return RedirectToAction("Pantalla3", viewModel);
             }
         }
