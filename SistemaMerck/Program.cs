@@ -1,4 +1,5 @@
 using SistemaMerck.Helpers;
+using SistemaMerck.Helpers.Interface;
 using SistemaMerck.Modelos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSection("MicrosoftMaps"));
 builder.Services.AddScoped<LocacionService>();
+builder.Services.AddTransient<ICorreoService, CorreoService>();
 
 var app = builder.Build();
 

@@ -11,6 +11,17 @@ namespace SistemaMerck.Modelos.ViewModels
 {
     public class UsuarioVM
     {
+        public string Nombre { get; set; }
+
+        public string Correo { get; set; }
+        [Required(ErrorMessage = "El campo 'AsuntoDelCorreo' es obligatorio.")]
+        public string AsuntoDelCorreo { get; set; }
+
+        [Required(ErrorMessage = "El campo 'CuerpoDelCorreo' es obligatorio.")]
+        public string CuerpoDelCorreo { get; set; }
+
+        public bool EsExitoso { get; set; }
+
         [Display(Name = "Edad Actual")]
         [Required(ErrorMessage = "Por favor, selecciona la Edad Actual.")]
         public int EdadActual { get; set; }

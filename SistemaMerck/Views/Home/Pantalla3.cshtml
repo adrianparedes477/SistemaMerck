@@ -1,0 +1,39 @@
+﻿@model SistemaMerck.Modelos.ViewModels.UsuarioVM
+
+<div class="container mt-5">
+    <!-- Título del mapa -->
+    <h2 class="text-center mb-4">Mapa de las Clínicas de Fertilidad Más Cercanas</h2>
+
+    <!-- Contenido del mapa -->
+    <div id="mapa" data-api-key="@ViewBag.MapsKey" class="mx-auto mb-4"
+         style="width: 400px; height: 200px; border-radius: 15px; overflow: hidden;"></div>
+
+    <!-- Botón para mostrar el formulario de contacto -->
+    <button class="btn btn-primary" id="mostrarFormulario">Contacto</button>
+
+    <!-- Contenedor para la vista parcial del formulario (se mostrará aquí) -->
+    <div id="formularioContainer"></div>
+</div>
+<!-- Mostrar mensajes de éxito o error -->
+@if (TempData["exitoso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["exitoso"]
+    </div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["error"]
+    </div>
+}
+
+@section scripts {
+    <script src="~/js/scripts.js"></script>
+}
+
+
+
+
+

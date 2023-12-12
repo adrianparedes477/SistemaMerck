@@ -14,6 +14,8 @@ namespace SistemaMerck.Modelos
 
         public string Direccion { get; set; }
 
+        public string Correo { get; set; }
+
         [Display(Name = "Edad Actual")]
         public int EdadActual { get; set; }
         [Display(Name = "Edad Primera Menstruación")]

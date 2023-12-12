@@ -6,6 +6,8 @@ using SistemaMerck.Modelos;
 using SistemaMerck.Models;
 using System.Diagnostics;
 using SistemaMerck.Helpers;
+using Microsoft.AspNetCore.Builder.Extensions;
+using SistemaMerck.Helpers.Interface;
 
 namespace SistemaMerck.Controllers
 {
@@ -14,11 +16,13 @@ namespace SistemaMerck.Controllers
         private readonly LocacionService _locacionService;
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, LocacionService locacionService)
+        private readonly ICorreoService _correoService;
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, LocacionService locacionService, ICorreoService correoService)
         {
             _logger = logger;
             _configuration = configuration;
             _locacionService = locacionService;
+            _correoService = correoService;
         }
 
         [HttpGet]
@@ -62,6 +66,12 @@ namespace SistemaMerck.Controllers
             return View(usuario);
         }
 
+        public IActionResult Pantalla3()
+        {
+            var viewModel = new UsuarioVM();
+            return View();
+        }
+
         [HttpGet]
         public IActionResult ObtenerLocacionesJson()
         {
@@ -70,6 +80,42 @@ namespace SistemaMerck.Controllers
             var locacionesDto = _locacionService.ConvertirLocacionesALocacionDto(locaciones);
             return Json(locacionesDto);
         }
+
+        [HttpGet]
+        public IActionResult FormularioContacto()
+        {
+            return PartialView("_FormularioContacto");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EnviarFormulario(UsuarioVM viewModel)
+        {
+            try
+            {
+                string destinatario = "adrianjparedes477@gmail.com";
+                string asunto = viewModel.AsuntoDelCorreo;
+                string cuerpo = viewModel.CuerpoDelCorreo;
+
+                await _correoService.EnviarCorreoAsync(destinatario, asunto, cuerpo).ConfigureAwait(false);
+
+                TempData["exitoso"] = "Formulario enviado con éxito";
+
+                // Resto de la lógica después de enviar el formulario, si es necesario
+
+                return RedirectToAction("Pantalla3", viewModel);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores según tus necesidades
+                TempData["error"] = "Ocurrió un error al enviar el formulario. Por favor, inténtalo de nuevo.";
+
+                // Puedes redirigir a la vista de Pantalla3 incluso en caso de error si es necesario
+                return RedirectToAction("Pantalla3", viewModel);
+            }
+        }
+
+
+
 
 
         private double CalcularReservaOvarica(UsuarioDto usuarioDto)

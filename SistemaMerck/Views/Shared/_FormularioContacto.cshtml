@@ -1,0 +1,30 @@
+﻿@model SistemaMerck.Modelos.ViewModels.UsuarioVM
+
+<div>
+    <h3>Formulario de Contacto</h3>
+    <form asp-action="EnviarFormulario" method="post">
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label">Nombre:</label>
+            <input asp-for="Nombre" class="form-control" placeholder="Ingrese su nombre">
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Correo" class="form-label">Correo electrónico:</label>
+            <input asp-for="Correo" class="form-control" placeholder="Ingrese su correo electrónico">
+            <span asp-validation-for="Correo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="AsuntoDelCorreo" class="form-label">Asunto del Correo:</label>
+            <input asp-for="AsuntoDelCorreo" class="form-control" placeholder="Ingrese el asunto del correo">
+            <span asp-validation-for="AsuntoDelCorreo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CuerpoDelCorreo" class="form-label">Cuerpo del Correo:</label>
+            <textarea asp-for="CuerpoDelCorreo" class="form-control" placeholder="Ingrese el cuerpo del correo"></textarea>
+            <span asp-validation-for="CuerpoDelCorreo" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+@await Html.PartialAsync("_Notificacion")
