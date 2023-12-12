@@ -72,7 +72,6 @@ namespace SistemaMerck.Controllers
             return View();
         }
 
-        [HttpGet]
         public IActionResult ObtenerLocacionesJson()
         {
             var csvFilePath = "https://raw.githubusercontent.com/adrianparedes477/Archivo/main/clinicas.csv";
