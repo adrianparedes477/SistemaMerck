@@ -6,7 +6,6 @@ function drawChart() {
     data.addColumn('string', 'Edad');
     data.addColumn('number', 'Nivel de Fertilidad');
 
-    // Agrega tus datos de reserva ovárica aquí
     data.addRows([
         ['Edad 1', 10],
         ['Edad 2', 15],

@@ -7,7 +7,15 @@
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div class="col-md-6 text-center">
-                <h2 class="titulo-formulario">Formulario</h2>
+
+                <div class="formulario-container">
+                    <h2 class="titulo-formulario">
+                        Formulario
+                        <button type="submit" class="btn btn-primary btn-siguiente">
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </button>
+                    </h2>
+                </div>
 
                 <div class="form-group mt-4">
                     <label class="dropdown-label" asp-for="EdadActual">
@@ -43,9 +51,7 @@
                     <span asp-validation-for="EdadPrimeraMentruacion" class="text-danger"></span>
                 </div>
 
-                <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-primary btn-siguiente">Siguiente</button>
-                </div>
+                <hr class="mt-4" />
             </div>
         </div>
     </div>
