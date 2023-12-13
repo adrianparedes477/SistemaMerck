@@ -1,28 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SistemaMerck.Helpers.Interface;
+using SistemaMerck.Models;
 using SistemaMerck.Modelos.Dto;
 using SistemaMerck.Modelos.ViewModels;
-using SistemaMerck.Modelos;
-using SistemaMerck.Models;
 using System.Diagnostics;
 using SistemaMerck.Helpers;
-using Microsoft.AspNetCore.Builder.Extensions;
-using SistemaMerck.Helpers.Interface;
 
 namespace SistemaMerck.Controllers
 {
     public class HomeController : Controller
     {
         private readonly LocacionService _locacionService;
-        private readonly ILogger<HomeController> _logger;
-        private readonly IConfiguration _configuration;
         private readonly ICorreoService _correoService;
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, LocacionService locacionService, ICorreoService correoService)
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(
+            LocacionService locacionService,
+            ICorreoService correoService,
+            IConfiguration configuration,
+            ILogger<HomeController> logger)
         {
-            _logger = logger;
-            _configuration = configuration;
             _locacionService = locacionService;
             _correoService = correoService;
+            _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -33,8 +36,6 @@ namespace SistemaMerck.Controllers
             {
                 Edades = Enumerable.Range(8, 50).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList()
             };
-
-
             return View(modelo);
         }
 
@@ -45,7 +46,7 @@ namespace SistemaMerck.Controllers
             {
                 ModelState.AddModelError("EdadPrimeraMentruacion", "La Edad Primera Menstruación no puede ser mayor a la Edad Actual.");
                 viewModel.Edades = Enumerable.Range(8, 50).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
-                return View("Index", viewModel); 
+                return View("Index", viewModel);
             }
 
             var usuarioDto = new UsuarioDto
@@ -66,17 +67,11 @@ namespace SistemaMerck.Controllers
             return View(usuario);
         }
 
+        [HttpGet]
         public IActionResult Pantalla3()
         {
             var viewModel = new UsuarioVM();
             return View();
-        }
-
-        public IActionResult ObtenerLocacionesJson()
-        {
-            
-            var locacionesDto = _locacionService.ObtenerLocaciones();
-            return Json(locacionesDto);
         }
 
         [HttpGet]
@@ -108,16 +103,17 @@ namespace SistemaMerck.Controllers
             }
         }
 
-
-
-
+        [HttpGet]
+        public IActionResult ObtenerLocacionesJson()
+        {
+            var locacionesDto = _locacionService.ObtenerLocaciones();
+            return Json(locacionesDto);
+        }
 
         private double CalcularReservaOvarica(UsuarioDto usuarioDto)
         {
             return (usuarioDto.EdadActual + usuarioDto.EdadPrimeraMentruacion) / 2.0;
         }
-
-        
 
         public IActionResult Privacy()
         {
