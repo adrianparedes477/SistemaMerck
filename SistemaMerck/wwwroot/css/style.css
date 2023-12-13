@@ -75,43 +75,10 @@ body {
     justify-content: center;
 }
 
-.icon-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-}
-
-.selected-icon {
-    background-color: #c33b80 !important;
-    color: #fff;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.unselected-icon {
-    background-color: #f1f1f1 !important;
-    color: #000;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.selected-icon-high {
-    background-color: #00FFFF !important;
-    color: #fff;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.unselected-icon-high {
-    background-color: #f1f1f1 !important;
-    color: #000;
-    border-radius: 5px;
-    padding: 5px;
-}
 
 .custom-square {
-        width: 50px; 
-        height: 50px; 
+    width: 50px; 
+    height: 50px; 
 }
 
 
