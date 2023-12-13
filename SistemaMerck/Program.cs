@@ -23,7 +23,7 @@ builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSectio
 builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provider =>
 {
     var config = provider.GetRequiredService<IConfiguration>();
-    var filePath = config.GetValue<string>("ApiUrls:LocacionRepositoryUrl");
+    var filePath = config.GetValue<string>("FileUrls:LocacionRepositoryUrl");
     return new ArchivoLocacionRepository(filePath);
 });
 
