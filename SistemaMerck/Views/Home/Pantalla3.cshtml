@@ -29,9 +29,11 @@
     </div>
 }
 
-@section scripts {
-    <script src="~/js/scripts.js"></script>
-}
+<script src="~/js/maps.js" asp-append-version="true"></script>
+<script>
+    var mapsKey = '@ViewBag.MapsKey';
+</script>
+
 
 
 
