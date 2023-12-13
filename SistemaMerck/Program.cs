@@ -22,7 +22,8 @@ builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSectio
 // builder.Services.AddScoped<ILocacionRepository, BaseDatosLocacionRepository>();
 builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provider =>
 {
-    var filePath = "https://raw.githubusercontent.com/adrianparedes477/Archivo/main/clinicas.csv";
+    var config = provider.GetRequiredService<IConfiguration>();
+    var filePath = config.GetValue<string>("ApiUrls:LocacionRepositoryUrl");
     return new ArchivoLocacionRepository(filePath);
 });
 
