@@ -3,7 +3,8 @@
     ViewData["Title"] = "Pantalla2";
 }
 
-<body class="@(Model.ReservaOvarica <= 10 ? "body2-bajo" : (Model.ReservaOvarica > 10 && Model.ReservaOvarica <= 20 ? "body2-medio" : "body2-alto"))">
+
+<body style="background: linear-gradient(to bottom, #c33b80 50%, #fdddca 50%)">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3 text-center">
@@ -17,32 +18,23 @@
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3 text-center">
-                <p class="reserva-texto">
-                    RESERVA OVÁRICA: @Model.ReservaOvarica
-                </p>
+                <a asp-controller="Home" asp-action="Pantalla3" class="btn btn-primary">Quiero Saber más!</a>
             </div>
         </div>
     </div>
-
-    @if (Model.ReservaOvarica <= 20)
-    {
-        <script>
-            var reservaOvaricaUsuario = @Model.ReservaOvarica;
-        </script>
-        <div id="chart_div" style="width: 100%; height: 400px;"></div>
-    }
-
-    <div class="row mt-3">
-        <div class="col-md-6 offset-md-3 text-center">
-            <a asp-controller="Home" asp-action="Pantalla3" class="btn btn-primary">Más Información</a>
-        </div>
+    <div id="chart_div"
+         data-edad-actual="@Model.EdadActual"
+         data-edad-primera-menstruacion="@Model.EdadPrimeraMentruacion"
+         class="card border-primar"
+         style="height: 60vh; width: 60vw; margin: 0 auto; margin-top: 160px;">
     </div>
-
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="~/js/chartConfig.js"></script>
 </body>
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    // Cargar Google Charts de manera síncrona
-    google.charts.load('current', { 'packages': ['corechart'], 'async': false });
-</script>
-<script src="~/js/google-charts-config.js" asp-append-version="true"></script>
+
+
+
+
+
+
 
