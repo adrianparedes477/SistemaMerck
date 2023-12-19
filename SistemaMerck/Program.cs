@@ -13,8 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Add DbContext
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<MerckContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CadenaSql")));
 
 // Configure Microsoft Maps options
 builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSection("MicrosoftMaps"));

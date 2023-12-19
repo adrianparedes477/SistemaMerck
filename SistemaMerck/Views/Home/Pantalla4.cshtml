@@ -1,0 +1,74 @@
+﻿@model SistemaMerck.Modelos.ViewModels.Pantalla4VM
+
+@{
+    ViewData["Title"] = "Pantalla 4";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body style="background: linear-gradient(to bottom, #00FFFF 21%, #fff 21%)">
+    <div class="container mt-5">
+        <div class="formulario-container text-center">
+            <a href="javascript:history.back()" class="btn btn-primary btn-retroceso">
+                <i class="bi bi-arrow-left-circle-fill"></i>
+            </a>
+
+            Formulario
+
+            <!-- Enlace para avanzar -->
+            <a href="@Url.Action("Pantalla4", "Home")" class="btn btn-primary btn-siguiente">
+                <i class="bi bi-arrow-right-circle-fill"></i>
+            </a>
+        </div>
+        <form id="filtroForm" method="post" action="@Url.Action("EnviarConsulta", "Home")">
+            <div class="mb-3">
+                <label for="Pais" class="form-label">País</label>
+                <select class="form-select" asp-for="Pais" asp-items="Model.Paises" onchange="filtrarYActualizarLocaciones()"></select>
+            </div>
+            <div class="mb-3">
+                <label for="Provincia" class="form-label">Provincia</label>
+                <select class="form-select" asp-for="Provincia" asp-items="Model.Provincias" id="Provincia" onchange="capturarProvinciaSeleccionada(this)"></select>
+            </div>
+            <div class="mb-3">
+                <label for="Localidad" class="form-label">Localidad</label>
+                <select class="form-select" asp-for="Localidad" asp-items="Model.Localidades" onchange="filtrarYActualizarLocaciones()"></select>
+            </div>
+            <div class="mb-3">
+                <label for="MotivoConsulta" class="form-label">Motivo de Consulta</label>
+                <select class="form-select" asp-for="TipoConsulta" asp-items="Model.TipoConsultas" onchange="filtrarYActualizarLocaciones()"></select>
+            </div>
+            <div class="mb-3">
+                <label for="Correo" class="form-label">Correo de Contacto</label>
+                <input class="form-control" asp-for="Correo" />
+            </div>
+            <div class="mb-3">
+                <label for="LocacionSeleccionada" class="form-label"></label>
+                <input class="form-control" hidden asp-for="LocacionSeleccionada" readonly />
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="row mt-2" id="locacionesList">
+            @if (Model.LocacionesFiltradas != null && Model.LocacionesFiltradas.Any())
+            {
+                @foreach (var locacion in Model.LocacionesFiltradas)
+                {
+                    <div class="col-4 mb-2">
+                        <div class="p-3 border rounded locacion-item">
+                            <p class="mb-0">@locacion.Nombre - @locacion.Provincia</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-info text-center">No hay locaciones disponibles.</div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+<script src="~/js/pantalla4.js"></script>
+
+

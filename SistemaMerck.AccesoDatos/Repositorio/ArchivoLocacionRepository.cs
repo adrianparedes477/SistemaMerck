@@ -19,7 +19,7 @@ namespace SistemaMerck.AccesoDatos.Repositorio
         {
             _filePath = filePath;
         }
-        public List<LocacionDto> ObtenerLocaciones()
+        public List<ClinicasDto> ObtenerLocaciones()
         {
             try
             {
@@ -34,7 +34,7 @@ namespace SistemaMerck.AccesoDatos.Repositorio
                     }))
                     {
                         // Mapea las filas a LocacionDto en lugar de Locacion
-                        return csv.GetRecords<LocacionDto>().ToList();
+                        return csv.GetRecords<ClinicasDto>().ToList();
                     }
                 }
             }

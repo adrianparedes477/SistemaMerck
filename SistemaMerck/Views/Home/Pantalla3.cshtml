@@ -1,37 +1,52 @@
-﻿<div class="container mt-5">
-    <h2 class="text-center mb-4">Mapa de las Clínicas de Fertilidad Más Cercanas</h2>
+﻿@{
+    ViewData["Title"] = "Pantalla3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    <!-- Contenido del mapa -->
-    <div id="mapa" data-api-key="@ViewBag.MapsKey" class="mx-auto mb-4"
-         style="width: 400px; height: 200px; border-radius: 15px; overflow: hidden;"></div>
+<div class="container">
+    <div class="row justify-content-center mt-4 mb-4">
+        <div class="col-md-6 text-center">
+            <div class="formulario-container">
+                <h2 class="titulo-formulario">
+                    <!-- Enlace para retroceder -->
+                    <a href="javascript:history.back()" class="btn btn-primary btn-retroceso">
+                        <i class="bi bi-arrow-left-circle-fill"></i>
+                    </a>
 
-    <div class="btn-group">
-        <button class="btn btn-primary" id="mostrarFormulario">Contacto</button>
-        <a class="btn btn-secondary" href="/">Volver a Hacer la Prueba</a>
+                    Indicador
+
+                    <!-- Enlace para avanzar -->
+                    <a href="@Url.Action("Pantalla4", "Home")" class="btn btn-primary btn-siguiente">
+                        <i class="bi bi-arrow-right-circle-fill"></i>
+                    </a>
+                </h2>
+            </div>
+        </div>
     </div>
-
-    <!-- Contenedor para la vista parcial del formulario (se mostrará aquí) -->
-    <div id="formularioContainer"></div>
 </div>
-<!-- Mostrar mensajes de éxito o error -->
-@if (TempData["exitoso"] != null)
-{
-    <div class="alert alert-success" role="alert">
-        @TempData["exitoso"]
-    </div>
-}
 
-@if (TempData["error"] != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @TempData["error"]
+<div class="fixed-bottom bg-light p-4">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p class="lead mb-0">
+                Adrian ipsum dolor sit amet, consectetur adipiscing elit. Proin auctor sagittis mauris, vel cursus libero lacinia vel.
+                Vivamus tincidunt leo ac mi accumsan, ac tristique mauris condimentum. Sed eu purus in odio tincidunt sodales vel non tortor.
+                Vestibulum eget turpis nec eros blandit facilisis. Fusce accumsan justo ac est fermentum, ac cursus tortor scelerisque.
+                Aenean ultrices massa et fringilla hendrerit. Sed lacinia odio eu elit commodo, vel suscipit justo ullamcorper.
+            </p>
+        </div>
     </div>
-}
+</div>
 
-<script src="~/js/maps.js" asp-append-version="true"></script>
 <script>
-    var mapsKey = '@ViewBag.MapsKey';
+    // EventListener para retroceder en la historia del navegador
+    document.getElementById('btnRetroceso').addEventListener('click', function () {
+        window.history.back();
+    });
 </script>
+
+
+
 
 
 

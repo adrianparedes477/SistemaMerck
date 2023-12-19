@@ -1,8 +1,8 @@
 ﻿@model SistemaMerck.Modelos.ViewModels.UsuarioVM
 @{
     ViewData["Title"] = "Pantalla2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <body style="background: linear-gradient(to bottom, #c33b80 50%, #fdddca 50%)">
     <div class="container mt-5">
@@ -22,14 +22,20 @@
             </div>
         </div>
     </div>
-    <div id="chart_div"
-         data-edad-actual="@Model.EdadActual"
-         data-edad-primera-menstruacion="@Model.EdadPrimeraMentruacion"
-         class="card border-primar"
-         style="height: 60vh; width: 60vw; margin: 0 auto; margin-top: 160px;">
-    </div>
+    <div id="container" class="container" style="height: 60vh; margin: 0 auto; margin-top: 160px;"></div>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script type="text/javascript" src="~/js/chartConfig.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/modules/data.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/modules/drilldown.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/modules/boost.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/modules/exporting.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/modules/export-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/modules/accessibility.js"></script>
+    <script>
+        var reservaOvarica = @Html.Raw(Json.Serialize(Model.ReservaOvarica));
+    </script>
+
+    <!-- Incluir tu script personalizado -->
+    <script src="~/js/chartConfig.js"></script>
 </body>
 
 

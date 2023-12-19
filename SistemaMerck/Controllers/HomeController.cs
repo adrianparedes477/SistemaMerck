@@ -6,6 +6,9 @@ using SistemaMerck.Modelos.Dto;
 using SistemaMerck.Modelos.ViewModels;
 using System.Diagnostics;
 using SistemaMerck.Helpers;
+using Microsoft.EntityFrameworkCore;
+using SistemaMerck.Modelos;
+using SistemaMerck.AccesoDatos.Data;
 
 namespace SistemaMerck.Controllers
 {
@@ -15,17 +18,20 @@ namespace SistemaMerck.Controllers
         private readonly ICorreoService _correoService;
         private readonly IConfiguration _configuration;
         private readonly ILogger<HomeController> _logger;
+        private readonly MerckContext _dbContext;
 
         public HomeController(
             LocacionService locacionService,
             ICorreoService correoService,
             IConfiguration configuration,
-            ILogger<HomeController> logger)
+            ILogger<HomeController> logger,
+            MerckContext dbContext)
         {
             _locacionService = locacionService;
             _correoService = correoService;
             _configuration = configuration;
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
@@ -34,7 +40,7 @@ namespace SistemaMerck.Controllers
             ViewBag.MapsKey = _configuration.GetSection("MicrosoftMaps:ApiKey").Value;
             var modelo = new UsuarioVM
             {
-                Edades = Enumerable.Range(8, 50).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList()
+                Edades = Enumerable.Range(8, 43).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList()
             };
             return View(modelo);
         }
@@ -67,6 +73,16 @@ namespace SistemaMerck.Controllers
             return View(usuario);
         }
 
+
+
+        [HttpGet]
+        public IActionResult Pantalla2()
+        {
+            ViewData["NavbarColor"] = "#c33b80";
+            return RedirectToAction("Index");
+        }
+
+
         [HttpGet]
         public IActionResult Pantalla3()
         {
@@ -75,40 +91,48 @@ namespace SistemaMerck.Controllers
         }
 
         [HttpGet]
-        public IActionResult FormularioContacto()
+        public IActionResult Pantalla4()
         {
-            return PartialView("_FormularioContacto");
+            var pantalla4VM = new Pantalla4VM
+            {
+                Paises = GetSelectListItems(_dbContext.Paises, p => p.Id.ToString(), p => p.Nombre),
+                Provincias = GetSelectListItems(_dbContext.Provincias, p => p.Id.ToString(), p => p.Provincia),
+                Localidades = GetSelectListItems(_dbContext.Localidades, l => l.Id.ToString(), l => l.Localidad),
+                TipoConsultas = GetSelectListItems(_dbContext.TipoConsulta, tc => tc.Id.ToString(), tc => tc.Consulta),
+                Clinicas = _locacionService.ObtenerLocaciones()
+            };
+
+            return View(pantalla4VM);
         }
+
+        private List<SelectListItem> GetSelectListItems<T>(IEnumerable<T> items, Func<T, string> valueSelector, Func<T, string> textSelector)
+        {
+            return items.Select(item => new SelectListItem
+            {
+                Value = valueSelector(item),
+                Text = textSelector(item)
+            }).ToList();
+        }
+
+
 
         [HttpPost]
-        public async Task<IActionResult> EnviarFormulario(UsuarioVM viewModel)
+        public IActionResult ObtenerLocacionesFiltradas(Pantalla4VM viewModel)
         {
-            try
+            if (viewModel.Provincia == null)
             {
-                string destinatario = "adrianjparedes477@gmail.com";
-                string asunto = viewModel.AsuntoDelCorreo;
-                string cuerpo = viewModel.CuerpoDelCorreo;
-
-                await _correoService.EnviarCorreoAsync(destinatario, asunto, cuerpo).ConfigureAwait(false);
-
-                TempData["exitoso"] = "Formulario enviado con éxito";
-
-                return RedirectToAction("Pantalla3", viewModel);
+                return Json(new List<ClinicasDto>());
             }
-            catch (Exception ex)
-            {
-                TempData["error"] = "Ocurrió un error al enviar el formulario. Por favor, inténtalo de nuevo.";
 
-                return RedirectToAction("Pantalla3", viewModel);
-            }
+            // Obtener locaciones filtradas basadas en la provincia seleccionada
+            var locacionesFiltradas = _locacionService.ObtenerLocaciones()
+                .Where(locacion => locacion.Provincia == viewModel.Provincia)
+                .ToList();
+
+            return Json(locacionesFiltradas);
         }
 
-        [HttpGet]
-        public IActionResult ObtenerLocacionesJson()
-        {
-            var locacionesDto = _locacionService.ObtenerLocaciones();
-            return Json(locacionesDto);
-        }
+
 
         private double CalcularReservaOvarica(UsuarioDto usuarioDto)
         {

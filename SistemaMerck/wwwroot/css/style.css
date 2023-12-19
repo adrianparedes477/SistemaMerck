@@ -2,9 +2,11 @@ body {
     background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
 }
 
-.map-container {
-    margin-top: 100px; 
+.container-formulario {
+    background-color: #00FFFF; /* Fondo color #00FFFF para el formulario */
+    padding: 20px; /* Ajusta el espacio interior según tus necesidades */
 }
+
 
 .reserva-texto {
     font-weight: bold;
@@ -20,7 +22,6 @@ body {
     background: linear-gradient(to right, #c33b80 50%, #fff 50%);
     padding: 0 5px; 
 }
-
 
 
 .container {
@@ -72,16 +73,6 @@ body {
 }
 
 
-
-#mapa {
-    width: 400px;
-    height: 200px;
-    border-radius: 15px;
-    overflow: hidden;
-    margin-top: 200px; 
-}
-
-
 .color-texto {
     color: #000
 }
@@ -101,3 +92,52 @@ body {
 .form-group .input-group {
     margin-top: 20px; 
 }
+
+.fixed-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.selected-item {
+    background-color: #c33b80; /* Cambia esto al color que desees */
+    color: white; /* Cambia esto al color de texto que desees */
+}
+
+#locacionesList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.locacion-item {
+    width: 60px; /* Ajusta el ancho según tus necesidades */
+    height: 80px; /* Ajusta la altura según tus necesidades */
+    margin: 10px; /* Ajusta el margen según tus necesidades */
+    text-align: center; /* Centra el contenido */
+    box-sizing: border-box;
+    position: relative;
+}
+
+.locacion-icon {
+    font-size: 18px; /* Ajusta el tamaño del icono según tus necesidades */
+    position: absolute;
+    top: 10px; /* Ajusta la posición vertical del icono según tus necesidades */
+    left: 50%; /* Centra el icono horizontalmente */
+    transform: translateX(-50%); /* Ajusta para centrar horizontalmente */
+}
+
+.locacion-nombre {
+    position: absolute;
+    bottom: 5px; /* Ajusta la distancia del nombre al cuadrado según tus necesidades */
+    width: 100%;
+    text-align: center;
+    font-size: 10px; /* Ajusta el tamaño del nombre según tus necesidades */
+}
+
+
+
+
+
+
+

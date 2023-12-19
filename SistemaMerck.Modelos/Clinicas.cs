@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaMerck.Modelos
 {
-    public class Locacion
+    [NotMapped]
+    public class Clinicas
     {
+
         public string Nombre { get; set; }
-        public double Latitud { get; set; }
-        public double Longitud { get; set; }
+
+        public string Provincia { get; set; }
     }
 }
