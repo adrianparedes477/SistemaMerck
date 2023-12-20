@@ -5,7 +5,7 @@
 
     // Realizar una solicitud AJAX para obtener las locaciones filtradas
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/Home/ObtenerLocacionesFiltradas', true);
+    xhr.open('POST', '/Pantalla4/ObtenerLocacionesFiltradas', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {

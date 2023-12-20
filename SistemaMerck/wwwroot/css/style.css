@@ -1,29 +1,35 @@
-body {
-    background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
-}
-
-.container-formulario {
-    background-color: #00FFFF; /* Fondo color #00FFFF para el formulario */
-    padding: 20px; /* Ajusta el espacio interior según tus necesidades */
-}
-
-
-.reserva-texto {
-    font-weight: bold;
+.custom-color {
     color: #c33b80;
-    margin-bottom: 50px;
 }
 
-.common-icon i {
-    font-size: 24px; 
+.pantalla134 {
+    background: linear-gradient(to bottom, #2EBDCD 37%, #fff 37%);
+    border-bottom-left-radius: 50% 20px;
+    border-bottom-right-radius: 50% 20px;
 }
 
-.text-white-half {
-    background: linear-gradient(to right, #c33b80 50%, #fff 50%);
-    padding: 0 5px; 
+.pantalla5 {
+    background: linear-gradient(to bottom, #2EBDCD 0%, #2EBDCD 25%, #fff 25%, #fff 100%);
+    border-bottom-left-radius: 50% 20px;
+    border-bottom-right-radius: 50% 20px;
+}
+
+.custom-background,
+#pantalla2Body.pantalla2-container {
+    background: linear-gradient(to bottom, #c33b80 0%, #c33b80 50%, #fdddca 50%, #fdddca 100%);
+    border-bottom-left-radius: 50% 20px;
+    border-bottom-right-radius: 50% 20px;
 }
 
 
+
+
+
+
+.custom-color-one
+{
+    color:blue;
+}
 .container {
     padding: 20px;
     margin-top: 20px;
@@ -38,70 +44,25 @@ body {
     color: #1e3799;
 }
 
-.dropdown-labeltwo {
-    color: red;
-}
 
 .dropdown-icon,
 .dropdown-icontwo {
     background-color: lightgrey;
-    color: blue;
     border-radius: 5px;
     padding: 5px;
     margin-right: 5px;
     font-size: 24px;
 }
 
-.dropdown-icontwo {
-    color: red;
-}
 
-.dropdown-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.custom-square {
-    width: 50px; 
-    height: 50px; 
-}
-
-.reserva-texto {
-    margin-bottom: 5px; 
-}
-
-
-.color-texto {
-    color: #000
-}
 
 .font-family-roboto {
     font-family: 'Roboto', sans-serif;
 }
 
-.position-relative {
-    position: relative;
-}
-
-.form-group {
-    position: relative;
-}
-
-.form-group .input-group {
-    margin-top: 20px; 
-}
-
-.fixed-bottom {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
 .selected-item {
-    background-color: #c33b80; /* Cambia esto al color que desees */
-    color: white; /* Cambia esto al color de texto que desees */
+    background-color: #c33b80;
+    color: white; 
 }
 
 #locacionesList {

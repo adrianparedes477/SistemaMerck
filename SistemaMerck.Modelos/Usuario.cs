@@ -21,13 +21,12 @@ namespace SistemaMerck.Modelos
         [EmailAddress(ErrorMessage = "El formato del correo electrónico no es válido.")]
         public string Correo { get; set; }
 
-        [Display(Name = "Edad Actual")]
-        [Required(ErrorMessage = "El campo Edad Actual es obligatorio.")]
+        [Required(ErrorMessage = "La Edad Actual es obligatoria.")]
+        [Range(8, 50, ErrorMessage = "La Edad Actual debe estar entre 8 y 50.")]
         public int EdadActual { get; set; }
 
-        [Display(Name = "Edad Primera Menstruación")]
-        [Required(ErrorMessage = "El campo Edad Primera Menstruación es obligatorio.")]
-        [Range(0, 100, ErrorMessage = "La Edad Primera Menstruación debe estar entre 0 y 100.")]
+        [Required(ErrorMessage = "La Edad Primera Menstruación es obligatoria.")]
+        [Range(8, 15, ErrorMessage = "La Edad Primera Menstruación debe estar entre 8 y 15.")]
         public int EdadPrimeraMentruacion { get; set; }
 
         public double ReservaOvarica { get; set; }

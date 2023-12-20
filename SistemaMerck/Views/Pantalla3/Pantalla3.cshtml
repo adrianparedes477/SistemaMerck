@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Pantalla3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body class="pantalla134">
+    <div class="row justify-content-center mt-4 mb-4">
+        <div class="col-md-6 text-center formulario-container">
+            <h2 class="titulo-formulario">
+                <!-- Enlace para retroceder -->
+                <a href="javascript:history.back()" class="btn btn-primary btn-retroceso">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                </a>
+
+                <!-- Texto centralizado con color blanco -->
+                <span class="form-text text-white">Formulario</span>
+
+                <!-- Enlace para avanzar -->
+                <a href="@Url.Action("Pantalla4", "Pantalla4")" class="btn btn-primary btn-siguiente">
+                    <i class="bi bi-arrow-right-circle-fill"></i>
+                </a>
+            </h2>
+        </div>
+    </div>
+</body>
+
+
+
+
+<div style="background-color: #ffff; text-align: center; font-weight: bold; max-height: 600px; margin:0">
+
+                <p class="lead mb-0">
+                    Adrian ipsum dolor sit amet, consectetur adipiscing elit. Proin auctor sagittis mauris, vel cursus libero lacinia vel.
+                    Vivamus tincidunt leo ac mi accumsan, ac tristique mauris condimentum. Sed eu purus in odio tincidunt sodales vel non tortor.
+                    Vestibulum eget turpis nec eros blandit facilisis. Fusce accumsan justo ac est fermentum, ac cursus tortor scelerisque.
+                    Aenean ultrices massa et fringilla hendrerit. Sed lacinia odio eu elit commodo, vel suscipit justo ullamcorper.
+                </p>
+
+</div>
+
+<script>
+    // EventListener para retroceder en la historia del navegador
+    document.getElementById('btnRetroceso').addEventListener('click', function () {
+        window.history.back();
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+

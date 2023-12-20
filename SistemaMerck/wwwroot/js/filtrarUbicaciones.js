@@ -18,7 +18,7 @@
         const motivoSeleccionado = motivosDropdown.value;
 
         // Realizar una solicitud al servidor para obtener todas las ubicaciones
-        fetch('/Home/ObtenerLocacionesJson')
+        fetch('/Pantalla4/ObtenerLocacionesJson')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error al obtener las locaciones: ' + response.statusText);

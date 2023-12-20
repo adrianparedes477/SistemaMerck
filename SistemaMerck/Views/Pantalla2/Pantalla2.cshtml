@@ -1,0 +1,122 @@
+﻿@model SistemaMerck.Modelos.ViewModels.UsuarioVM
+@{
+    ViewData["Title"] = "Pantalla2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body id="pantalla2Body" class="pantalla2-container">
+    <!-- Contenido de la vista -->
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <p class="reserva-texto text-white font-family-roboto">EDAD ACTUAL: @Model.EdadActual</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <p class="reserva-texto text-white font-family-roboto">1ERA MENSTRUACIÓN MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <a asp-controller="Pantalla3" asp-action="Pantalla3" class="btn btn-primary">Quiero Saber más!</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Contenido del gráfico -->
+                <div id="reservaOvaricaContainer" style="background-color: #fdddca; padding: 30px; width: 100%;">
+                    <canvas id="reservaOvaricaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Obtener el valor real de ReservaOvarica desde el modelo
+    var reservaOvarica = @Html.Raw(Json.Serialize(Model.ReservaOvarica));
+    var ctx = document.getElementById('reservaOvaricaChart').getContext('2d');
+    var reservaOvaricaChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Categoria1', 'Categoria2', 'Categoria3', 'Categoria4', 'Categoria5'],
+            datasets: [{
+                label: 'Reserva Ovárica',
+                data: [10, 20, 30, 40, 50], // Ejemplo de datos, reemplazar con tus datos reales
+                borderColor: '#666666',
+                backgroundColor: 'transparent',
+                pointRadius: 4
+            }, {
+                label: 'Resultado Usuario',
+                data: [{
+                    x: 2, // Ejemplo, reemplazar con el índice correspondiente a tu valor real
+                    y: reservaOvarica,
+                    radius: 8,
+                    backgroundColor: 'red',
+                    borderColor: 'red'
+                }],
+                borderColor: 'red',
+                backgroundColor: 'red',
+                pointRadius: 8,
+                pointStyle: 'circle'
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Resultado de Reserva Ovárica'
+            },
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Fecha'
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Reserva Ovárica'
+                    }
+                }]
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            aspectRatio: 2,
+            layout: {
+                padding: {
+                    top: 10, // Ajusta este valor según tus necesidades
+                    bottom: 10 // Ajusta este valor según tus necesidades
+                }
+            },
+            elements: {
+                line: {
+                    fill: true
+                }
+            }
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
