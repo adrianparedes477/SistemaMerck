@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SistemaMerck.AccesoDatos.Data;
 using SistemaMerck.AccesoDatos.Repositorio;
@@ -16,8 +17,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MerckContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CadenaSql")));
 
-// Configure Microsoft Maps options
-builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSection("MicrosoftMaps"));
+
 
 // builder.Services.AddScoped<ILocacionRepository, BaseDatosLocacionRepository>();
 builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provider =>

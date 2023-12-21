@@ -5,6 +5,8 @@ using SistemaMerck.Helpers.Interface;
 using SistemaMerck.Helpers;
 using SistemaMerck.Modelos.Dto;
 using SistemaMerck.Modelos.ViewModels;
+using System.Linq.Expressions;
+using SistemaMerck.Modelos;
 
 namespace SistemaMerck.Controllers
 {
@@ -30,36 +32,67 @@ namespace SistemaMerck.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
-        public IActionResult Pantalla4()
+        public IActionResult MostrarFormulario()
         {
-            var pantalla4VM = new Pantalla4VM
-            {
-                Paises = GetSelectListItems(_dbContext.Paises, p => p.Id.ToString(), p => p.Nombre),
-                Provincias = GetSelectListItems(_dbContext.Provincias, p => p.Id.ToString(), p => p.Provincia),
-                Localidades = GetSelectListItems(_dbContext.Localidades, l => l.Id.ToString(), l => l.Localidad),
-                TipoConsultas = GetSelectListItems(_dbContext.TipoConsulta, tc => tc.Id.ToString(), tc => tc.Consulta),
-                Clinicas = _locacionService.ObtenerLocaciones()
-            };
+            var viewModel = new FormularioViewModel();
 
-            return View(pantalla4VM);
+            // Obtener datos desde la base de datos
+            viewModel.ListPaises = _dbContext.Paises.ToList();
+            viewModel.ListProvincia = _dbContext.Provincias.ToList();
+            viewModel.ListLocalidad = _dbContext.Localidades.ToList();
+            viewModel.ListTiposConsulta = _dbContext.TipoConsulta.ToList();
+
+            return View(viewModel);
         }
 
-        private List<SelectListItem> GetSelectListItems<T>(IEnumerable<T> items, Func<T, string> valueSelector, Func<T, string> textSelector)
+        [HttpPost]
+        public async Task<IActionResult> MostrarFormulario(FormularioViewModel viewModel)
         {
-            return items.Select(item => new SelectListItem
+            try
             {
-                Value = valueSelector(item),
-                Text = textSelector(item)
-            }).ToList();
+                // Construye el cuerpo del correo
+                var cuerpoCorreo = $"Datos del formulario:\n" +
+                                   $"País: {viewModel.PaisSeleccionado}\n" +
+                                   $"Provincia: {viewModel.ProvinciaSeleccionada}\n" +
+                                   $"Localidad: {viewModel.LocalidadSeleccionada}\n" +
+                                   $"Tipo de Consulta: {viewModel.TipoConsultaSeleccionado}" +
+                                   $"Correo de Contacto: {viewModel.Correo}\n" +
+                                   $"Locacion Seleccionada: {viewModel.LocacionSeleccionada}";
+
+
+                
+                var destinatario = "adrianjparedes477@gmail.com";
+
+                // Utiliza el servicio de correo para enviar el correo
+                await _correoService.EnviarCorreoAsync(destinatario, "Asunto del Correo", cuerpoCorreo);
+
+
+                return RedirectToAction("ConsultaEnviada");
+            }
+            catch (Exception ex)
+            {
+                // Maneja el error de alguna manera, por ejemplo, muestra un mensaje de error
+                _logger.LogError($"Error al enviar el formulario: {ex.Message}");
+            }
+
+            // Si llegamos aquí, hay un problema, así que volvemos a mostrar el formulario
+            viewModel.ListPaises = _dbContext.Paises.ToList();
+            viewModel.ListProvincia = _dbContext.Provincias.ToList();
+            viewModel.ListLocalidad = _dbContext.Localidades.ToList();
+            viewModel.ListTiposConsulta = _dbContext.TipoConsulta.ToList();
+
+            return View(viewModel);
         }
+
+
+
 
 
 
         [HttpPost]
-        public IActionResult ObtenerLocacionesFiltradas(Pantalla4VM viewModel)
+        public IActionResult ObtenerLocacionesFiltradas(FormularioViewModel viewModel)
         {
-            if (viewModel.Provincia == null)
+            if (viewModel.ProvinciaSeleccionada == null)
             {
                 return Json(new List<ClinicasDto>());
             }
@@ -71,5 +104,13 @@ namespace SistemaMerck.Controllers
 
             return Json(locacionesFiltradas);
         }
+
+        [HttpGet]
+        public IActionResult ConsultaEnviada()
+        {
+            
+            return View();
+        }
     }
+
 }

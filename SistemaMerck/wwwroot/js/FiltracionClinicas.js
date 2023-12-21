@@ -56,7 +56,7 @@ function actualizarListaLocaciones(locaciones) {
     }
 }
 
-// Función para agregar la locación seleccionada al campo adicional
+
 function agregarALaLista(elemento) {
     // Restaurar el color de todos los elementos
     var elementos = document.getElementsByClassName('locacion-item');
@@ -68,12 +68,13 @@ function agregarALaLista(elemento) {
     elemento.classList.add('selected-item');
 
     var nombre = elemento.getAttribute('data-nombre');
-    var provincia = elemento.getAttribute('data-provincia');
-    var locacionSeleccionada = nombre + ' - ' + provincia;
+    var locacionSeleccionada = nombre;
 
     // Agrega la locación al campo adicional
-    document.getElementById('LocacionSeleccionada').value = locacionSeleccionada;
+    document.getElementById('ClinicaSeleccionada').value = locacionSeleccionada;
 }
+
+
 
 
 
