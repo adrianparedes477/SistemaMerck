@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using SistemaMerck.Models;
-using SistemaMerck.Modelos.ViewModels;
 using System.Diagnostics;
+using SistemaMerck.Negocio.Interface;
 
 namespace SistemaMerck.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUsuarioBusiness _usuarioService;
 
         public HomeController(
-            ILogger<HomeController> logger)
+            ILogger<HomeController> logger, IUsuarioBusiness usuarioService)
         {
             _logger = logger;
+            _usuarioService = usuarioService;
         }
 
         public IActionResult Bienvenida()
@@ -25,14 +26,8 @@ namespace SistemaMerck.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            var modelo = new UsuarioVM
-            {
-                EdadesActuales = Enumerable.Range(8, 43).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList(),
-                EdadesPrimeraMentruacion = Enumerable.Range(8, 8).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList()
-            };
+            var modelo = _usuarioService.ObtenerDatosUsuario();
             return View(modelo);
-
         }
 
 

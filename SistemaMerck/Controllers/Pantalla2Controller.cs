@@ -1,49 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using SistemaMerck.Modelos.Dto;
 using SistemaMerck.Modelos.ViewModels;
+using SistemaMerck.Negocio.Interface;
 
 namespace SistemaMerck.Controllers
 {
     public class Pantalla2Controller : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public Pantalla2Controller(ILogger<HomeController> logger)
+        private readonly IUsuarioBusiness _usuarioService;
+        public Pantalla2Controller(ILogger<HomeController> logger, IUsuarioBusiness usuarioService)
         {
             _logger = logger;
+            _usuarioService = usuarioService;
         }
 
         [HttpPost]
         public IActionResult Pantalla2(UsuarioVM viewModel)
         {
-            if (viewModel.EdadPrimeraMentruacion > viewModel.EdadActual)
+            if (!_usuarioService.ValidarDatosUsuario(viewModel))
             {
                 ModelState.AddModelError("EdadPrimeraMentruacion", "La Edad Primera Menstruación no puede ser mayor a la Edad Actual.");
-                viewModel = InicializarModeloConEdades(viewModel);
+                viewModel = _usuarioService.ObtenerDatosUsuario();
                 return View("~/Views/Home/Index.cshtml", viewModel);
 
             }
-
-            var usuarioDto = new UsuarioDto
-            {
-                EdadActual = viewModel.EdadActual,
-                EdadPrimeraMentruacion = viewModel.EdadPrimeraMentruacion
-            };
-
-            var reservaOvarica = CalcularReservaOvarica(usuarioDto);
-
-            var usuario = new UsuarioVM
-            {
-                EdadActual = viewModel.EdadActual,
-                EdadPrimeraMentruacion = viewModel.EdadPrimeraMentruacion,
-                ReservaOvarica = reservaOvarica
-            };
+            var usuario = _usuarioService.ProcesarDatosUsuario(viewModel);
 
             return View(usuario);
         }
-
-
 
 
         [HttpGet]
@@ -51,20 +35,6 @@ namespace SistemaMerck.Controllers
         {
             return RedirectToAction("Index");
         }
-
-        private UsuarioVM InicializarModeloConEdades(UsuarioVM viewModel)
-        {
-            viewModel.EdadesActuales = Enumerable.Range(8, 43).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
-            viewModel.EdadesPrimeraMentruacion = Enumerable.Range(8, 8).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
-            return viewModel;
-        }
-
-
-        private double CalcularReservaOvarica(UsuarioDto usuarioDto)
-        {
-            return (usuarioDto.EdadActual + usuarioDto.EdadPrimeraMentruacion) / 2.0;
-        }
-
 
     }
 }

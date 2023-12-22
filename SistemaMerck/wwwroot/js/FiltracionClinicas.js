@@ -1,7 +1,6 @@
 ﻿function capturarProvinciaSeleccionada(selectElement) {
-    // Obtener el valor y el texto seleccionados
+    // Obtener el valor seleccionado
     var provinciaValue = selectElement.value;
-    var provinciaText = selectElement.options[selectElement.selectedIndex].text;
 
     // Realizar una solicitud AJAX para obtener las locaciones filtradas
     var xhr = new XMLHttpRequest();
@@ -13,8 +12,9 @@
             actualizarListaLocaciones(JSON.parse(xhr.responseText));
         }
     };
-    xhr.send('provincia=' + encodeURIComponent(provinciaText));
+    xhr.send('provincia=' + encodeURIComponent(provinciaValue));
 }
+
 // Función para actualizar la lista de locaciones en la página
 function actualizarListaLocaciones(locaciones) {
     var lista = document.getElementById('locacionesList');

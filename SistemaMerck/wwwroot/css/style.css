@@ -2,16 +2,19 @@
     color: #c33b80;
 }
 
-.pantalla134 {
+.pantalla1 {
     background: linear-gradient(to bottom, #2EBDCD 37%, #fff 37%);
-    border-bottom-left-radius: 50% 20px;
-    border-bottom-right-radius: 50% 20px;
+    
+}
+
+.pantalla3 {
+    background: linear-gradient(to bottom, #2EBDCD 27%, #fff 27%);
+    
 }
 
 .pantalla5 {
     background: linear-gradient(to bottom, #2EBDCD 0%, #2EBDCD 25%, #fff 25%, #fff 100%);
-    border-bottom-left-radius: 50% 20px;
-    border-bottom-right-radius: 50% 20px;
+    
 }
 
 .custom-background,
@@ -20,10 +23,6 @@
     border-bottom-left-radius: 50% 20px;
     border-bottom-right-radius: 50% 20px;
 }
-
-
-
-
 
 
 .custom-color-one
@@ -48,17 +47,12 @@
 .dropdown-icon,
 .dropdown-icontwo {
     background-color: lightgrey;
-    border-radius: 5px;
-    padding: 5px;
-    margin-right: 5px;
-    font-size: 24px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 30px;
 }
 
-
-
-.font-family-roboto {
-    font-family: 'Roboto', sans-serif;
-}
 
 .selected-item {
     background-color: #c33b80;
@@ -72,20 +66,20 @@
 }
 
 .locacion-item {
-    width: 60px; /* Ajusta el ancho según tus necesidades */
-    height: 80px; /* Ajusta la altura según tus necesidades */
-    margin: 10px; /* Ajusta el margen según tus necesidades */
-    text-align: center; /* Centra el contenido */
+    width: 60px; 
+    height: 80px;
+    margin: 10px; 
+    text-align: center; 
     box-sizing: border-box;
     position: relative;
 }
 
 .locacion-icon {
-    font-size: 18px; /* Ajusta el tamaño del icono según tus necesidades */
+    font-size: 18px; 
     position: absolute;
-    top: 10px; /* Ajusta la posición vertical del icono según tus necesidades */
-    left: 50%; /* Centra el icono horizontalmente */
-    transform: translateX(-50%); /* Ajusta para centrar horizontalmente */
+    top: 10px; 
+    left: 50%;
+    transform: translateX(-50%); 
 }
 
 .locacion-nombre {

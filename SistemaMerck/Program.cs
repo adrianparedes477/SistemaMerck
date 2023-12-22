@@ -6,6 +6,9 @@ using SistemaMerck.AccesoDatos.Repositorio.Interfaces;
 using SistemaMerck.Helpers;
 using SistemaMerck.Helpers.Interface;
 using SistemaMerck.Modelos;
+using SistemaMerck.Negocio.Interface;
+using SistemaMerck.Negocio;
+using SistemaMerck.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +32,9 @@ builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provi
 
 builder.Services.AddScoped<LocacionService>();
 builder.Services.AddTransient<ICorreoService, CorreoService>();
+builder.Services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
+builder.Services.AddScoped<IFormularioBusiness, FormularioBusiness>();
+
 
 
 var app = builder.Build();
