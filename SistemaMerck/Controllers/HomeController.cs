@@ -26,8 +26,16 @@ namespace SistemaMerck.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var modelo = _usuarioService.ObtenerDatosUsuario();
-            return View(modelo);
+            try
+            {
+                var modelo = _usuarioService.ObtenerDatosUsuario();
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error al obtener datos de usuario: {ex.Message}");
+                throw; // Esto permitirá que la excepción se propague para que puedas ver más detalles en la consola.
+            }
         }
 
 
