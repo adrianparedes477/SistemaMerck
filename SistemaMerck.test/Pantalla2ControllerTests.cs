@@ -22,7 +22,7 @@ namespace SistemaMerck.test
             usuarioServiceMock.Setup(x => x.ObtenerDatosUsuario()).Returns(datosUsuarioStub);
             usuarioServiceMock.Setup(x => x.ValidarDatosUsuario(It.IsAny<UsuarioVM>())).Returns(false);
 
-            var controller = new Pantalla2Controller(loggerMock.Object, usuarioServiceMock.Object);
+            var controller = new GraficoController(loggerMock.Object, usuarioServiceMock.Object);
 
             // Act (Actuar)
             var result = controller.Pantalla2(new UsuarioVM()) as ViewResult;
@@ -45,7 +45,7 @@ namespace SistemaMerck.test
             usuarioServiceMock.Setup(x => x.ValidarDatosUsuario(It.IsAny<UsuarioVM>())).Returns(true);
             usuarioServiceMock.Setup(x => x.ProcesarDatosUsuario(It.IsAny<UsuarioVM>())).Returns(new UsuarioVM());
 
-            var controller = new Pantalla2Controller(loggerMock.Object, usuarioServiceMock.Object);
+            var controller = new GraficoController(loggerMock.Object, usuarioServiceMock.Object);
 
             // Act (Actuar)
             var result = controller.Pantalla2(new UsuarioVM()) as ViewResult;
@@ -63,7 +63,7 @@ namespace SistemaMerck.test
             var loggerMock = new Mock<ILogger<HomeController>>();
             var usuarioServiceMock = new Mock<IUsuarioBusiness>();
 
-            var controller = new Pantalla2Controller(loggerMock.Object, usuarioServiceMock.Object);
+            var controller = new GraficoController(loggerMock.Object, usuarioServiceMock.Object);
 
             // Act (Actuar)
             var result = controller.Pantalla2() as RedirectToActionResult;

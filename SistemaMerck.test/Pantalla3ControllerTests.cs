@@ -21,7 +21,7 @@ namespace SistemaMerck.test
             var datosPantalla3Stub = new UsuarioVM { /* Datos simulados */ };
             usuarioServiceMock.Setup(x => x.ObtenerDatosPantalla3()).Returns(datosPantalla3Stub);
 
-            var controller = new Pantalla3Controller(loggerMock.Object, usuarioServiceMock.Object);
+            var controller = new IndicadorController(loggerMock.Object, usuarioServiceMock.Object);
 
             // Act (Actuar)
             var result = controller.Pantalla3() as ViewResult;

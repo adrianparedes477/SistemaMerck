@@ -4,12 +4,12 @@ using SistemaMerck.Negocio.Interface;
 
 namespace SistemaMerck.Controllers
 {
-    public class Pantalla4Controller : Controller
+    public class FormularioController : Controller
     {
         private readonly IFormularioBusiness _formularioService;
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<FormularioController> _logger;
 
-        public Pantalla4Controller(IFormularioBusiness formularioService, ILogger<HomeController> logger)
+        public FormularioController(IFormularioBusiness formularioService, ILogger<FormularioController> logger)
         {
             _formularioService = formularioService;
             _logger = logger;

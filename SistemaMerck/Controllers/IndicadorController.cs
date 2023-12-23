@@ -6,18 +6,18 @@ using SistemaMerck.Negocio.Interface;
 
 namespace SistemaMerck.Controllers
 {
-    public class Pantalla3Controller : Controller
+    public class IndicadorController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<IndicadorController> _logger;
         private readonly IUsuarioBusiness _usuarioService;
-        public Pantalla3Controller(ILogger<HomeController> logger, IUsuarioBusiness usuarioService)
+        public IndicadorController(ILogger<IndicadorController> logger, IUsuarioBusiness usuarioService)
         {
             _logger = logger;
             _usuarioService = usuarioService;
         }
 
         [HttpGet]
-        public IActionResult Pantalla3()
+        public IActionResult Indicador()
         {
             var viewModel = _usuarioService.ObtenerDatosPantalla3();
             return View();

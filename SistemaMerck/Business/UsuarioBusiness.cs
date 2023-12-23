@@ -20,8 +20,18 @@ namespace SistemaMerck.Business
             {
                 return new UsuarioVM
                 {
-                    EdadesActuales = Enumerable.Range(8, 43).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList(),
-                    EdadesPrimeraMentruacion = Enumerable.Range(8, 8).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList()
+                    EdadesActuales = Enumerable.Range(8, 43).Select(x => new SelectListItem
+                    { 
+                        Value = x.ToString(),
+                        Text = x.ToString()
+                        
+                    }).ToList(),
+                    EdadesPrimeraMentruacion = Enumerable.Range(8, 8).Select(x => new SelectListItem 
+                    { 
+                        Value = x.ToString(),
+                        Text = x.ToString()
+
+                    }).ToList()
                 };
             }
             catch (Exception ex)
@@ -48,7 +58,11 @@ namespace SistemaMerck.Business
         {
             try
             {
-                return Enumerable.Range(8, 43).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
+                return Enumerable.Range(8, 43).Select(x => new SelectListItem 
+                {
+                    Value = x.ToString(), Text = x.ToString()
+                    
+                }).ToList();
             }
             catch (Exception ex)
             {
@@ -61,7 +75,11 @@ namespace SistemaMerck.Business
         {
             try
             {
-                return Enumerable.Range(8, 8).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
+                return Enumerable.Range(8, 8).Select(x => new SelectListItem 
+                { 
+                    Value = x.ToString(), Text = x.ToString() 
+
+                }).ToList();
             }
             catch (Exception ex)
             {

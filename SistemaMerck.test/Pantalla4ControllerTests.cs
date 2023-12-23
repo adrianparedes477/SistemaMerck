@@ -21,7 +21,7 @@ namespace SistemaMerck.test
             var viewModelStub = new FormularioViewModel { /* Datos simulados */ };
             formularioServiceMock.Setup(x => x.ConfigurarFormularioViewModel(It.IsAny<FormularioViewModel>())).Callback<FormularioViewModel>(vm => vm = viewModelStub);
 
-            var controller = new Pantalla4Controller(formularioServiceMock.Object, loggerMock.Object);
+            var controller = new FormularioController(formularioServiceMock.Object, loggerMock.Object);
 
             // Act (Actuar)
             var result = controller.MostrarFormulario() as ViewResult;
@@ -42,7 +42,7 @@ namespace SistemaMerck.test
             var viewModelStub = new FormularioViewModel { /* Datos simulados */ };
             formularioServiceMock.Setup(x => x.EnviarConsulta(It.IsAny<FormularioViewModel>())).ReturnsAsync(true);
 
-            var controller = new Pantalla4Controller(formularioServiceMock.Object, loggerMock.Object);
+            var controller = new FormularioController(formularioServiceMock.Object, loggerMock.Object);
 
             // Act (Actuar)
             var result = await controller.MostrarFormulario(viewModelStub) as RedirectToActionResult;

@@ -9,33 +9,32 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-6 offset-md-3 text-center">
-                <p class="reserva-texto text-white font-family-roboto">EDAD ACTUAL: @Model.EdadActual</p>
+            <div class="col-md-8 offset-md-2 text-center">
+                <p class="reserva-texto text-white font-family-roboto fs-4">EDAD ACTUAL: @Model.EdadActual</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3 text-center">
-                <p class="reserva-texto text-white font-family-roboto">1ERA MENSTRUACIÓN MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
+            <div class="col-md-8 offset-md-2 text-center">
+                <p class="reserva-texto text-white font-family-roboto fs-4">1ERA MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3 text-center">
-                <a asp-controller="Pantalla3" asp-action="Pantalla3" class="btn btn-primary">Quiero Saber más!</a>
+            <div class="col-md-8 offset-md-2 text-center">
+                <a asp-controller="Indicador" asp-action="Indicador" class="btn btn-primary btn-lg mt-3">Quiero Saber más!</a>
             </div>
         </div>
     </div>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <!-- Contenido del gráfico -->
-                <div id="reservaOvaricaContainer" style="background-color: #fdddca; padding: 30px; width: 100%;">
-                    <canvas id="reservaOvaricaChart"></canvas>
+                <div id="reservaOvaricaContainer" style="background-color: #fdddca; padding: 30px;">
+                    <canvas id="reservaOvaricaChart" style="max-width: 100%;"></canvas>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -108,7 +107,7 @@
         }
     });
 </script>
-
+</body>
 
 
 
