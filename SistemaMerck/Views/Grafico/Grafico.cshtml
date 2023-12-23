@@ -29,7 +29,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <!-- Contenido del gráfico -->
-                <div class="card" style="background-color: #fdddca; padding: 30px;">
+                <div class="card" style="background-color: #fdddca; padding: 30px; max-width: 800px; margin: 0 auto;">
                     <canvas id="reservaOvaricaChart" style="max-width: 100%;"></canvas>
                 </div>
             </div>
@@ -92,12 +92,12 @@
                     }
                 },
                 responsive: true,
-                maintainAspectRatio: false,
-                aspectRatio: 2,
+                maintainAspectRatio: true, // Cambiado a true
+                aspectRatio: 1.0, // Ajusta según tus necesidades
                 layout: {
                     padding: {
-                        top: 10,
-                        bottom: 10
+                        top: 4, // Ajusta este valor según tus necesidades
+                        bottom: 4 // Ajusta este valor según tus necesidades
                     }
                 },
                 elements: {
