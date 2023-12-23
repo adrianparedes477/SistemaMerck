@@ -23,35 +23,44 @@
             </div>
         </div>
 
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-8 col-lg-6">
-                <div class="form-group mt-4">
-                    <label class="form-label text-primary" asp-for="EdadActual">Edad Actual:</label>
-                    <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text custom-color-one bi bi-people dropdown-icon"></span>
+        <div class="container mt-5">
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-8 col-lg-6">
+                    <!-- Contenido del formulario -->
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="form-group mt-4">
+                                <label class="form-label text-primary" asp-for="EdadActual">Edad Actual:</label>
+                                <div class="input-group mt-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text custom-color-one bi bi-people dropdown-icon"></span>
+                                    </div>
+                                    <select name="EdadActual" id="EdadActual" asp-for="EdadActual" asp-items="@Model.EdadesActuales" class="form-select ps-2 dropdown-menu-bottom mt-2">
+                                    </select>
+                                </div>
+                                <span asp-validation-for="EdadActual" class="text-danger"></span>
+                            </div>
+
+                            <hr class="mt-4" />
+
+                            <div class="form-group mt-4">
+                                <label class="form-label custom-color" asp-for="EdadPrimeraMentruacion">Edad Primera Menstruación:</label>
+                                <div class="input-group mt-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text custom-color bi bi-moisture dropdown-icontwo"></span>
+                                    </div>
+                                    <select name="EdadPrimeraMentruacion" id="EdadPrimeraMentruacion" asp-for="EdadPrimeraMentruacion" asp-items="@Model.EdadesPrimeraMentruacion" class="form-select ps-2 dropdown-menu-bottom mt-2" data-val="true" data-val-range="La Edad Primera Menstruación no puede ser mayor que la Edad Actual.">
+                                    </select>
+                                </div>
+                                <span asp-validation-for="EdadPrimeraMentruacion" class="text-danger"></span>
+                            </div>
+
+                            <hr class="mt-4" />
+
                         </div>
-                        <select name="EdadActual" id="EdadActual" asp-for="EdadActual" asp-items="@Model.EdadesActuales" class="form-select ps-2 dropdown-menu-bottom mt-2">
-                        </select>
                     </div>
-                    <span asp-validation-for="EdadActual" class="text-danger"></span>
                 </div>
-
-                <hr class="mt-4" />
-
-                <div class="form-group mt-4">
-                    <label class="form-label custom-color" asp-for="EdadPrimeraMentruacion">Edad Primera Menstruación:</label>
-                    <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text custom-color bi bi-moisture dropdown-icontwo"></span>
-                        </div>
-                        <select name="EdadPrimeraMentruacion" id="EdadPrimeraMentruacion" asp-for="EdadPrimeraMentruacion" asp-items="@Model.EdadesPrimeraMentruacion" class="form-select ps-2 dropdown-menu-bottom mt-2" data-val="true" data-val-range="La Edad Primera Menstruación no puede ser mayor que la Edad Actual.">
-                        </select>
-                    </div>
-                    <span asp-validation-for="EdadPrimeraMentruacion" class="text-danger"></span>
-                </div>
-
-                <hr class="mt-4" />
             </div>
         </div>
     </form>
