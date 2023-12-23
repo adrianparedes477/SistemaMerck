@@ -19,7 +19,7 @@
 
 .custom-background,
 #pantalla2Body.pantalla2-container {
-    background: linear-gradient(to bottom, #c33b80 0%, #c33b80 40%, #fdddca 40%, #fdddca 100%);
+    background: linear-gradient(to bottom, #c33b80 0%, #c33b80 42%, #fdddca 42%, #fdddca 100%);
     border-bottom-left-radius: 50% 20px;
     border-bottom-right-radius: 50% 20px;
 }
