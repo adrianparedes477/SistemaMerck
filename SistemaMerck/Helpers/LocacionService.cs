@@ -5,6 +5,7 @@ using CsvHelper;
 using SistemaMerck.Modelos.Dto;
 using CsvHelper.Configuration;
 using SistemaMerck.AccesoDatos.Repositorio.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaMerck.Helpers
 {
@@ -17,20 +18,21 @@ namespace SistemaMerck.Helpers
             _locacionRepository = locacionRepository;
         }
 
-        public List<LocacionDto> ObtenerLocaciones()
+        public List<ClinicasDto> ObtenerLocaciones()
         {
             var locaciones = _locacionRepository.ObtenerLocaciones();
             return ConvertirLocacionesALocacionDto(locaciones);
         }
 
-        public List<LocacionDto> ConvertirLocacionesALocacionDto(List<LocacionDto> locaciones)
+        
+        public List<ClinicasDto> ConvertirLocacionesALocacionDto(List<ClinicasDto> locaciones)
         {
             // Mapear las Locaciones a LocacionDto directamente
-            var locacionesDto = locaciones.Select(locacion => new LocacionDto
+            var locacionesDto = locaciones.Select(locacion => new ClinicasDto
             {
                 Nombre = locacion.Nombre,
-                Latitud = locacion.Latitud,
-                Longitud = locacion.Longitud
+                Provincia = locacion.Provincia,
+                
             }).ToList();
 
             return locacionesDto;

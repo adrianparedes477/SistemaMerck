@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SistemaMerck.AccesoDatos.Data;
 using SistemaMerck.AccesoDatos.Repositorio;
@@ -5,6 +6,9 @@ using SistemaMerck.AccesoDatos.Repositorio.Interfaces;
 using SistemaMerck.Helpers;
 using SistemaMerck.Helpers.Interface;
 using SistemaMerck.Modelos;
+using SistemaMerck.Negocio.Interface;
+using SistemaMerck.Negocio;
+using SistemaMerck.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +17,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Add DbContext
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<MerckContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Hosting")));
 
-// Configure Microsoft Maps options
-builder.Services.Configure<MicrosoftMapsOptions>(builder.Configuration.GetSection("MicrosoftMaps"));
+
 
 // builder.Services.AddScoped<ILocacionRepository, BaseDatosLocacionRepository>();
 builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provider =>
@@ -29,6 +32,9 @@ builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provi
 
 builder.Services.AddScoped<LocacionService>();
 builder.Services.AddTransient<ICorreoService, CorreoService>();
+builder.Services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
+builder.Services.AddScoped<IFormularioBusiness, FormularioBusiness>();
+
 
 
 var app = builder.Build();
@@ -50,6 +56,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Bienvenida}/{id?}");
 
 app.Run();

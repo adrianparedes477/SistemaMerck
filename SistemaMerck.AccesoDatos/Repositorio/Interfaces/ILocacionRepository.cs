@@ -9,6 +9,6 @@ namespace SistemaMerck.AccesoDatos.Repositorio.Interfaces
 {
     public interface ILocacionRepository
     {
-        List<LocacionDto> ObtenerLocaciones();
+        List<ClinicasDto> ObtenerLocaciones();
     }
 }

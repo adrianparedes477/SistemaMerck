@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace SistemaMerck.Modelos.Dto
 {
-    public class LocacionDto
+    public class ClinicasDto
     {
         [Name("nombre")]
         public string Nombre { get; set; }
 
-        [Name("latitud")]
-        public double Latitud { get; set; }
-
-        [Name("longitud")]
-        public double Longitud { get; set; }
+        [Name("provincia")]
+        public string Provincia { get; set; }
     }
+
 }

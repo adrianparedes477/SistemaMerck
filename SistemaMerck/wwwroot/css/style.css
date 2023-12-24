@@ -1,27 +1,30 @@
-body {
-    background: linear-gradient(to bottom, #00FFFF 40%, #fff 40%);
-}
-
-.map-container {
-    margin-top: 100px; 
-}
-
-.reserva-texto {
-    font-weight: bold;
+.custom-color {
     color: #c33b80;
-    margin-bottom: 50px;
 }
 
-.common-icon i {
-    font-size: 24px; 
+.pantalla1 {
+    background: linear-gradient(to bottom, #2EBDCD 35%, #fff 35%);
 }
 
-.text-white-half {
-    background: linear-gradient(to right, #c33b80 50%, #fff 50%);
-    padding: 0 5px; 
+.pantalla3 {
+    background: linear-gradient(to bottom, #2EBDCD 27%, #fff 27%);
+}
+
+.pantalla5 {
+    background: linear-gradient(to bottom, #2EBDCD 0%, #2EBDCD 25%, #fff 25%, #fff 100%);
+}
+
+.custom-background,
+#pantalla2Body.pantalla2-container {
+    background: linear-gradient(to bottom, #c33b80 0%, #c33b80 43%, #fdddca 43%, #fdddca 100%);
+    border-bottom-left-radius: 50% 20px;
+    border-bottom-right-radius: 50% 20px;
 }
 
 
+.custom-color-one {
+    color: blue;
+}
 
 .container {
     padding: 20px;
@@ -37,67 +40,57 @@ body {
     color: #1e3799;
 }
 
-.dropdown-labeltwo {
-    color: red;
-}
 
 .dropdown-icon,
 .dropdown-icontwo {
     background-color: lightgrey;
-    color: blue;
-    border-radius: 5px;
-    padding: 5px;
-    margin-right: 5px;
-    font-size: 24px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 30px;
 }
 
-.dropdown-icontwo {
-    color: red;
+
+.selected-item {
+    background-color: #c33b80;
+    color: white;
 }
 
-.dropdown-container {
+#locacionesList {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-
-.custom-square {
-    width: 50px; 
-    height: 50px; 
-}
-
-.reserva-texto {
-    margin-bottom: 5px; 
-}
-
-
-
-#mapa {
-    width: 400px;
-    height: 200px;
-    border-radius: 15px;
-    overflow: hidden;
-    margin-top: 200px; 
-}
-
-
-.color-texto {
-    color: #000
-}
-
-.font-family-roboto {
-    font-family: 'Roboto', sans-serif;
-}
-
-.position-relative {
+.locacion-item {
+    width: 60px;
+    height: 80px;
+    margin: 10px;
+    text-align: center;
+    box-sizing: border-box;
     position: relative;
 }
 
-.form-group {
-    position: relative;
+.locacion-icon {
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.form-group .input-group {
-    margin-top: 20px; 
+.locacion-nombre {
+    position: absolute;
+    bottom: 5px; /* Ajusta la distancia del nombre al cuadrado según tus necesidades */
+    width: 100%;
+    text-align: center;
+    font-size: 10px; /* Ajusta el tamaño del nombre según tus necesidades */
+}
+
+
+@media (max-width: 767px) {
+    .chart-container {
+        width: 100%;
+        max-width: none;
+    }
 }
