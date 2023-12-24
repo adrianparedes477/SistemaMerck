@@ -4,31 +4,28 @@
 
 .pantalla1 {
     background: linear-gradient(to bottom, #2EBDCD 35%, #fff 35%);
-    
 }
 
 .pantalla3 {
     background: linear-gradient(to bottom, #2EBDCD 27%, #fff 27%);
-    
 }
 
 .pantalla5 {
     background: linear-gradient(to bottom, #2EBDCD 0%, #2EBDCD 25%, #fff 25%, #fff 100%);
-    
 }
 
 .custom-background,
-.pantalla2Body.pantalla2-container {
-    background: linear-gradient(to bottom, #c33b80 0%, #c33b80 40%, #fdddca 40%, #fdddca 100%);
+#pantalla2Body.pantalla2-container {
+    background: linear-gradient(to bottom, #c33b80 0%, #c33b80 43%, #fdddca 43%, #fdddca 100%);
     border-bottom-left-radius: 50% 20px;
     border-bottom-right-radius: 50% 20px;
 }
 
 
-.custom-color-one
-{
-    color:blue;
+.custom-color-one {
+    color: blue;
 }
+
 .container {
     padding: 20px;
     margin-top: 20px;
@@ -56,7 +53,7 @@
 
 .selected-item {
     background-color: #c33b80;
-    color: white; 
+    color: white;
 }
 
 #locacionesList {
@@ -66,20 +63,20 @@
 }
 
 .locacion-item {
-    width: 60px; 
+    width: 60px;
     height: 80px;
-    margin: 10px; 
-    text-align: center; 
+    margin: 10px;
+    text-align: center;
     box-sizing: border-box;
     position: relative;
 }
 
 .locacion-icon {
-    font-size: 18px; 
+    font-size: 18px;
     position: absolute;
-    top: 10px; 
+    top: 10px;
     left: 50%;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
 }
 
 .locacion-nombre {
@@ -91,8 +88,9 @@
 }
 
 
-
-
-
-
-
+@media (max-width: 767px) {
+    .chart-container {
+        width: 100%;
+        max-width: none;
+    }
+}

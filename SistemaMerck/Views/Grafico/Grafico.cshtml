@@ -3,34 +3,33 @@
     ViewData["Title"] = "Pantalla2";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<body class="pantalla2-container pantalla2Body">
+<body id="pantalla2Body" class="pantalla2-container">
     <!-- Contenido de la vista -->
 
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8 offset-md-2 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 text-center">
                 <p class="reserva-texto text-white font-family-roboto fs-4">EDAD ACTUAL: @Model.EdadActual</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8 offset-md-2 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 text-center">
                 <p class="reserva-texto text-white font-family-roboto fs-4">1ERA MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8 offset-md-2 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 text-center">
                 <a asp-controller="Indicador" asp-action="Indicador" class="btn btn-primary btn-lg mt-3">Quiero Saber más!</a>
             </div>
         </div>
     </div>
 
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-lg-10">
                 <!-- Contenido del gráfico -->
-                <div class="card" style="background-color: #fdddca; padding: 30px;">
-                    <canvas id="reservaOvaricaChart" style="max-width: 100%;"></canvas>
+                <div class="card chart-container" style="background-color: #fdddca; padding: 30px;">
+                    <canvas id="reservaOvaricaChart"></canvas>
                 </div>
             </div>
         </div>
@@ -47,14 +46,14 @@
                 labels: ['Categoria1', 'Categoria2', 'Categoria3', 'Categoria4', 'Categoria5'],
                 datasets: [{
                     label: 'Reserva Ovárica',
-                    data: [10, 20, 30, 40, 50], // Ejemplo de datos, reemplazar con tus datos reales
+                    data: [10, 20, 30, 40, 50],
                     borderColor: '#666666',
-                    backgroundColor: 'transparent',
+                    backgroundColor: '#666666', // Cambia a un color sólido
                     pointRadius: 4
                 }, {
                     label: 'Resultado Usuario',
                     data: [{
-                        x: 2, // Ejemplo, reemplazar con el índice correspondiente a tu valor real
+                        x: 2,
                         y: reservaOvarica,
                         radius: 8,
                         backgroundColor: 'red',
@@ -76,47 +75,36 @@
                         scaleLabel: {
                             display: true,
                             labelString: 'Fecha'
+                        },
+                        ticks: {
+                            fontSize: 12
                         }
                     }],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
                             labelString: 'Reserva Ovárica'
+                        },
+                        ticks: {
+                            fontSize: 12
                         }
                     }]
                 },
                 plugins: {
                     legend: {
+                        display: true,
                         position: 'bottom'
                     }
                 },
                 responsive: true,
                 maintainAspectRatio: false,
-                aspectRatio: 2,
-                layout: {
-                    padding: {
-                        top: 10,
-                        bottom: 10
-                    }
-                },
+                aspectRatio: '1.0',
                 elements: {
-                    line: {
-                        fill: true
+                    point: {
+                        radius: 6
                     }
                 }
             }
         });
     </script>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
