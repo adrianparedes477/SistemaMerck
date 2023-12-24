@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<body id="pantalla2Body" class="pantalla2-container">
+<body class="pantalla2-container pantalla2Body">
     <!-- Contenido de la vista -->
 
     <div class="container mt-5">
@@ -29,15 +29,14 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <!-- Contenido del gráfico -->
-                <div class="card" style="background-color: #fdddca; padding: 30px; max-width: 800px; margin: 0 auto;">
+                <div class="card" style="background-color: #fdddca; padding: 30px;">
                     <canvas id="reservaOvaricaChart" style="max-width: 100%;"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Obtener el valor real de ReservaOvarica desde el modelo
         var reservaOvarica = @Html.Raw(Json.Serialize(Model.ReservaOvarica));
@@ -92,12 +91,12 @@
                     }
                 },
                 responsive: true,
-                maintainAspectRatio: true, // Cambiado a true
-                aspectRatio: 1.0, // Ajusta según tus necesidades
+                maintainAspectRatio: false,
+                aspectRatio: 2,
                 layout: {
                     padding: {
-                        top: 4, // Ajusta este valor según tus necesidades
-                        bottom: 4 // Ajusta este valor según tus necesidades
+                        top: 10,
+                        bottom: 10
                     }
                 },
                 elements: {
@@ -109,6 +108,7 @@
         });
     </script>
 </body>
+
 
 
 
