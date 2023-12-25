@@ -18,7 +18,7 @@ builder.Services.AddControllersWithViews();
 
 // Add DbContext
 builder.Services.AddDbContext<MerckContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Hosting")));
 
 
 
