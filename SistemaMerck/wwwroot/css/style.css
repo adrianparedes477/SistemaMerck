@@ -3,33 +3,35 @@
 }
 
 .pantalla1 {
-    background: linear-gradient(to bottom, #2EBDCD 35%, #fff 35%);
+    background: linear-gradient(to bottom, #2EBDCD 30%, #fff 30%);
 }
 
 .pantalla3 {
-    background: linear-gradient(to bottom, #2EBDCD 27%, #fff 27%);
+    background: linear-gradient(to bottom, #2EBDCD 13%, #fff 13%);
+}
+
+@media (min-width: 576px) {
+    .pantalla3 {
+        background: linear-gradient(to bottom, #2EBDCD 25%, #fff 25%); /* Gradiente para pantallas más grandes */
+    }
+
+        /* Ajuste de estilo para el margen inferior en tamaños de pantalla pequeños */
+        .pantalla3 .col-7 {
+            margin-bottom: 1rem; /* Añade un margen inferior */
+        }
 }
 
 .pantalla5 {
     background: linear-gradient(to bottom, #2EBDCD 0%, #2EBDCD 25%, #fff 25%, #fff 100%);
 }
 
-.custom-background,
-#pantalla2Body.pantalla2-container {
-    background: linear-gradient(to bottom, #c33b80 0%, #c33b80 43%, #fdddca 43%, #fdddca 100%);
-    border-bottom-left-radius: 50% 20px;
-    border-bottom-right-radius: 50% 20px;
+.pantalla2-container {
+    background: linear-gradient(to bottom, #c33b80 23%, #fdddca 23%);
 }
 
 
 .custom-color-one {
     color: blue;
-}
-
-.container {
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 10px;
 }
 
 .titulo-formulario {
@@ -86,6 +88,7 @@
     text-align: center;
     font-size: 10px; /* Ajusta el tamaño del nombre según tus necesidades */
 }
+
 
 
 @media (max-width: 767px) {

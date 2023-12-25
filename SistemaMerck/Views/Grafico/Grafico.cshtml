@@ -3,26 +3,19 @@
     ViewData["Title"] = "Pantalla2";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<body id="pantalla2Body" class="pantalla2-container">
+<body class="pantalla2-container">
     <!-- Contenido de la vista -->
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 text-center">
-                <p class="reserva-texto text-white font-family-roboto fs-4">EDAD ACTUAL: @Model.EdadActual</p>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 text-center">
-                <p class="reserva-texto text-white font-family-roboto fs-4">1ERA MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 text-center">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+                <p class="text-white font-family-roboto fs-4">EDAD ACTUAL: @Model.EdadActual</p>
+                <p class="text-white font-family-roboto fs-4">1ERA MENSTRUACIÓN: @Model.EdadPrimeraMentruacion</p>
                 <a asp-controller="Indicador" asp-action="Indicador" class="btn btn-primary btn-lg mt-3">Quiero Saber más!</a>
             </div>
         </div>
     </div>
+
 
     <div class="container-fluid mt-5">
         <div class="row justify-content-center">
@@ -48,7 +41,7 @@
                     label: 'Reserva Ovárica',
                     data: [10, 20, 30, 40, 50],
                     borderColor: '#666666',
-                    backgroundColor: '#666666', // Cambia a un color sólido
+                    backgroundColor: '#666666', 
                     pointRadius: 4
                 }, {
                     label: 'Resultado Usuario',

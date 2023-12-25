@@ -33,6 +33,8 @@ namespace SistemaMerck.Controllers
         [HttpGet]
         public IActionResult Grafico()
         {
+            ViewData["EsVistaGrafico"] = true;
+            ViewBag.ColorNav = "#c33b80";
             return RedirectToAction("Index");
         }
 
