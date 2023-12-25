@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaMerck.Modelos;
+using SistemaMerck.Modelos.ViewModels;
 
 namespace SistemaMerck.AccesoDatos.Data;
 
@@ -41,6 +42,17 @@ public partial class MerckContext : DbContext
                 .HasColumnName("localidad");
         });
 
+        modelBuilder.Entity<Pais>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Pais__3213E83F00C3A5FA");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+        });
+
         modelBuilder.Entity<Provincias>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__provinci__3213E83F51D64F26");
@@ -48,10 +60,15 @@ public partial class MerckContext : DbContext
             entity.ToTable("provincias");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdPais).HasColumnName("id_pais");
             entity.Property(e => e.Provincia)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("provincia");
+
+            entity.HasOne(d => d.IdPaisNavigation).WithMany(p => p.Provincia)
+                .HasForeignKey(d => d.IdPais)
+                .HasConstraintName("FK_provincias_paises");
         });
 
         modelBuilder.Entity<TipoConsulta>(entity =>
@@ -66,18 +83,6 @@ public partial class MerckContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("consulta");
         });
-
-        modelBuilder.Entity<Pais>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Pais__3213E83F00C3A5FA");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("nombre");
-        });
-
 
         OnModelCreatingPartial(modelBuilder);
     }

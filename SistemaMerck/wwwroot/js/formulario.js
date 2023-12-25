@@ -1,51 +1,56 @@
 ﻿function capturarProvinciaSeleccionada(selectElement) {
-    // Obtener el valor seleccionado
     var provinciaValue = selectElement.value;
 
-    // Realizar una solicitud AJAX para obtener las locaciones filtradas
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/Formulario/ObtenerLocacionesFiltradas', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // Actualizar la lista de locaciones en la página
-            actualizarListaLocaciones(JSON.parse(xhr.responseText));
-        }
+    // Configuración de la solicitud Fetch
+    var requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'provincia=' + encodeURIComponent(provinciaValue)
     };
-    xhr.send('provincia=' + encodeURIComponent(provinciaValue));
+
+    // Realizar la solicitud Fetch
+    fetch('/Formulario/ObtenerLocacionesFiltradas', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            // Actualizar la lista de locaciones en la página
+            actualizarListaLocaciones(data);
+        })
+        .catch(error => {
+            console.error('Error en la solicitud Fetch:', error);
+        });
 }
+
 
 // Función para actualizar la lista de locaciones en la página
 function actualizarListaLocaciones(locaciones) {
     var lista = document.getElementById('locacionesList');
 
     // Limpiar la lista actual
-    while (lista.firstChild) {
-        lista.removeChild(lista.firstChild);
-    }
+    lista.innerHTML = '';
 
     if (locaciones && locaciones.length > 0) {
         // Mostrar las locaciones filtradas
-        locaciones.forEach(function (locacion) {
-            // Asegúrate de que las propiedades nombre estén presentes y no sean undefined
-            var nombre = locacion && locacion.nombre !== undefined ? locacion.nombre : 'Nombre no disponible';
-
+        locaciones.forEach(function (locacion, index) {
             var div = document.createElement('div');
-            div.className = 'locacion-item';
-            div.setAttribute('data-nombre', nombre);
-            div.setAttribute('onclick', 'agregarALaLista(this)');
+            div.className = 'locacion-item-container';
 
             var icono = document.createElement('i');
             icono.className = 'bi bi-hospital-fill locacion-icon';
 
             var p = document.createElement('p');
-            p.className = 'locacion-nombre';
-            p.textContent = nombre;
+            p.className = 'locacion-nombre'; 
+            p.textContent = locacion.nombre;
+
+            // Asignar evento de clic al nuevo elemento
+            div.addEventListener('click', function () {
+                agregarALaLista(div);
+            });
 
             div.appendChild(icono);
             div.appendChild(p);
             lista.appendChild(div);
-
         });
     } else {
         // Mostrar mensaje si no hay locaciones disponibles
@@ -54,25 +59,68 @@ function actualizarListaLocaciones(locaciones) {
         div.textContent = 'No hay locaciones disponibles.';
         lista.appendChild(div);
     }
+
+    // Asignar eventos de clic a los elementos después de actualizar la lista
+    asignarEventosClic();
 }
 
-
+// Función para agregar la locación a la lista
 function agregarALaLista(elemento) {
-    // Restaurar el color de todos los elementos
-    var elementos = document.getElementsByClassName('locacion-item');
+    
+
+    // Remover la clase 'selected-item' de todos los elementos
+    var elementos = document.getElementsByClassName('locacion-item-container');
     for (var i = 0; i < elementos.length; i++) {
         elementos[i].classList.remove('selected-item');
+
+        // Remover el fondo de color de los íconos no seleccionados
+        var iconoNoSeleccionado = elementos[i].querySelector('.locacion-icon');
+        iconoNoSeleccionado.style.backgroundColor = '';
     }
 
-    // Cambiar el color del elemento seleccionado
+    // Agregar la clase 'selected-item' al elemento seleccionado
     elemento.classList.add('selected-item');
 
-    var nombre = elemento.getAttribute('data-nombre');
-    var locacionSeleccionada = nombre;
+    // Obtener el nombre del elemento seleccionado
+    var nombre = elemento.querySelector('.locacion-nombre').textContent;
 
-    // Agrega la locación al campo adicional
-    document.getElementById('ClinicaSeleccionada').value = locacionSeleccionada;
+    // Asignar el nombre al campo 'ClinicaSeleccionada'
+    document.getElementById('ClinicaSeleccionada').value = nombre;
+
+    // Resaltar el ícono del elemento seleccionado con un color de fondo
+    var iconoSeleccionado = elemento.querySelector('.locacion-icon');
+    iconoSeleccionado.style.backgroundColor = '#c33b80';
 }
+
+
+
+// Función para asignar eventos de clic a los elementos después de agregarlos a la lista
+function asignarEventosClic() {
+    var elementos = document.getElementsByClassName('locacion-item-container');
+    for (var i = 0; i < elementos.length; i++) {
+        elementos[i].addEventListener('click', function () {
+            agregarALaLista(this);
+        });
+    }
+}
+
+// Asignar evento de clic a los elementos después de cargar la página
+document.addEventListener('DOMContentLoaded', function () {
+    var elementos = document.getElementsByClassName('locacion-item-container');
+    for (var i = 0; i < elementos.length; i++) {
+        elementos[i].addEventListener('click', function () {
+            agregarALaLista(this);
+        });
+    }
+});
+
+
+
+
+
+
+
+
 
 
 

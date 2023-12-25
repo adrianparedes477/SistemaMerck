@@ -11,3 +11,4 @@ public partial class Localidades
 
     public string Localidad { get; set; } = null!;
 }
+

@@ -53,43 +53,47 @@
 }
 
 
-.selected-item {
-    background-color: #c33b80;
-    color: white;
-}
-
 #locacionesList {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
     justify-content: space-around;
 }
 
-.locacion-item {
-    width: 60px;
-    height: 80px;
-    margin: 10px;
+.locacion-item-container {
     text-align: center;
-    box-sizing: border-box;
-    position: relative;
+    white-space:pre-wrap;
+    
 }
 
 .locacion-icon {
     font-size: 18px;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .locacion-nombre {
-    position: absolute;
-    bottom: 5px; /* Ajusta la distancia del nombre al cuadrado según tus necesidades */
-    width: 100%;
-    text-align: center;
-    font-size: 10px; /* Ajusta el tamaño del nombre según tus necesidades */
+    font-size: 10px;
+    
 }
 
+.selected-item {
+    border: 2px solid blue;
+}
 
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.locacion-1 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.locacion-2 {
+    grid-column: 2;
+    grid-row: 1;
+}
 
 @media (max-width: 767px) {
     .chart-container {

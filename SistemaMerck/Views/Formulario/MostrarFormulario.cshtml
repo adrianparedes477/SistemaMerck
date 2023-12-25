@@ -91,8 +91,9 @@
                 @foreach (var locacion in Model.LocacionesFiltradas)
                 {
                     <div class="col-12 col-md-4 mb-2">
-                        <div class="p-3 border rounded locacion-item">
-                            <p class="mb-0">@locacion.Nombre</p>
+                        <div class="locacion-item">
+                            <i class="bi bi-hospital-fill locacion-icon"></i>
+                            <p class="locacion-nombre custom-nombre">@locacion.Nombre</p>
                         </div>
                     </div>
                 }
@@ -105,7 +106,6 @@
             }
         </div>
     </div>
-
     <script src="~/js/formulario.js"></script>
 </body>
 
