@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using SistemaMerck.Modelos.Dto;
-using System;
-using System.Collections.Generic;
+﻿using SistemaMerck.Modelos.Dto;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaMerck.Modelos.ViewModels
 {
@@ -16,9 +10,8 @@ namespace SistemaMerck.Modelos.ViewModels
         public IEnumerable<Localidades> ListLocalidad { get; set; }
         public IEnumerable<TipoConsulta> ListTiposConsulta { get; set; }
 
-        public List<ClinicasDto> LocacionesFiltradas { get; set; }
+        public IEnumerable<ClinicasDto> LocacionesFiltradas { get; }
 
-        public List<ClinicasDto> Clinicas { get; set; }
         [Required(ErrorMessage = "El campo País es obligatorio.")]
         public string PaisSeleccionado { get; set; }
         [Required(ErrorMessage = "El campo Provincia es obligatorio.")]
@@ -29,7 +22,6 @@ namespace SistemaMerck.Modelos.ViewModels
         [Required(ErrorMessage = "El campo Tipo de Consulta es obligatorio.")]
         public string TipoConsultaSeleccionado { get; set; }
 
-        public string Provincia { get; set; }
         public string LocacionSeleccionada { get; set; }
 
         [Required(ErrorMessage = "El campo Correo es obligatorio.")]
@@ -41,6 +33,7 @@ namespace SistemaMerck.Modelos.ViewModels
             ListProvincia = new List<Provincia>();
             ListLocalidad = new List<Localidades>();
             ListTiposConsulta = new List<TipoConsulta>();
+            LocacionesFiltradas = new List<ClinicasDto>();
 
             PaisSeleccionado = string.Empty;
             ProvinciaSeleccionada = string.Empty;
@@ -48,6 +41,8 @@ namespace SistemaMerck.Modelos.ViewModels
             TipoConsultaSeleccionado = string.Empty;
             Correo = string.Empty;
             LocacionSeleccionada = string.Empty;
+
+            
         }
     }
 }

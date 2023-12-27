@@ -26,9 +26,8 @@ namespace SistemaMerck.Controllers
         [HttpPost]
         public async Task<IActionResult> MostrarFormulario(FormularioViewModel viewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // Realizar la acción sin validar el modelo
                 if (await _formularioService.EnviarConsulta(viewModel))
                 {
                     return RedirectToAction("ConsultaEnviada");
@@ -36,15 +35,10 @@ namespace SistemaMerck.Controllers
 
                 _logger.LogError("Error al enviar el formulario");
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error en la acción MostrarFormulario: {ex.Message}");
-            }
 
             _formularioService.ConfigurarFormularioViewModel(viewModel);
             return View(viewModel);
         }
-
 
         [HttpPost]
         public IActionResult ObtenerProvinciasFiltradas(string pais)

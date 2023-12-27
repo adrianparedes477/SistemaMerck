@@ -1,6 +1,7 @@
 ﻿@model SistemaMerck.Modelos.ViewModels.FormularioViewModel
 @using SistemaMerck.Modelos;
 
+
 @{
     ViewData["Title"] = "MostrarFormulario";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -30,6 +31,7 @@
 
     <div class="container mt-5">
         <form id="filtroForm" method="post" asp-controller="Formulario" asp-action="MostrarFormulario" class="mt-4">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <!-- Selector de País -->
@@ -108,7 +110,9 @@
                 </div>
             </div>
             <hr class="mt-4" />
-            <input id="ClinicaSeleccionada" name="LocacionSeleccionada" hidden  class="form-control" asp-for="LocacionSeleccionada" readonly />
+
+            <!-- Utiliza Newtonsoft.Json para serializar la lista a formato JSON -->
+            <input id="ClinicaSeleccionada" name="LocacionSeleccionada" type="hidden" class="form-control" asp-for="LocacionSeleccionada" readonly />
 
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-primary">Enviar</button>
@@ -133,6 +137,9 @@
             else
             {
                 <div class="col-12">
+
+
+
                     <div class="alert alert-info">No hay locaciones disponibles.</div>
                 </div>
             }
@@ -142,5 +149,3 @@
     <!-- Script para cargar el script filtrarUbicaciones.js -->
     <script src="~/js/formulario.js"></script>
 </body>
-
-
