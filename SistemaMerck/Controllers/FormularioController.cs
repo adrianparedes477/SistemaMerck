@@ -25,15 +25,16 @@ namespace SistemaMerck.Controllers
         [HttpPost]
         public async Task<IActionResult> MostrarFormulario(FormularioViewModel viewModel)
         {
-            if (await _formularioService.EnviarConsulta(viewModel))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("ConsultaEnviada");
+                if (await _formularioService.EnviarConsulta(viewModel))
+                {
+                    return RedirectToAction("ConsultaEnviada");
+                }
+
+                _logger.LogError("Error al enviar el formulario");
             }
 
-            // Maneja el error de alguna manera, por ejemplo, muestra un mensaje de error
-            _logger.LogError("Error al enviar el formulario");
-
-            // Si llegamos aquí, hay un problema, así que volvemos a mostrar el formulario
             _formularioService.ConfigurarFormularioViewModel(viewModel);
             return View(viewModel);
         }

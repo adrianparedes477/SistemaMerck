@@ -37,12 +37,13 @@
                         <label asp-for="PaisSeleccionado">
                            País:
                         </label>
-                        <div class="d-flex align-items-center custom-icon" style="background-color: lightgray">
-                            <i class="bi bi-geo-alt text-primary"></i>
+                        <div class="d-flex align-items-center custom-icon">
+                            <i class="input-group-text bi bi-geo-alt text-primary custom-icon" style="background-color: lightgray"></i>
                             <select asp-for="PaisSeleccionado" asp-items="new SelectList(Model.ListPaises, nameof(Pais.Nombre), nameof(Pais.Nombre))" class="form-control">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
+                        <span asp-validation-for="PaisSeleccionado" class="text-danger"></span>
                     </div>
 
                     <hr class="mt-4" />
@@ -51,12 +52,13 @@
                         <label asp-for="ProvinciaSeleccionada">
                            Provincia:
                         </label>
-                        <div class="d-flex align-items-center custom-icon" style="background-color: lightgray">
-                            <i class="bi bi-geo-alt custom-icon text-primary"></i>
+                        <div class="d-flex align-items-center custom-icon">
+                            <i class="input-group-text bi bi-geo-alt custom-icon text-primary" style="background-color: lightgray"></i>
                             <select asp-for="ProvinciaSeleccionada" asp-items="new SelectList(Model.ListProvincia, nameof(Provincias.Provincia), nameof(Provincias.Provincia))" class="form-control" id="Provincia" onchange="capturarProvinciaSeleccionada(this)">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
+                        <span asp-validation-for="ProvinciaSeleccionada" class="text-danger"></span>
                     </div>
 
                     <hr class="mt-4" />
@@ -65,12 +67,13 @@
                         <label asp-for="LocalidadSeleccionada">
                            Localidad:
                         </label>
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-geo-alt custom-icon custom-icon text-primary" style="background-color: lightgray"></i>
+                        <div class="d-flex align-items-center custom-icon">
+                            <i class="input-group-text bi bi-geo-alt custom-icon custom-icon text-primary" style="background-color: lightgray"></i>
                             <select asp-for="LocalidadSeleccionada" asp-items="new SelectList(Model.ListLocalidad, nameof(Localidades.Localidad), nameof(Localidades.Localidad))" class="form-control">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
+                        <span asp-validation-for="LocalidadSeleccionada" class="text-danger"></span>
                     </div>
                     <hr class="mt-4" />
                 </div>
@@ -80,24 +83,24 @@
                         <label asp-for="TipoConsultaSeleccionado">
                             Tipo de Consulta:
                         </label>
-                        <div class="d-flex align-items-center custom-icon" style="background-color: lightgray">
-                            <i class="bi bi-journal text-danger"></i>
+                        <div class="d-flex align-items-center custom-icon">
+                            <i class="input-group-text bi bi-journal text-danger custom-icon" style="background-color: lightgray"></i>
                             <select asp-for="TipoConsultaSeleccionado" asp-items="new SelectList(Model.ListTiposConsulta, nameof(TipoConsulta.Consulta), nameof(TipoConsulta.Consulta))" class="form-control">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
+                        <span asp-validation-for="TipoConsultaSeleccionado" class="text-danger"></span>
                     </div>
                     <hr class="mt-4" />
-                    <!-- Correo -->
-                    <!-- Correo -->
                     <div class="form-group">
                         <label asp-for="Correo">
                             Correo:
                         </label>
-                        <div class="d-flex align-items-center custom-icon" style="background-color: lightgray">
-                            <i class="bi bi-envelope text-danger"></i>
+                        <div class="d-flex align-items-center custom-icon">
+                            <i class="input-group-text bi bi-envelope text-danger custom-icon" style="background-color: lightgray"></i>
                             <input asp-for="Correo" class="form-control" />
                         </div>
+                        <span asp-validation-for="Correo" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -116,9 +119,9 @@
             {
                 @foreach (var locacion in Model.LocacionesFiltradas)
                 {
-                    <div class="col-12 col-md-4 mb-2" style="background-color: lightgray">
-                        <div class="locacion-item">
-                            <i class="bi bi-hospital-fill locacion-icon" style="background-color: lightgray"></i>
+                    <div class="input-group-prepend col-12 col-md-4 mb-2">
+                        <div class="input-group-text locacion-item custom-icon">
+                            <i class="input-group-text bi bi-hospital-fill locacion-icon custom-icon" style="background-color: lightgray"></i>
                             <p class="locacion-nombre custom-nombre">@locacion.Nombre</p>
                         </div>
                     </div>
