@@ -3,53 +3,34 @@
 }
 
 .pantalla1 {
-    background: linear-gradient(to bottom, #2EBDCD 30%, #fff 30%);
+    background: linear-gradient(to bottom, #2EBDCD 200px, #fff 200px);
 }
 
 .pantalla3 {
-    background: linear-gradient(to bottom, #2EBDCD 13%, #fff 13%);
-}
-
-@media (min-width: 576px) {
-    .pantalla3 {
-        background: linear-gradient(to bottom, #2EBDCD 25%, #fff 25%); /* Gradiente para pantallas más grandes */
-    }
-
-        /* Ajuste de estilo para el margen inferior en tamaños de pantalla pequeños */
-        .pantalla3 .col-7 {
-            margin-bottom: 1rem; /* Añade un margen inferior */
-        }
+    background: linear-gradient(to bottom, #2EBDCD 135px, #fff 135px);
 }
 
 .pantalla5 {
-    background: linear-gradient(to bottom, #2EBDCD 0%, #2EBDCD 25%, #fff 25%, #fff 100%);
+    background: linear-gradient(to bottom, #2EBDCD 170px, #fff 170px);
 }
 
 .pantalla2-container {
-    background: linear-gradient(to bottom, #c33b80 23%, #fdddca 23%);
+    background: linear-gradient(to bottom, #c33b80 250px, #fdddca 250px);
 }
 
-
-.custom-color-one {
-    color: blue;
+.chart-container {
+    background-color:#fdddca;
+    padding: 30px;
 }
 
-.titulo-formulario {
-    color: #fff;
-}
 
 .dropdown-label {
-    color: #1e3799;
+    color: #c33b80;
 }
 
 
-.dropdown-icon,
-.dropdown-icontwo {
-    background-color: lightgrey;
-    border-radius: 10px;
-    padding: 10px;
-    margin-right: 10px;
-    font-size: 30px;
+.custom-icon {
+    font-size: 23px; 
 }
 
 
@@ -75,15 +56,6 @@
     
 }
 
-.selected-item {
-    border: 2px solid blue;
-}
-
-.alert-info {
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
-    color: #0c5460;
-}
 
 .locacion-1 {
     grid-column: 1;
@@ -95,9 +67,12 @@
     grid-row: 1;
 }
 
-@media (max-width: 767px) {
-    .chart-container {
-        width: 100%;
-        max-width: none;
-    }
+.fondo-gris {
+    background-color: lightgray;
 }
+
+.fondo-seleccionado {
+    background-color: #c33b80;
+}
+
+

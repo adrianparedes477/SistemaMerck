@@ -37,7 +37,7 @@ function actualizarListaLocaciones(locaciones) {
             div.className = 'locacion-item-container';
 
             var icono = document.createElement('i');
-            icono.className = 'bi bi-hospital-fill locacion-icon';
+            icono.className = 'bi bi-hospital-fill locacion-icon fondo-gris';
 
             var p = document.createElement('p');
             p.className = 'locacion-nombre'; 
@@ -66,33 +66,26 @@ function actualizarListaLocaciones(locaciones) {
 
 // Función para agregar la locación a la lista
 function agregarALaLista(elemento) {
-    
-
     // Remover la clase 'selected-item' de todos los elementos
     var elementos = document.getElementsByClassName('locacion-item-container');
     for (var i = 0; i < elementos.length; i++) {
         elementos[i].classList.remove('selected-item');
-
-        // Remover el fondo de color de los íconos no seleccionados
-        var iconoNoSeleccionado = elementos[i].querySelector('.locacion-icon');
-        iconoNoSeleccionado.style.backgroundColor = '';
     }
 
     // Agregar la clase 'selected-item' al elemento seleccionado
     elemento.classList.add('selected-item');
 
-    // Obtener el nombre del elemento seleccionado
-    var nombre = elemento.querySelector('.locacion-nombre').textContent;
+    // Remover la clase 'fondo-gris' de todos los íconos no seleccionados
+    var iconosNoSeleccionados = document.querySelectorAll('.locacion-icon:not(.selected-item .locacion-icon)');
+    iconosNoSeleccionados.forEach(function (icono) {
+        icono.classList.remove('fondo-seleccionado');
+    });
 
-    // Asignar el nombre al campo 'ClinicaSeleccionada'
-    document.getElementById('ClinicaSeleccionada').value = nombre;
-
-    // Resaltar el ícono del elemento seleccionado con un color de fondo
+    // Agregar la clase 'fondo-seleccionado' al ícono del elemento seleccionado
     var iconoSeleccionado = elemento.querySelector('.locacion-icon');
-    iconoSeleccionado.style.backgroundColor = '#c33b80';
+    iconoSeleccionado.classList.add('fondo-seleccionado');
+
 }
-
-
 
 // Función para asignar eventos de clic a los elementos después de agregarlos a la lista
 function asignarEventosClic() {

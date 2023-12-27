@@ -6,19 +6,63 @@
     }
 }
 
+@media (width: 412px) and (height: 914px) {
+    
+    .pantalla1 {
+        background: linear-gradient(to bottom, #2EBDCD 10%, #fff 10%);
+    }
+
+    .form-text-container {
+        font-size: 1.2rem;
+    }
+
+    .form-label {
+        font-size: 1rem;
+    }
+
+    
+}
+
+@media (min-width: 576px) {
+    .pantalla3 {
+        background: linear-gradient(to bottom, #2EBDCD 13%, #fff 13%); /* Gradiente para pantallas más grandes */
+    }
+    .pantalla1 {
+        background: linear-gradient(to bottom, #2EBDCD 10%, #fff 10%);
+    }
+    /* Ajuste de estilo para el margen inferior en tamaños de pantalla pequeños */
+    .pantalla3 .col-7 {
+        margin-bottom: 1rem; /* Añade un margen inferior */
+    }
+        
+}
+
+@media (max-width: 767px) {
+    .chart-container {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-text-container {
+        font-size: 1.5rem;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-    position: relative;
     min-height: 100%;
 }
-
-body {
-    
-}
-
 
 
 .icono-reserva {

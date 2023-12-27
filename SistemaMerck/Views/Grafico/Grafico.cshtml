@@ -4,8 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <body class="pantalla2-container">
-    <!-- Contenido de la vista -->
-
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
@@ -14,14 +12,15 @@
                 <a asp-controller="Indicador" asp-action="Indicador" class="btn btn-primary btn-lg mt-3">Quiero Saber más!</a>
             </div>
         </div>
+        
     </div>
-
-
+    <div style="height:20px;background-color:#fdddca;border-top-left-radius:110px;border-top-right-radius:110px;">
+    </div>
     <div class="container-fluid mt-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <!-- Contenido del gráfico -->
-                <div class="card chart-container" style="background-color: #fdddca; padding: 30px;">
+                <div class="card chart-container">
                     <canvas id="reservaOvaricaChart"></canvas>
                 </div>
             </div>
