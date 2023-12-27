@@ -35,28 +35,31 @@
                     <!-- Selector de País -->
                     <div class="form-group">
                         <label asp-for="PaisSeleccionado">
-                           País:
+                            País:
                         </label>
                         <div class="d-flex align-items-center custom-icon">
                             <i class="input-group-text bi bi-geo-alt text-primary custom-icon" style="background-color: lightgray"></i>
-                            <select asp-for="PaisSeleccionado" asp-items="new SelectList(Model.ListPaises, nameof(Pais.Nombre), nameof(Pais.Nombre))" class="form-control">
+                            <select asp-for="PaisSeleccionado" asp-items="new SelectList(Model.ListPaises, nameof(Paises.NombrePais), nameof(Paises.NombrePais))" class="form-control" onchange="cargarProvincias()">
                                 <option value="">Selecciona una opción</option>
                             </select>
+
                         </div>
                         <span asp-validation-for="PaisSeleccionado" class="text-danger"></span>
                     </div>
+
 
                     <hr class="mt-4" />
 
                     <div class="form-group">
                         <label asp-for="ProvinciaSeleccionada">
-                           Provincia:
+                            Provincia:
                         </label>
                         <div class="d-flex align-items-center custom-icon">
                             <i class="input-group-text bi bi-geo-alt custom-icon text-primary" style="background-color: lightgray"></i>
-                            <select asp-for="ProvinciaSeleccionada" asp-items="new SelectList(Model.ListProvincia, nameof(Provincias.Provincia), nameof(Provincias.Provincia))" class="form-control" id="Provincia" onchange="capturarProvinciaSeleccionada(this)">
+                            <select asp-for="ProvinciaSeleccionada" asp-items="new SelectList(Model.ListProvincia, nameof(Provincia.NombreProvincia), nameof(Provincia.NombreProvincia))" class="form-control" id="Provincia" onchange="capturarProvinciaSeleccionada(this); cargarLocalidades();">
                                 <option value="">Selecciona una opción</option>
                             </select>
+
                         </div>
                         <span asp-validation-for="ProvinciaSeleccionada" class="text-danger"></span>
                     </div>
@@ -65,11 +68,11 @@
 
                     <div class="form-group">
                         <label asp-for="LocalidadSeleccionada">
-                           Localidad:
+                            Localidad:
                         </label>
                         <div class="d-flex align-items-center custom-icon">
                             <i class="input-group-text bi bi-geo-alt custom-icon custom-icon text-primary" style="background-color: lightgray"></i>
-                            <select asp-for="LocalidadSeleccionada" asp-items="new SelectList(Model.ListLocalidad, nameof(Localidades.Localidad), nameof(Localidades.Localidad))" class="form-control">
+                            <select asp-for="LocalidadSeleccionada" asp-items="new SelectList(Model.ListLocalidad, nameof(Localidades.NombreLocalidad), nameof(Localidades.NombreLocalidad))" class="form-control" id="Localidad">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
@@ -105,7 +108,7 @@
                 </div>
             </div>
             <hr class="mt-4" />
-            <input id="ClinicaSeleccionada" name="LocacionSeleccionada" hidden class="form-control" asp-for="LocacionSeleccionada" readonly />
+            <input id="ClinicaSeleccionada" name="LocacionSeleccionada" hidden  class="form-control" asp-for="LocacionSeleccionada" readonly />
 
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-primary">Enviar</button>
@@ -136,6 +139,8 @@
         </div>
     </div>
 
+    <!-- Script para cargar el script filtrarUbicaciones.js -->
     <script src="~/js/formulario.js"></script>
 </body>
+
 

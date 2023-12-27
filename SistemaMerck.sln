@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaMerck.Modelos", "Sis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaMerck.AccesoDatos", "SistemaMerck.AccesoDatos\SistemaMerck.AccesoDatos.csproj", "{E92B6295-3D58-436F-AB79-BB07CFB11359}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaMerck.test", "SistemaMerck.test\SistemaMerck.test.csproj", "{D1476145-C1B9-4C82-9AA6-99B43B1AC594}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{E92B6295-3D58-436F-AB79-BB07CFB11359}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E92B6295-3D58-436F-AB79-BB07CFB11359}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E92B6295-3D58-436F-AB79-BB07CFB11359}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1476145-C1B9-4C82-9AA6-99B43B1AC594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1476145-C1B9-4C82-9AA6-99B43B1AC594}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1476145-C1B9-4C82-9AA6-99B43B1AC594}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1476145-C1B9-4C82-9AA6-99B43B1AC594}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

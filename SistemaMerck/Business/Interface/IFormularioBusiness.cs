@@ -6,9 +6,9 @@ namespace SistemaMerck.Negocio.Interface
 {
     public interface IFormularioBusiness
     {
-        List<Pais> ObtenerPaises();
-        List<Provincias> ObtenerProvincias();
-        List<Localidades> ObtenerLocalidades();
+        List<Paises> ObtenerPaises();
+        List<string> ObtenerProvinciasFiltradas(string pais);
+        List<string> ObtenerLocalidadesFiltradas(string provincia);
         List<TipoConsulta> ObtenerTiposConsulta();
         Task<bool> EnviarConsulta(FormularioViewModel viewModel);
         List<ClinicasDto> ObtenerLocacionesFiltradas(string provincia);

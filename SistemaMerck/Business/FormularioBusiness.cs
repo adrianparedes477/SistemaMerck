@@ -27,7 +27,7 @@ namespace SistemaMerck.Negocio
             _logger = logger;
         }
 
-        public List<Pais> ObtenerPaises()
+        public List<Paises> ObtenerPaises()
         {
             try
             {
@@ -40,31 +40,50 @@ namespace SistemaMerck.Negocio
             }
         }
 
-        public List<Provincias> ObtenerProvincias()
+        public List<string> ObtenerProvinciasFiltradas(string pais)
         {
             try
             {
-                return _dbContext.Provincias.ToList();
+                if (pais == null)
+                {
+                    return new List<string>();
+                }
+
+                return _dbContext.Provincias
+                    .Where(provincia => provincia.Pais.NombrePais == pais)
+                    .Select(provincia => provincia.NombreProvincia)
+                    .ToList();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al obtener la lista de provincias: {ex.Message}");
-                throw; 
+                _logger.LogError($"Error al obtener las provincias filtradas: {ex.Message}");
+                throw;
             }
         }
 
-        public List<Localidades> ObtenerLocalidades()
+
+
+        public List<string> ObtenerLocalidadesFiltradas(string provincia)
         {
             try
             {
-                return _dbContext.Localidades.ToList();
+                if (provincia == null)
+                {
+                    return new List<string>();
+                }
+
+                return _dbContext.Localidades
+                    .Where(localidad => localidad.Provincia.NombreProvincia == provincia)
+                    .Select(localidad => localidad.NombreLocalidad)
+                    .ToList();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error al obtener la lista de localidades: {ex.Message}");
-                throw; 
+                _logger.LogError($"Error al obtener las localidades filtradas: {ex.Message}");
+                throw;
             }
         }
+
 
         public List<TipoConsulta> ObtenerTiposConsulta()
         {
@@ -129,8 +148,12 @@ namespace SistemaMerck.Negocio
             try
             {
                 viewModel.ListPaises = ObtenerPaises();
-                viewModel.ListProvincia = ObtenerProvincias();
-                viewModel.ListLocalidad = ObtenerLocalidades();
+                viewModel.ListProvincia = ObtenerProvinciasFiltradas(viewModel.PaisSeleccionado)
+                    .Select(nombreProvincia => new Provincia { NombreProvincia = nombreProvincia })
+                    .ToList();
+                viewModel.ListLocalidad = ObtenerLocalidadesFiltradas(viewModel.ProvinciaSeleccionada)
+                    .Select(nombreLocalidad => new Localidades { NombreLocalidad = nombreLocalidad })
+                    .ToList();
                 viewModel.ListTiposConsulta = ObtenerTiposConsulta();
                 return viewModel;
             }

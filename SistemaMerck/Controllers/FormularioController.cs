@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaMerck.Modelos.ViewModels;
+using SistemaMerck.Negocio;
 using SistemaMerck.Negocio.Interface;
 
 namespace SistemaMerck.Controllers
@@ -25,8 +26,9 @@ namespace SistemaMerck.Controllers
         [HttpPost]
         public async Task<IActionResult> MostrarFormulario(FormularioViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
+                // Realizar la acción sin validar el modelo
                 if (await _formularioService.EnviarConsulta(viewModel))
                 {
                     return RedirectToAction("ConsultaEnviada");
@@ -34,10 +36,31 @@ namespace SistemaMerck.Controllers
 
                 _logger.LogError("Error al enviar el formulario");
             }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error en la acción MostrarFormulario: {ex.Message}");
+            }
 
             _formularioService.ConfigurarFormularioViewModel(viewModel);
             return View(viewModel);
         }
+
+
+        [HttpPost]
+        public IActionResult ObtenerProvinciasFiltradas(string pais)
+        {
+            var provinciasFiltradas = _formularioService.ObtenerProvinciasFiltradas(pais);
+            return Json(provinciasFiltradas);
+        }
+
+        [HttpPost]
+        public IActionResult ObtenerLocalidadesFiltradas(string provincia)
+        {
+            var localidadesFiltradas = _formularioService.ObtenerLocalidadesFiltradas(provincia);
+            return Json(localidadesFiltradas);
+        }
+
+
 
         [HttpPost]
         public IActionResult ObtenerLocacionesFiltradas(string provincia)

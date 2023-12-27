@@ -1,7 +1,84 @@
-﻿function capturarProvinciaSeleccionada(selectElement) {
+﻿document.addEventListener('DOMContentLoaded', function () {
+    var paisSelect = document.getElementById("PaisSeleccionado");
+    var provinciaSelect = document.getElementById("ProvinciaSeleccionada");
+
+    if (paisSelect && provinciaSelect) {
+        paisSelect.addEventListener("change", function () {
+            cargarProvincias();
+            capturarProvinciaSeleccionada(this);
+        });
+
+        provinciaSelect.addEventListener("change", cargarLocalidades);
+    }
+});
+
+function cargarProvincias() {
+    var paisSeleccionado = document.getElementById("PaisSeleccionado").value;
+
+    var requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'pais=' + encodeURIComponent(paisSeleccionado)
+    };
+
+    fetch('/Formulario/ObtenerProvinciasFiltradas', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            var provinciaDropdown = document.getElementById("Provincia");
+
+            if (provinciaDropdown) {
+                provinciaDropdown.innerHTML = '<option value="">Selecciona una opción</option>';
+                data.forEach(function (provincia) {
+                    var option = document.createElement('option');
+                    option.value = provincia;
+                    option.text = provincia;
+                    provinciaDropdown.appendChild(option);
+                });
+            } else {
+                console.error('Elemento con id "ProvinciaSeleccionada" no encontrado.');
+            }
+
+        })
+        .catch(error => {
+            console.error('Error en la solicitud Fetch:', error);
+        });
+}
+
+function cargarLocalidades() {
+    var provinciaSeleccionada = document.getElementById("Provincia").value;
+
+    var requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'provincia=' + encodeURIComponent(provinciaSeleccionada)
+    };
+
+    fetch('/Formulario/ObtenerLocalidadesFiltradas', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            var localidadDropdown = document.getElementById("Localidad");
+            localidadDropdown.innerHTML = '<option value="">Selecciona una opción</option>';
+            data.forEach(function (localidad) {
+                var option = document.createElement('option');
+                option.value = localidad;
+                option.text = localidad;
+                localidadDropdown.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error en la solicitud Fetch:', error);
+        });
+}
+
+var locacionSeleccionada = '';
+
+function capturarProvinciaSeleccionada(selectElement) {
     var provinciaValue = selectElement.value;
 
-    // Configuración de la solicitud Fetch
     var requestOptions = {
         method: 'POST',
         headers: {
@@ -10,12 +87,13 @@
         body: 'provincia=' + encodeURIComponent(provinciaValue)
     };
 
-    // Realizar la solicitud Fetch
     fetch('/Formulario/ObtenerLocacionesFiltradas', requestOptions)
         .then(response => response.json())
         .then(data => {
-            // Actualizar la lista de locaciones en la página
+            // Actualizar la lista de locaciones
             actualizarListaLocaciones(data);
+
+            // No actualizar el campo oculto LocacionSeleccionada aquí
         })
         .catch(error => {
             console.error('Error en la solicitud Fetch:', error);
@@ -23,15 +101,12 @@
 }
 
 
-// Función para actualizar la lista de locaciones en la página
 function actualizarListaLocaciones(locaciones) {
     var lista = document.getElementById('locacionesList');
 
-    // Limpiar la lista actual
     lista.innerHTML = '';
 
     if (locaciones && locaciones.length > 0) {
-        // Mostrar las locaciones filtradas
         locaciones.forEach(function (locacion, index) {
             var div = document.createElement('div');
             div.className = 'locacion-item-container';
@@ -40,10 +115,9 @@ function actualizarListaLocaciones(locaciones) {
             icono.className = 'bi bi-hospital-fill locacion-icon fondo-gris';
 
             var p = document.createElement('p');
-            p.className = 'locacion-nombre'; 
+            p.className = 'locacion-nombre';
             p.textContent = locacion.nombre;
 
-            // Asignar evento de clic al nuevo elemento
             div.addEventListener('click', function () {
                 agregarALaLista(div);
             });
@@ -53,59 +127,50 @@ function actualizarListaLocaciones(locaciones) {
             lista.appendChild(div);
         });
     } else {
-        // Mostrar mensaje si no hay locaciones disponibles
         var div = document.createElement('div');
         div.className = 'alert alert-info text-center';
         div.textContent = 'No hay locaciones disponibles.';
         lista.appendChild(div);
     }
 
-    // Asignar eventos de clic a los elementos después de actualizar la lista
     asignarEventosClic();
 }
 
-// Función para agregar la locación a la lista
 function agregarALaLista(elemento) {
-    // Remover la clase 'selected-item' de todos los elementos
     var elementos = document.getElementsByClassName('locacion-item-container');
     for (var i = 0; i < elementos.length; i++) {
         elementos[i].classList.remove('selected-item');
     }
 
-    // Agregar la clase 'selected-item' al elemento seleccionado
     elemento.classList.add('selected-item');
 
-    // Remover la clase 'fondo-gris' de todos los íconos no seleccionados
     var iconosNoSeleccionados = document.querySelectorAll('.locacion-icon:not(.selected-item .locacion-icon)');
     iconosNoSeleccionados.forEach(function (icono) {
         icono.classList.remove('fondo-seleccionado');
     });
 
-    // Agregar la clase 'fondo-seleccionado' al ícono del elemento seleccionado
     var iconoSeleccionado = elemento.querySelector('.locacion-icon');
     iconoSeleccionado.classList.add('fondo-seleccionado');
 
+    // Actualizar la variable locacionSeleccionada
+    locacionSeleccionada = elemento.querySelector('.locacion-nombre').textContent;
 }
 
-// Función para asignar eventos de clic a los elementos después de agregarlos a la lista
 function asignarEventosClic() {
     var elementos = document.getElementsByClassName('locacion-item-container');
     for (var i = 0; i < elementos.length; i++) {
         elementos[i].addEventListener('click', function () {
             agregarALaLista(this);
+
+            // Actualizar el campo oculto LocacionSeleccionada
+            var locacionSeleccionadaInput = document.getElementById('ClinicaSeleccionada');
+            if (locacionSeleccionadaInput) {
+                locacionSeleccionadaInput.value = locacionSeleccionada;
+            }
         });
     }
 }
 
-// Asignar evento de clic a los elementos después de cargar la página
-document.addEventListener('DOMContentLoaded', function () {
-    var elementos = document.getElementsByClassName('locacion-item-container');
-    for (var i = 0; i < elementos.length; i++) {
-        elementos[i].addEventListener('click', function () {
-            agregarALaLista(this);
-        });
-    }
-});
 
 
 

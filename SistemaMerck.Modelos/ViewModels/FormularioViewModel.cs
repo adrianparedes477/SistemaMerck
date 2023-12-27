@@ -11,8 +11,8 @@ namespace SistemaMerck.Modelos.ViewModels
 {
     public class FormularioViewModel
     {
-        public IEnumerable<Pais> ListPaises { get; set; }
-        public IEnumerable<Provincias> ListProvincia { get; set; }
+        public IEnumerable<Paises> ListPaises { get; set; }
+        public IEnumerable<Provincia> ListProvincia { get; set; }
         public IEnumerable<Localidades> ListLocalidad { get; set; }
         public IEnumerable<TipoConsulta> ListTiposConsulta { get; set; }
 
@@ -37,8 +37,8 @@ namespace SistemaMerck.Modelos.ViewModels
         public string Correo { get; set; }
         public FormularioViewModel()
         {
-            ListPaises = new List<Pais>();
-            ListProvincia = new List<Provincias>();
+            ListPaises = new List<Paises>();
+            ListProvincia = new List<Provincia>();
             ListLocalidad = new List<Localidades>();
             ListTiposConsulta = new List<TipoConsulta>();
 
@@ -50,9 +50,4 @@ namespace SistemaMerck.Modelos.ViewModels
             LocacionSeleccionada = string.Empty;
         }
     }
-
-
-
-
-
 }

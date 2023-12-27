@@ -17,11 +17,11 @@ public partial class MerckContext : DbContext
 
     public virtual DbSet<Localidades> Localidades { get; set; }
 
-    public virtual DbSet<Provincias> Provincias { get; set; }
+    public virtual DbSet<Paises> Paises { get; set; }
+
+    public virtual DbSet<Provincia> Provincias { get; set; }
 
     public virtual DbSet<TipoConsulta> TipoConsulta { get; set; }
-
-    public virtual DbSet<Pais> Paises { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
@@ -30,45 +30,42 @@ public partial class MerckContext : DbContext
     {
         modelBuilder.Entity<Localidades>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__localida__3213E83FF5E2FF6C");
+            entity.HasKey(e => e.LocalidadId).HasName("PK__Localida__6E289F4254A2C31F");
 
-            entity.ToTable("localidades");
+            entity.Property(e => e.LocalidadId)
+                .ValueGeneratedNever()
+                .HasColumnName("LocalidadID");
+            entity.Property(e => e.NombreLocalidad).HasMaxLength(50);
+            entity.Property(e => e.ProvinciaId).HasColumnName("ProvinciaID");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.IdProvincia).HasColumnName("id_provincia");
-            entity.Property(e => e.Localidad)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("localidad");
+            entity.HasOne(d => d.Provincia).WithMany(p => p.Localidades)
+                .HasForeignKey(d => d.ProvinciaId)
+                .HasConstraintName("FK__Localidad__Provi__5DCAEF64");
         });
 
-        modelBuilder.Entity<Pais>(entity =>
+        modelBuilder.Entity<Paises>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Pais__3213E83F00C3A5FA");
+            entity.HasKey(e => e.PaisId).HasName("PK__Paises__B501E1A54317EEB0");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("nombre");
+            entity.Property(e => e.PaisId)
+                .ValueGeneratedNever()
+                .HasColumnName("PaisID");
+            entity.Property(e => e.NombrePais).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<Provincias>(entity =>
+        modelBuilder.Entity<Provincia>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__provinci__3213E83F51D64F26");
+            entity.HasKey(e => e.ProvinciaId).HasName("PK__Provinci__F7CBC757FD8F8D54");
 
-            entity.ToTable("provincias");
+            entity.Property(e => e.ProvinciaId)
+                .ValueGeneratedNever()
+                .HasColumnName("ProvinciaID");
+            entity.Property(e => e.NombreProvincia).HasMaxLength(50);
+            entity.Property(e => e.PaisId).HasColumnName("PaisID");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.IdPais).HasColumnName("id_pais");
-            entity.Property(e => e.Provincia)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("provincia");
-
-            entity.HasOne(d => d.IdPaisNavigation).WithMany(p => p.Provincia)
-                .HasForeignKey(d => d.IdPais)
-                .HasConstraintName("FK_provincias_paises");
+            entity.HasOne(d => d.Pais).WithMany(p => p.Provincia)
+                .HasForeignKey(d => d.PaisId)
+                .HasConstraintName("FK__Provincia__PaisI__5AEE82B9");
         });
 
         modelBuilder.Entity<TipoConsulta>(entity =>
