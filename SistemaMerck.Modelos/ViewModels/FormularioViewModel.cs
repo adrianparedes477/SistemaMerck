@@ -31,6 +31,10 @@ namespace SistemaMerck.Modelos.ViewModels
         public FormularioViewModel()
         {
             LocacionesFiltradas = new List<ClinicasDto>();
+            ListPaises = new List<SelectListItem>();
+            ListProvincia = new List<SelectListItem>();
+            ListLocalidad = new List<SelectListItem>();
+            ListTiposConsulta = new List<SelectListItem>();
 
             PaisSeleccionado = string.Empty;
             ProvinciaSeleccionada = string.Empty;
