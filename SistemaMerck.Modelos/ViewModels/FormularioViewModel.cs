@@ -21,7 +21,7 @@ namespace SistemaMerck.Modelos.ViewModels
 
         [Required(ErrorMessage = "El campo Tipo de Consulta es obligatorio.")]
         public string TipoConsultaSeleccionado { get; set; }
-
+        [Required(ErrorMessage = "Debe Seleccionar una Clinica.")]
         public string LocacionSeleccionada { get; set; }
 
         [Required(ErrorMessage = "El campo Correo es obligatorio.")]
