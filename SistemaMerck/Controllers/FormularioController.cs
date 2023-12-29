@@ -44,17 +44,16 @@ namespace SistemaMerck.Controllers
         public IActionResult ObtenerProvinciasFiltradas(string pais)
         {
             var provinciasFiltradas = _formularioService.ObtenerProvinciasFiltradas(pais);
-            return Json(provinciasFiltradas);
+            return Json(new { provincias = provinciasFiltradas });
         }
+
 
         [HttpPost]
         public IActionResult ObtenerLocalidadesFiltradas(string provincia)
         {
             var localidadesFiltradas = _formularioService.ObtenerLocalidadesFiltradas(provincia);
-            return Json(localidadesFiltradas);
+            return Json(new { localidades = localidadesFiltradas });
         }
-
-
 
         [HttpPost]
         public IActionResult ObtenerLocacionesFiltradas(string provincia)

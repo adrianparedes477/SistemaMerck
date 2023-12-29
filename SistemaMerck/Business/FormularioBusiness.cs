@@ -5,6 +5,7 @@ using SistemaMerck.Negocio.Interface;
 using SistemaMerck.AccesoDatos.Data;
 using SistemaMerck.Helpers;
 using SistemaMerck.Helpers.Interface;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SistemaMerck.Negocio
 {
@@ -27,32 +28,34 @@ namespace SistemaMerck.Negocio
             _logger = logger;
         }
 
-        public List<Paises> ObtenerPaises()
+        public IEnumerable<SelectListItem> ObtenerPaises()
         {
             try
             {
-                return _dbContext.Paises.ToList();
+                var paises = _dbContext.Paises.ToList();
+                return paises.Select(p => new SelectListItem { Value = p.NombrePais, Text = p.NombrePais });
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error al obtener la lista de países: {ex.Message}");
-                throw; 
+                throw;
             }
         }
 
-        public List<string> ObtenerProvinciasFiltradas(string pais)
+        public IEnumerable<SelectListItem> ObtenerProvinciasFiltradas(string pais)
         {
             try
             {
                 if (pais == null)
                 {
-                    return new List<string>();
+                    return Enumerable.Empty<SelectListItem>();
                 }
 
-                return _dbContext.Provincias
+                var provincias = _dbContext.Provincias
                     .Where(provincia => provincia.Pais.NombrePais == pais)
-                    .Select(provincia => provincia.NombreProvincia)
                     .ToList();
+
+                return provincias.Select(p => new SelectListItem { Value = p.NombreProvincia, Text = p.NombreProvincia });
             }
             catch (Exception ex)
             {
@@ -62,20 +65,20 @@ namespace SistemaMerck.Negocio
         }
 
 
-
-        public List<string> ObtenerLocalidadesFiltradas(string provincia)
+        public IEnumerable<SelectListItem> ObtenerLocalidadesFiltradas(string provincia)
         {
             try
             {
                 if (provincia == null)
                 {
-                    return new List<string>();
+                    return Enumerable.Empty<SelectListItem>();
                 }
 
-                return _dbContext.Localidades
+                var localidades = _dbContext.Localidades
                     .Where(localidad => localidad.Provincia.NombreProvincia == provincia)
-                    .Select(localidad => localidad.NombreLocalidad)
                     .ToList();
+
+                return localidades.Select(l => new SelectListItem { Value = l.NombreLocalidad, Text = l.NombreLocalidad });
             }
             catch (Exception ex)
             {
@@ -84,19 +87,20 @@ namespace SistemaMerck.Negocio
             }
         }
 
-
-        public List<TipoConsulta> ObtenerTiposConsulta()
+        public IEnumerable<SelectListItem> ObtenerTiposConsulta()
         {
             try
             {
-                return _dbContext.TipoConsulta.ToList();
+                var tiposConsulta = _dbContext.TipoConsulta.ToList();
+                return tiposConsulta.Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Consulta });
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error al obtener la lista de tipos de consulta: {ex.Message}");
-                throw; 
+                throw;
             }
         }
+
 
         public async Task<bool> EnviarConsulta(FormularioViewModel viewModel)
         {
@@ -148,19 +152,15 @@ namespace SistemaMerck.Negocio
             try
             {
                 viewModel.ListPaises = ObtenerPaises();
-                viewModel.ListProvincia = ObtenerProvinciasFiltradas(viewModel.PaisSeleccionado)
-                    .Select(nombreProvincia => new Provincia { NombreProvincia = nombreProvincia })
-                    .ToList();
-                viewModel.ListLocalidad = ObtenerLocalidadesFiltradas(viewModel.ProvinciaSeleccionada)
-                    .Select(nombreLocalidad => new Localidades { NombreLocalidad = nombreLocalidad })
-                    .ToList();
+                viewModel.ListProvincia = ObtenerProvinciasFiltradas(viewModel.PaisSeleccionado);
+                viewModel.ListLocalidad = ObtenerLocalidadesFiltradas(viewModel.ProvinciaSeleccionada);
                 viewModel.ListTiposConsulta = ObtenerTiposConsulta();
                 return viewModel;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error al configurar el ViewModel: {ex.Message}");
-                throw; 
+                throw;
             }
         }
     }

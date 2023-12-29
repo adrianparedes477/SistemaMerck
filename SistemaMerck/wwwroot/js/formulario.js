@@ -34,10 +34,15 @@ function cargarProvincias() {
 
             if (provinciaDropdown) {
                 provinciaDropdown.innerHTML = '<option value="">Selecciona una opción</option>';
-                data.forEach(function (provincia) {
+
+                // Accede a la propiedad 'provincias' en la respuesta JSON
+                data.provincias.forEach(function (provincia) {
                     var option = document.createElement('option');
-                    option.value = provincia;
-                    option.text = provincia;
+
+                    // Asegúrate de acceder correctamente a los valores
+                    option.value = provincia.value || provincia;
+                    option.text = provincia.text || provincia;
+
                     provinciaDropdown.appendChild(option);
                 });
 
@@ -70,10 +75,15 @@ function cargarLocalidades() {
         .then(data => {
             var localidadDropdown = document.getElementById("Localidad");
             localidadDropdown.innerHTML = '<option value="">Selecciona una opción</option>';
-            data.forEach(function (localidad) {
+
+            // Accede a la propiedad 'localidades' en la respuesta JSON
+            data.localidades.forEach(function (localidad) {
                 var option = document.createElement('option');
-                option.value = localidad;
-                option.text = localidad;
+
+                // Asegúrate de acceder correctamente a los valores
+                option.value = localidad.value || localidad;
+                option.text = localidad.text || localidad;
+
                 localidadDropdown.appendChild(option);
             });
         })

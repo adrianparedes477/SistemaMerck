@@ -31,7 +31,7 @@
 
     <div class="container mt-5">
         <form id="filtroForm" method="post" asp-controller="Formulario" asp-action="MostrarFormulario" class="mt-4">
-            
+
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <!-- Selector de País -->
@@ -41,7 +41,7 @@
                         </label>
                         <div class="d-flex align-items-center custom-icon">
                             <i class="input-group-text bi bi-geo-alt text-primary custom-icon" style="background-color: lightgray"></i>
-                            <select asp-for="PaisSeleccionado" asp-items="new SelectList(Model.ListPaises, nameof(Paises.NombrePais), nameof(Paises.NombrePais))" class="form-control" onchange="cargarProvincias()">
+                            <select asp-for="PaisSeleccionado" asp-items="Model.ListPaises" class="form-control" onchange="cargarProvincias()">
                                 <option value="">Selecciona una opción</option>
                             </select>
 
@@ -58,7 +58,7 @@
                         </label>
                         <div class="d-flex align-items-center custom-icon">
                             <i class="input-group-text bi bi-geo-alt custom-icon text-primary" style="background-color: lightgray"></i>
-                            <select asp-for="ProvinciaSeleccionada" asp-items="new SelectList(Model.ListProvincia, nameof(Provincia.NombreProvincia), nameof(Provincia.NombreProvincia))" class="form-control" id="Provincia" onchange="capturarProvinciaSeleccionada(this); cargarLocalidades();">
+                            <select asp-for="ProvinciaSeleccionada" asp-items="Model.ListProvincia" class="form-control" id="Provincia" onchange="capturarProvinciaSeleccionada(this); cargarLocalidades();">
                                 <option value="">Selecciona una opción</option>
                             </select>
 
@@ -74,7 +74,7 @@
                         </label>
                         <div class="d-flex align-items-center custom-icon">
                             <i class="input-group-text bi bi-geo-alt custom-icon custom-icon text-primary" style="background-color: lightgray"></i>
-                            <select asp-for="LocalidadSeleccionada" asp-items="new SelectList(Model.ListLocalidad, nameof(Localidades.NombreLocalidad), nameof(Localidades.NombreLocalidad))" class="form-control" id="Localidad">
+                            <select asp-for="LocalidadSeleccionada" asp-items="Model.ListLocalidad" class="form-control" id="Localidad">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
@@ -90,7 +90,7 @@
                         </label>
                         <div class="d-flex align-items-center custom-icon">
                             <i class="input-group-text bi bi-journal text-danger custom-icon" style="background-color: lightgray"></i>
-                            <select asp-for="TipoConsultaSeleccionado" asp-items="new SelectList(Model.ListTiposConsulta, nameof(TipoConsulta.Consulta), nameof(TipoConsulta.Consulta))" class="form-control">
+                            <select asp-for="TipoConsultaSeleccionado" asp-items="Model.ListTiposConsulta" class="form-control">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
@@ -111,7 +111,7 @@
             </div>
             <hr class="mt-4" />
 
-            
+
             <input id="ClinicaSeleccionada" name="LocacionSeleccionada" type="hidden" class="form-control" asp-for="LocacionSeleccionada" readonly />
             <span asp-validation-for="LocacionSeleccionada" class="text-danger"></span>
             <div class="text-center mt-3">

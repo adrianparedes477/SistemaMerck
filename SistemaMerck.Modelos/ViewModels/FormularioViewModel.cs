@@ -1,14 +1,15 @@
-﻿using SistemaMerck.Modelos.Dto;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using SistemaMerck.Modelos.Dto;
 using System.ComponentModel.DataAnnotations;
 
 namespace SistemaMerck.Modelos.ViewModels
 {
     public class FormularioViewModel
     {
-        public IEnumerable<Paises> ListPaises { get; set; }
-        public IEnumerable<Provincia> ListProvincia { get; set; }
-        public IEnumerable<Localidades> ListLocalidad { get; set; }
-        public IEnumerable<TipoConsulta> ListTiposConsulta { get; set; }
+        public IEnumerable<SelectListItem> ListPaises { get; set; }
+        public IEnumerable<SelectListItem> ListProvincia { get; set; }
+        public IEnumerable<SelectListItem> ListLocalidad { get; set; }
+        public IEnumerable<SelectListItem> ListTiposConsulta { get; set; }
 
         public IEnumerable<ClinicasDto> LocacionesFiltradas { get; }
 
@@ -29,10 +30,6 @@ namespace SistemaMerck.Modelos.ViewModels
         public string Correo { get; set; }
         public FormularioViewModel()
         {
-            ListPaises = new List<Paises>();
-            ListProvincia = new List<Provincia>();
-            ListLocalidad = new List<Localidades>();
-            ListTiposConsulta = new List<TipoConsulta>();
             LocacionesFiltradas = new List<ClinicasDto>();
 
             PaisSeleccionado = string.Empty;
@@ -41,8 +38,6 @@ namespace SistemaMerck.Modelos.ViewModels
             TipoConsultaSeleccionado = string.Empty;
             Correo = string.Empty;
             LocacionSeleccionada = string.Empty;
-
-            
         }
     }
 }
