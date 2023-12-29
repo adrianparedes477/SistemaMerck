@@ -31,7 +31,7 @@
 
     <div class="container mt-5">
         <form id="filtroForm" method="post" asp-controller="Formulario" asp-action="MostrarFormulario" class="mt-4">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <!-- Selector de País -->
@@ -111,11 +111,11 @@
             </div>
             <hr class="mt-4" />
 
-            <!-- Utiliza Newtonsoft.Json para serializar la lista a formato JSON -->
+            
             <input id="ClinicaSeleccionada" name="LocacionSeleccionada" type="hidden" class="form-control" asp-for="LocacionSeleccionada" readonly />
 
             <div class="text-center mt-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" id="enviarButton" class="btn btn-primary">Enviar</button>
             </div>
         </form>
     </div>

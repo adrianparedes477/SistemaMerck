@@ -1,14 +1,18 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     var paisSelect = document.getElementById("PaisSeleccionado");
     var provinciaSelect = document.getElementById("ProvinciaSeleccionada");
+    var enviarButton = document.getElementById("enviarButton");
 
-    if (paisSelect && provinciaSelect) {
+    if (paisSelect && provinciaSelect && enviarButton) {
         paisSelect.addEventListener("change", function () {
             cargarProvincias();
             capturarProvinciaSeleccionada(this);
         });
 
         provinciaSelect.addEventListener("change", cargarLocalidades);
+
+        // Deshabilitar el botón de enviar por defecto
+        enviarButton.disabled = true;
     }
 });
 
@@ -36,15 +40,19 @@ function cargarProvincias() {
                     option.text = provincia;
                     provinciaDropdown.appendChild(option);
                 });
+
+                // Habilitar el botón de enviar cuando se cargan las provincias
+                var enviarButton = document.getElementById("enviarButton");
+                enviarButton.disabled = false;
             } else {
                 console.error('Elemento con id "ProvinciaSeleccionada" no encontrado.');
             }
-
         })
         .catch(error => {
             console.error('Error en la solicitud Fetch:', error);
         });
 }
+
 
 function cargarLocalidades() {
     var provinciaSeleccionada = document.getElementById("Provincia").value;
@@ -100,9 +108,9 @@ function capturarProvinciaSeleccionada(selectElement) {
         });
 }
 
-
 function actualizarListaLocaciones(locaciones) {
     var lista = document.getElementById('locacionesList');
+    var enviarButton = document.getElementById("enviarButton");
 
     lista.innerHTML = '';
 
@@ -125,12 +133,18 @@ function actualizarListaLocaciones(locaciones) {
             div.appendChild(icono);
             div.appendChild(p);
             lista.appendChild(div);
+            enviarButton.disabled = false;
         });
     } else {
-        var div = document.createElement('div');
-        div.className = 'alert alert-info text-center';
-        div.textContent = 'No hay locaciones disponibles.';
-        lista.appendChild(div);
+        Swal.fire({
+            icon: 'info',
+            title: 'No hay locaciones disponibles',
+            text: 'Lo sentimos, no hay clínicas disponibles para esta provincia.',
+        });
+
+        // Deshabilitar el botón de enviar si no hay clínicas disponibles
+        enviarButton.disabled = true;
+
     }
 
     asignarEventosClic();

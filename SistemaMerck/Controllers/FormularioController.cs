@@ -59,7 +59,7 @@ namespace SistemaMerck.Controllers
         [HttpPost]
         public IActionResult ObtenerLocacionesFiltradas(string provincia)
         {
-            var locacionesFiltradas = _formularioService.ObtenerLocacionesFiltradas(provincia);
+            var locacionesFiltradas = _formularioService.ObtenerLocacionesFiltradas(provincia);         
             return Json(locacionesFiltradas);
         }
 
