@@ -1,5 +1,4 @@
 ﻿@model SistemaMerck.Modelos.ViewModels.FormularioViewModel
-@using SistemaMerck.Modelos;
 
 
 @{
@@ -83,7 +82,6 @@
                     <hr class="mt-4" />
                 </div>
                 <div class="col-md-6">
-                    <!-- Selector de Tipo de Consulta -->
                     <div class="form-group">
                         <label asp-for="TipoConsultaSeleccionado">
                             Tipo de Consulta:
@@ -133,15 +131,6 @@
                         </div>
                     </div>
                 }
-            }
-            else
-            {
-                <div class="col-12">
-
-
-
-                    <div class="alert alert-info">No hay locaciones disponibles.</div>
-                </div>
             }
         </div>
     </div>

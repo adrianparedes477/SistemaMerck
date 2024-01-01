@@ -31,6 +31,7 @@
 
 .custom-icon {
     font-size: 23px; 
+    background-color:gainsboro;
 }
 
 
@@ -74,5 +75,13 @@
 .fondo-seleccionado {
     background-color: #c33b80;
 }
+
+
+
+/* Ajusta el tamaño del icono en el selector */
+.custom-icon i {
+    font-size: 30px; /* Ajusta este valor según sea necesario */
+}
+
 
 

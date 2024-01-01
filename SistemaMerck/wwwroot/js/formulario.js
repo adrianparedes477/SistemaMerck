@@ -1,7 +1,11 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
-    var paisSelect = document.getElementById("PaisSeleccionado");
-    var provinciaSelect = document.getElementById("ProvinciaSeleccionada");
-    var enviarButton = document.getElementById("enviarButton");
+﻿function getElementById(id) {
+    return document.getElementById(id);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var paisSelect = getElementById("PaisSeleccionado");
+    var provinciaSelect = getElementById("ProvinciaSeleccionada");
+    var enviarButton = getElementById("enviarButton");
 
     if (paisSelect && provinciaSelect && enviarButton) {
         paisSelect.addEventListener("change", function () {
@@ -16,8 +20,32 @@
     }
 });
 
+function cargarDropdown(elementId, data) {
+    var dropdown = getElementById(elementId);
+    if (!dropdown) {
+        console.error('Elemento con id "' + elementId + '" no encontrado.');
+        return;
+    }
+
+    dropdown.innerHTML = '<option value="">Selecciona una opción</option>';
+
+    data.forEach(function (item) {
+        var option = document.createElement('option');
+        option.value = item.value || item;
+        option.text = item.text || item;
+        dropdown.appendChild(option);
+    });
+}
+
+function handleFetchErrors(response) {
+    if (!response.ok) {
+        throw new Error('Error en la solicitud Fetch: ' + response.statusText);
+    }
+    return response.json();
+}
+
 function cargarProvincias() {
-    var paisSeleccionado = document.getElementById("PaisSeleccionado").value;
+    var paisSeleccionado = getElementById("PaisSeleccionado").value;
 
     var requestOptions = {
         method: 'POST',
@@ -28,39 +56,20 @@ function cargarProvincias() {
     };
 
     fetch('/Formulario/ObtenerProvinciasFiltradas', requestOptions)
-        .then(response => response.json())
+        .then(handleFetchErrors)
         .then(data => {
-            var provinciaDropdown = document.getElementById("Provincia");
+            cargarDropdown("Provincia", data.provincias);
 
-            if (provinciaDropdown) {
-                provinciaDropdown.innerHTML = '<option value="">Selecciona una opción</option>';
-
-                // Accede a la propiedad 'provincias' en la respuesta JSON
-                data.provincias.forEach(function (provincia) {
-                    var option = document.createElement('option');
-
-                    // Asegúrate de acceder correctamente a los valores
-                    option.value = provincia.value || provincia;
-                    option.text = provincia.text || provincia;
-
-                    provinciaDropdown.appendChild(option);
-                });
-
-                // Habilitar el botón de enviar cuando se cargan las provincias
-                var enviarButton = document.getElementById("enviarButton");
-                enviarButton.disabled = false;
-            } else {
-                console.error('Elemento con id "ProvinciaSeleccionada" no encontrado.');
-            }
+            // Habilitar el botón de enviar cuando se cargan las provincias
+            getElementById("enviarButton").disabled = false;
         })
         .catch(error => {
-            console.error('Error en la solicitud Fetch:', error);
+            console.error(error);
         });
 }
 
-
 function cargarLocalidades() {
-    var provinciaSeleccionada = document.getElementById("Provincia").value;
+    var provinciaSeleccionada = getElementById("Provincia").value;
 
     var requestOptions = {
         method: 'POST',
@@ -71,26 +80,15 @@ function cargarLocalidades() {
     };
 
     fetch('/Formulario/ObtenerLocalidadesFiltradas', requestOptions)
-        .then(response => response.json())
+        .then(handleFetchErrors)
         .then(data => {
-            var localidadDropdown = document.getElementById("Localidad");
-            localidadDropdown.innerHTML = '<option value="">Selecciona una opción</option>';
-
-            // Accede a la propiedad 'localidades' en la respuesta JSON
-            data.localidades.forEach(function (localidad) {
-                var option = document.createElement('option');
-
-                // Asegúrate de acceder correctamente a los valores
-                option.value = localidad.value || localidad;
-                option.text = localidad.text || localidad;
-
-                localidadDropdown.appendChild(option);
-            });
+            cargarDropdown("Localidad", data.localidades);
         })
         .catch(error => {
-            console.error('Error en la solicitud Fetch:', error);
+            console.error(error);
         });
 }
+
 
 var locacionSeleccionada = '';
 
@@ -111,7 +109,7 @@ function capturarProvinciaSeleccionada(selectElement) {
             // Actualizar la lista de locaciones
             actualizarListaLocaciones(data);
 
-            // No actualizar el campo oculto LocacionSeleccionada aquí
+            
         })
         .catch(error => {
             console.error('Error en la solicitud Fetch:', error);
@@ -147,9 +145,9 @@ function actualizarListaLocaciones(locaciones) {
         });
     } else {
         Swal.fire({
-            icon: 'info',
-            title: 'No hay locaciones disponibles',
-            text: 'Lo sentimos, no hay clínicas disponibles para esta provincia.',
+            icon: 'error',
+            title: 'No hay clínicas disponibles lo sentimos, para esta provincia aun no ahi clinicas',
+            text: 'No podra enviar el formulario seleccione otra Provincia.',
         });
 
         // Deshabilitar el botón de enviar si no hay clínicas disponibles
