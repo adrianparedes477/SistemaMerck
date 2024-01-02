@@ -34,46 +34,43 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <!-- Selector de País -->
-                    <div class="form-group">
-                        <label asp-for="PaisSeleccionado">
+                    <div class="form-group d-flex flex-column align-items-center">
+                        <label asp-for="PaisSeleccionado" class="text-primary">
                             País:
                         </label>
-                        <div class="d-flex align-items-center custom-icon">
-                            <i class="input-group-text bi bi-geo-alt text-primary custom-icon" style="background-color: lightgray"></i>
-                            <select asp-for="PaisSeleccionado" asp-items="Model.ListPaises" class="form-control" onchange="cargarProvincias()">
+                        <div class="custom-input-group d-flex align-items-center">
+                            <i class="input-group-text bi bi-geo-alt text-primary custom-icon" style="background-color: lightgray; font-size: 20px; margin-right: 10px;"></i>
+                            <select asp-for="PaisSeleccionado" asp-items="Model.ListPaises" class="form-control custom-select" onchange="cargarProvincias()">
                                 <option value="">Selecciona una opción</option>
                             </select>
-
                         </div>
                         <span asp-validation-for="PaisSeleccionado" class="text-danger"></span>
                     </div>
 
-
                     <hr class="mt-4" />
 
-                    <div class="form-group">
-                        <label asp-for="ProvinciaSeleccionada">
+                    <div class="form-group d-flex flex-column align-items-center">
+                        <label asp-for="ProvinciaSeleccionada" class="text-primary">
                             Provincia:
                         </label>
-                        <div class="d-flex align-items-center custom-icon">
-                            <i class="input-group-text bi bi-geo-alt custom-icon text-primary" style="background-color: lightgray"></i>
-                            <select asp-for="ProvinciaSeleccionada" asp-items="Model.ListProvincia" class="form-control" id="Provincia" onchange="capturarProvinciaSeleccionada(this); cargarLocalidades();">
+                        <div class="custom-input-group d-flex align-items-center">
+                            <i class="input-group-text bi bi-geo-alt custom-icon text-primary" style="background-color: lightgray; font-size: 20px; margin-right: 10px;"></i>
+                            <select asp-for="ProvinciaSeleccionada" asp-items="Model.ListProvincia" class="form-control custom-select" id="Provincia" onchange="capturarProvinciaSeleccionada(this); cargarLocalidades();">
                                 <option value="">Selecciona una opción</option>
                             </select>
-
                         </div>
                         <span asp-validation-for="ProvinciaSeleccionada" class="text-danger"></span>
                     </div>
 
                     <hr class="mt-4" />
 
-                    <div class="form-group">
-                        <label asp-for="LocalidadSeleccionada">
+                    <div class="form-group d-flex flex-column align-items-center">
+                        <label asp-for="LocalidadSeleccionada" class="text-primary">
                             Localidad:
                         </label>
-                        <div class="d-flex align-items-center custom-icon">
-                            <i class="input-group-text bi bi-geo-alt custom-icon custom-icon text-primary" style="background-color: lightgray"></i>
-                            <select asp-for="LocalidadSeleccionada" asp-items="Model.ListLocalidad" class="form-control" id="Localidad">
+                        <div class="custom-input-group d-flex align-items-center">
+                            <i class="input-group-text bi bi-geo-alt custom-icon text-primary" style="background-color: lightgray; font-size: 20px; margin-right: 10px;"></i>
+                            <select asp-for="LocalidadSeleccionada" asp-items="Model.ListLocalidad" class="form-control custom-select" id="Localidad">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
@@ -82,31 +79,34 @@
                     <hr class="mt-4" />
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="TipoConsultaSeleccionado">
+                    <div class="form-group d-flex flex-column align-items-center">
+                        <label asp-for="TipoConsultaSeleccionado" class="text-danger">
                             Tipo de Consulta:
                         </label>
-                        <div class="d-flex align-items-center custom-icon">
-                            <i class="input-group-text bi bi-journal text-danger custom-icon" style="background-color: lightgray"></i>
-                            <select asp-for="TipoConsultaSeleccionado" asp-items="Model.ListTiposConsulta" class="form-control">
+                        <div class="custom-input-group d-flex align-items-center">
+                            <i class="input-group-text bi bi-journal text-danger custom-icon" style="background-color: lightgray; font-size: 20px; margin-right: 10px;"></i>
+                            <select asp-for="TipoConsultaSeleccionado" asp-items="Model.ListTiposConsulta" class="form-control custom-select">
                                 <option value="">Selecciona una opción</option>
                             </select>
                         </div>
                         <span asp-validation-for="TipoConsultaSeleccionado" class="text-danger"></span>
                     </div>
                     <hr class="mt-4" />
-                    <div class="form-group">
-                        <label asp-for="Correo">
+                    <div class="form-group d-flex flex-column align-items-center">
+                        <label asp-for="Correo" class="text-danger">
                             Correo:
                         </label>
-                        <div class="d-flex align-items-center custom-icon">
-                            <i class="input-group-text bi bi-envelope text-danger custom-icon" style="background-color: lightgray"></i>
-                            <input asp-for="Correo" class="form-control" />
+                        <div class="custom-input-group d-flex align-items-center">
+                            <i class="input-group-text bi bi-envelope text-danger custom-icon" style="background-color: lightgray; font-size: 20px; margin-right: 10px;"></i>
+                            <input asp-for="Correo" class="form-control custom-input" />
                         </div>
                         <span asp-validation-for="Correo" class="text-danger"></span>
                     </div>
                 </div>
             </div>
+
+
+
             <hr class="mt-4" />
 
 
