@@ -28,6 +28,8 @@ namespace SistemaMerck.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+                // Enviar la consulta con los datos del formulario y la URL
                 if (await _formularioService.EnviarConsulta(viewModel))
                 {
                     return RedirectToAction("ConsultaEnviada");

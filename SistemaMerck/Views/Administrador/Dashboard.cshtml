@@ -1,0 +1,51 @@
+﻿@model SistemaMerck.Modelos.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="text-center">
+    <h2>Bienvenido, @Model.UserName</h2>
+</div>
+<div class="container mt-4">
+    <h3>Datos del Formulario</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Clinica</th>
+                    <th>Tipo de Consulta</th>
+                    <th>Fecha y Hora</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var formulario in Model.DatosFormularioList)
+                {
+                    <tr>
+                        <td>@formulario.Clinica</td>
+                        <td>@formulario.TipoConsulta</td>
+                        <td>@formulario.FechaHora.ToString()</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(formulario.Url))
+                            {
+                                <a href="@formulario.Url" target="_blank">Enlace</a>
+                            }
+                            else
+                            {
+                                <span>Sin URL</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4">
+        <a href="@Url.Action("ExportarExcel")" class="btn btn-success">Exportar a Excel</a>
+        <a href="@Url.Action("ExportarPdf")" class="btn btn-danger">Exportar a PDF</a>
+    </div>
+</div>
+
+
+

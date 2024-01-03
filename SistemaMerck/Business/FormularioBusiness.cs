@@ -6,6 +6,7 @@ using SistemaMerck.AccesoDatos.Data;
 using SistemaMerck.Helpers;
 using SistemaMerck.Helpers.Interface;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Policy;
 
 namespace SistemaMerck.Negocio
 {
@@ -92,7 +93,7 @@ namespace SistemaMerck.Negocio
             try
             {
                 var tiposConsulta = _dbContext.TipoConsulta.ToList();
-                return tiposConsulta.Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Consulta });
+                return tiposConsulta.Select(t => new SelectListItem { Value = t.Consulta, Text = t.Consulta });
             }
             catch (Exception ex)
             {
@@ -102,10 +103,21 @@ namespace SistemaMerck.Negocio
         }
 
 
+
         public async Task<bool> EnviarConsulta(FormularioViewModel viewModel)
         {
             try
             {
+                var datosFormulario = new DatosFormulario
+                {
+                    Clinica = viewModel.LocacionSeleccionada,
+                    TipoConsulta = viewModel.TipoConsultaSeleccionado,
+                    FechaHora = DateTime.Now
+                };
+
+                _dbContext.DatosFormularios.Add(datosFormulario);
+                await _dbContext.SaveChangesAsync();
+
                 var cuerpoCorreo = $"Datos del formulario:\n" +
                                    $"País: {viewModel.PaisSeleccionado}\n" +
                                    $"Provincia: {viewModel.ProvinciaSeleccionada}\n" +

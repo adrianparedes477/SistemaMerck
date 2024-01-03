@@ -1,0 +1,34 @@
+﻿@model SistemaMerck.Modelos.ViewModels.AdminLoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center">Inicio de Sesión</h2>
+
+            <form asp-controller="Administrador" asp-action="Login" method="post" class="mt-4">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="UserName" class="font-weight-bold">Nombre de Usuario:</label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="font-weight-bold">Contraseña:</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
+

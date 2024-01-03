@@ -25,6 +25,7 @@ namespace SistemaMerck.Modelos.ViewModels
         [Required(ErrorMessage = "Debe Seleccionar una Clinica.")]
         public string LocacionSeleccionada { get; set; }
 
+
         [Required(ErrorMessage = "El campo Correo es obligatorio.")]
         [EmailAddress(ErrorMessage = "Por favor, introduce una dirección de correo electrónico válida.")]
         public string Correo { get; set; }

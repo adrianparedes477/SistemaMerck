@@ -10,6 +10,7 @@ using SistemaMerck.Negocio.Interface;
 using SistemaMerck.Negocio;
 using SistemaMerck.Business;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,7 +19,7 @@ builder.Services.AddControllersWithViews();
 
 // Add DbContext
 builder.Services.AddDbContext<MerckContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Hosting")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL")));
 
 
 
@@ -57,5 +58,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Bienvenida}/{id?}");
+
+IWebHostEnvironment env = app.Environment;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "..\\Rotativa\\Windows\\");
 
 app.Run();

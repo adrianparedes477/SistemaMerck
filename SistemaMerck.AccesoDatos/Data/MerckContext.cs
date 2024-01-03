@@ -15,6 +15,9 @@ public partial class MerckContext : DbContext
     {
     }
 
+    public virtual DbSet<DatosFormulario> DatosFormularios { get; set; }
+    public virtual DbSet<Administradores> Administradores { get; set; }
+
     public virtual DbSet<Localidades> Localidades { get; set; }
 
     public virtual DbSet<Paises> Paises { get; set; }
@@ -24,10 +27,30 @@ public partial class MerckContext : DbContext
     public virtual DbSet<TipoConsulta> TipoConsulta { get; set; }
 
 
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Administradores>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Administ__3214EC07E4BE0A9E");
+
+            entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.UserName).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<DatosFormulario>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__DatosFor__3214EC07E0FA5F57");
+
+            entity.ToTable("DatosFormulario");
+
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.FechaHora).HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<Localidades>(entity =>
         {
             entity.HasKey(e => e.LocalidadId).HasName("PK__Localida__6E289F4254A2C31F");
