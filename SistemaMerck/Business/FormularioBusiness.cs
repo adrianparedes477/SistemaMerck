@@ -16,17 +16,20 @@ namespace SistemaMerck.Negocio
         private readonly ICorreoService _correoService;
         private readonly MerckContext _dbContext;
         private readonly ILogger<FormularioBusiness> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public FormularioBusiness(
             LocacionService locacionService,
             ICorreoService correoService,
             MerckContext dbContext,
-            ILogger<FormularioBusiness> logger)
+            ILogger<FormularioBusiness> logger,
+            IHttpContextAccessor httpContextAccessor)
         {
             _locacionService = locacionService;
             _correoService = correoService;
             _dbContext = dbContext;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IEnumerable<SelectListItem> ObtenerPaises()
@@ -108,11 +111,13 @@ namespace SistemaMerck.Negocio
         {
             try
             {
+                
                 var datosFormulario = new DatosFormulario
                 {
                     Clinica = viewModel.LocacionSeleccionada,
                     TipoConsulta = viewModel.TipoConsultaSeleccionado,
-                    FechaHora = DateTime.Now
+                    FechaHora = DateTime.Now,
+                    Url = _httpContextAccessor.HttpContext.Request.Headers["Referer"].ToString()
                 };
 
                 _dbContext.DatosFormularios.Add(datosFormulario);

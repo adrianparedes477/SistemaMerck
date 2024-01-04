@@ -31,10 +31,20 @@ builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provi
     return new ArchivoLocacionRepository(filePath);
 });
 
+builder.Services.AddDistributedMemoryCache(); // Puedes cambiar a otro proveedor de caché si es necesario
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Puedes ajustar el tiempo de expiración según tus necesidades
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddScoped<LocacionService>();
 builder.Services.AddTransient<ICorreoService, CorreoService>();
 builder.Services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
 builder.Services.AddScoped<IFormularioBusiness, FormularioBusiness>();
+builder.Services.AddHttpContextAccessor();
 
 
 
@@ -53,11 +63,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Bienvenida}/{id?}");
+    pattern: "{controller=Administrador}/{action=Login}/{id?}");
 
 IWebHostEnvironment env = app.Environment;
 Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "..\\Rotativa\\Windows\\");

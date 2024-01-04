@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SistemaMerck.Models;
-using System.Diagnostics;
-using SistemaMerck.Negocio.Interface;
 using SistemaMerck.AccesoDatos.Data;
 using SistemaMerck.Modelos.ViewModels;
-using SistemaMerck.Helpers;
 using ClosedXML.Excel;
 using Rotativa.AspNetCore;
+using SistemaMerck.Modelos;
+using Microsoft.AspNetCore.Http;
+using System.Text;
+using System.Text.Json;
 
 namespace SistemaMerck.Controllers
 {
@@ -65,14 +65,53 @@ namespace SistemaMerck.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpPost]
+        public IActionResult FiltrarDashboard(string username, string fechaInicio, string fechaFin)
+        {
+            if (!string.IsNullOrEmpty(username))
+            {
+                DateTime? fechaInicioParsed = !string.IsNullOrEmpty(fechaInicio) ? DateTime.Parse(fechaInicio) : (DateTime?)null;
+                DateTime? fechaFinParsed = !string.IsNullOrEmpty(fechaFin) ? DateTime.Parse(fechaFin) : (DateTime?)null;
+
+                var query = _dbContext.DatosFormularios.AsQueryable();
+
+                if (fechaInicioParsed.HasValue)
+                {
+                    query = query.Where(d => d.FechaHora >= fechaInicioParsed);
+                }
+
+                if (fechaFinParsed.HasValue)
+                {
+                    query = query.Where(d => d.FechaHora <= fechaFinParsed);
+                }
+
+                var datosFiltrados = query.ToList();
+
+                // Serializar la lista a JSON
+                var json = JsonSerializer.Serialize(datosFiltrados);
+                var jsonBytes = Encoding.UTF8.GetBytes(json);
+
+                // Guardar los datos en la sesión
+                HttpContext.Session.Set("DatosFiltrados", jsonBytes);
+
+                return Json(new { success = true });
+            }
+
+            // Si llegas aquí, la autenticación no es válida
+            return Json(new { success = false });
+        }
+
+
+
         [HttpGet]
         public IActionResult ExportarExcel()
         {
-            // Asegúrate de tener el modelo correcto aquí
-            var viewModel = new DashboardViewModel
-            {
-                DatosFormularioList = _dbContext.DatosFormularios.ToList()
-            };
+            // Obtener los datos de la sesión
+            var jsonBytes = HttpContext.Session.Get("DatosFiltrados");
+
+            // Deserializar los datos
+            var json = Encoding.UTF8.GetString(jsonBytes);
+            var datosFiltrados = JsonSerializer.Deserialize<List<DatosFormulario>>(json);
 
             var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("DatosFormulario");
@@ -86,7 +125,7 @@ namespace SistemaMerck.Controllers
 
             // Datos
             var rowIndex = 2;
-            foreach (var formulario in viewModel.DatosFormularioList)
+            foreach (var formulario in datosFiltrados)
             {
                 worksheet.Cell(rowIndex, 1).Value = formulario.Clinica;
                 worksheet.Cell(rowIndex, 2).Value = formulario.TipoConsulta;
@@ -104,13 +143,22 @@ namespace SistemaMerck.Controllers
         }
 
 
+
         [HttpGet]
         public IActionResult ExportarPdf()
         {
-            // Asegúrate de tener el modelo correcto aquí
+            // Obtener los datos de la sesión
+            var jsonBytes = HttpContext.Session.Get("DatosFiltrados");
+
+            // Deserializar los datos
+            var json = Encoding.UTF8.GetString(jsonBytes);
+            var datosFiltrados = JsonSerializer.Deserialize<List<DatosFormulario>>(json);
+
+            // Crear una instancia de DashboardViewModel y establecer los datos filtrados
             var viewModel = new DashboardViewModel
             {
-                DatosFormularioList = _dbContext.DatosFormularios.ToList()
+                UserName = "Usuario", // Asigna el nombre de usuario que desees
+                DatosFormularioList = datosFiltrados
             };
 
             // Pasar el modelo al método ViewAsPdf
@@ -126,9 +174,5 @@ namespace SistemaMerck.Controllers
         }
 
 
-
-
     }
-
-
 }

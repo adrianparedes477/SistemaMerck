@@ -7,45 +7,101 @@
 <div class="text-center">
     <h2>Bienvenido, @Model.UserName</h2>
 </div>
+
 <div class="container mt-4">
-    <h3>Datos del Formulario</h3>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Clinica</th>
-                    <th>Tipo de Consulta</th>
-                    <th>Fecha y Hora</th>
-                    <th>Url</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var formulario in Model.DatosFormularioList)
-                {
-                    <tr>
-                        <td>@formulario.Clinica</td>
-                        <td>@formulario.TipoConsulta</td>
-                        <td>@formulario.FechaHora.ToString()</td>
-                        <td>
-                            @if (!string.IsNullOrEmpty(formulario.Url))
-                            {
-                                <a href="@formulario.Url" target="_blank">Enlace</a>
-                            }
-                            else
-                            {
-                                <span>Sin URL</span>
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <h3>Filtrar Datos del Formulario</h3>
+    <div class="form-group">
+        <label for="fechaInicio">Fecha de Inicio:</label>
+        <input type="date" id="fechaInicio" class="form-control" />
     </div>
+    <div class="form-group">
+        <label for="fechaFin">Fecha de Fin:</label>
+        <input type="date" id="fechaFin" class="form-control" />
+    </div>
+    <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
+
     <div class="mt-4">
-        <a href="@Url.Action("ExportarExcel")" class="btn btn-success">Exportar a Excel</a>
-        <a href="@Url.Action("ExportarPdf")" class="btn btn-danger">Exportar a PDF</a>
+        <button id="btnExportarExcel" class="btn btn-success export-button">Exportar a Excel</button>
+        <button id="btnExportarPdf" class="btn btn-danger export-button">Exportar a PDF</button>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Función para validar la fecha
+            function isValidDate(dateString) {
+                var regex = /^\d{4}-\d{2}-\d{2}$/;
+                return dateString.match(regex) !== null;
+            }
+
+            // Función para actualizar el estado de los botones
+            function updateButtonState() {
+                var fechaInicio = $("#fechaInicio").val();
+                var fechaFin = $("#fechaFin").val();
+                var isValid = isValidDate(fechaInicio) && isValidDate(fechaFin);
+
+                $("#btnFiltrar").prop("disabled", !isValid);
+
+                // Mostrar u ocultar los botones de exportación
+                var exportButtons = $(".export-button");
+
+                if (isValid) {
+                    exportButtons.show();
+                } else {
+                    exportButtons.hide();
+                }
+            }
+
+            // Delegar eventos de clic a un elemento constante (document) para los botones de exportación
+            $(document).on("click", "#btnExportarExcel", function () {
+                // Redirigir a la acción de exportación correspondiente
+                window.location.href = "@Url.Action("ExportarExcel", "Administrador")";
+            });
+
+            $(document).on("click", "#btnExportarPdf", function () {
+                // Redirigir a la acción de exportación correspondiente
+                window.location.href = "@Url.Action("ExportarPdf", "Administrador")";
+            });
+
+            // Manejar el evento de cambio en las fechas
+            $("#fechaInicio, #fechaFin").on("change", function () {
+                updateButtonState();
+            });
+
+            // Manejar el clic en el botón de filtrar
+            $("#btnFiltrar").on("click", function () {
+                var fechaInicio = $("#fechaInicio").val();
+                var fechaFin = $("#fechaFin").val();
+                var username = "@Model.UserName";
+
+                if (isValidDate(fechaInicio) && isValidDate(fechaFin)) {
+                    $.ajax({
+                        url: "@Url.Action("FiltrarDashboard", "Administrador")",
+                        data: { username: username, fechaInicio: fechaInicio, fechaFin: fechaFin },
+                        type: "POST",
+                        success: function (data) {
+                            if (data.success) {
+                                // Después de filtrar con éxito, actualizar el estado de los botones
+                                updateButtonState();
+                            } else {
+                                console.error("La filtración no fue exitosa. La autenticación puede no ser válida.");
+                            }
+                        },
+                        error: function (error) {
+                            console.error(error);
+                        }
+                    });
+                } else {
+                    console.error("Por favor, ingrese fechas válidas.");
+                }
+            });
+
+            // Actualizar el estado de los botones al cargar la página
+            updateButtonState();
+        });
+    </script>
+}
 
 
 
