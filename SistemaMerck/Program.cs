@@ -66,7 +66,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Administrador}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Bienvenida}/{id?}");
 
 IWebHostEnvironment env = app.Environment;
 Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "..\\Rotativa\\Windows\\");
