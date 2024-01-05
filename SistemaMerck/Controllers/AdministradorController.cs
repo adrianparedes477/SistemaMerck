@@ -38,7 +38,9 @@ namespace SistemaMerck.Controllers
                 if (administrador != null)
                 {
                     // El inicio de sesión es exitoso, puedes redirigir a una página de administrador.
-                    return RedirectToAction("Dashboard", new { username = model.UserName });
+                    HttpContext.Session.SetString("UserName", model.UserName);
+
+                    return RedirectToAction("Dashboard");
                 }
 
                 // Si llegas aquí, el inicio de sesión falló
@@ -48,13 +50,14 @@ namespace SistemaMerck.Controllers
             return View(model);
         }
 
-        public IActionResult Dashboard(string username)
+        public IActionResult Dashboard()
         {
+            var username = HttpContext.Session.GetString("UserName");
+
             if (!string.IsNullOrEmpty(username))
             {
                 var viewModel = new DashboardViewModel
                 {
-                    UserName = username,
                     DatosFormularioList = _dbContext.DatosFormularios.ToList()
                 };
 
@@ -65,9 +68,14 @@ namespace SistemaMerck.Controllers
             return RedirectToAction("Login");
         }
 
+
+
+
         [HttpPost]
-        public IActionResult FiltrarDashboard(string username, string fechaInicio, string fechaFin)
+        public IActionResult FiltrarDashboard(string fechaInicio, string fechaFin)
         {
+            var username = HttpContext.Session.GetString("UserName");
+
             if (!string.IsNullOrEmpty(username))
             {
                 DateTime? fechaInicioParsed = !string.IsNullOrEmpty(fechaInicio) ? DateTime.Parse(fechaInicio) : (DateTime?)null;
@@ -157,7 +165,6 @@ namespace SistemaMerck.Controllers
             // Crear una instancia de DashboardViewModel y establecer los datos filtrados
             var viewModel = new DashboardViewModel
             {
-                UserName = "Usuario", // Asigna el nombre de usuario que desees
                 DatosFormularioList = datosFiltrados
             };
 

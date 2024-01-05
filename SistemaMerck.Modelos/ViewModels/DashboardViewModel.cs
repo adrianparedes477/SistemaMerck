@@ -8,8 +8,6 @@ namespace SistemaMerck.Modelos.ViewModels
 {
     public class DashboardViewModel
     {
-        public string UserName { get; set; }
-
         public List<DatosFormulario> DatosFormularioList { get; set; } = new List<DatosFormulario>();
     }
 }

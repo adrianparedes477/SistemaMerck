@@ -1,11 +1,11 @@
-﻿@model SistemaMerck.Modelos.ViewModels.DashboardViewModel
+﻿@using Microsoft.AspNetCore.Http
 
 @{
     ViewData["Title"] = "Dashboard";
 }
 
 <div class="text-center">
-    <h2>Bienvenido, @Model.UserName</h2>
+    <h2>Bienvenido, @Context.Session.GetString("UserName")</h2>
 </div>
 
 <div class="container mt-4">
@@ -73,12 +73,11 @@
             $("#btnFiltrar").on("click", function () {
                 var fechaInicio = $("#fechaInicio").val();
                 var fechaFin = $("#fechaFin").val();
-                var username = "@Model.UserName";
 
                 if (isValidDate(fechaInicio) && isValidDate(fechaFin)) {
                     $.ajax({
                         url: "@Url.Action("FiltrarDashboard", "Administrador")",
-                        data: { username: username, fechaInicio: fechaInicio, fechaFin: fechaFin },
+                        data: { username: "@Context.Session.GetString("UserName")", fechaInicio: fechaInicio, fechaFin: fechaFin },
                         type: "POST",
                         success: function (data) {
                             if (data.success) {
@@ -102,6 +101,3 @@
         });
     </script>
 }
-
-
-
