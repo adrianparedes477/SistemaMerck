@@ -10,11 +10,8 @@ using SistemaMerck.Negocio.Interface;
 using SistemaMerck.Negocio;
 using SistemaMerck.Business;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 // Add DbContext
@@ -31,11 +28,11 @@ builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provi
     return new ArchivoLocacionRepository(filePath);
 });
 
-builder.Services.AddDistributedMemoryCache(); // Puedes cambiar a otro proveedor de caché si es necesario
+builder.Services.AddDistributedMemoryCache(); 
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Puedes ajustar el tiempo de expiración según tus necesidades
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
