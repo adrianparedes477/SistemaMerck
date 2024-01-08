@@ -4,57 +4,31 @@ using SistemaMerck.Modelos.ViewModels;
 using ClosedXML.Excel;
 using Rotativa.AspNetCore;
 using SistemaMerck.Modelos;
-using Microsoft.AspNetCore.Http;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using SistemaMerck.Utilidades;
 
 namespace SistemaMerck.Controllers
 {
+    [Authorize(Roles = DS.Role_Admin)]
     public class AdministradorController : Controller
     {
         private readonly MerckContext _dbContext;
-
-        public AdministradorController(MerckContext dbContext)
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public AdministradorController(MerckContext dbContext, SignInManager<IdentityUser> signInManager)
         {
             _dbContext = dbContext;
+            _signInManager = signInManager;
         }
+
+
 
         [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(AdminLoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Intenta autenticar sin hash y salting
-                var administrador = _dbContext.Administradores
-                    .FirstOrDefault(a => a.UserName == model.UserName && a.Password == model.Password);
-
-                if (administrador != null)
-                {
-                    // El inicio de sesión es exitoso, puedes redirigir a una página de administrador.
-                    HttpContext.Session.SetString("UserName", model.UserName);
-
-                    return RedirectToAction("Dashboard");
-                }
-
-                // Si llegas aquí, el inicio de sesión falló
-                ModelState.AddModelError(string.Empty, "Credenciales incorrectas");
-            }
-
-            return View(model);
-        }
-
         public IActionResult Dashboard()
         {
-            var username = HttpContext.Session.GetString("UserName");
-
-            if (!string.IsNullOrEmpty(username))
+            if (_signInManager.IsSignedIn(User))
             {
                 var viewModel = new DashboardViewModel
                 {
@@ -65,7 +39,7 @@ namespace SistemaMerck.Controllers
             }
 
             // Si llegas aquí, la autenticación no es válida
-            return RedirectToAction("Login");
+            return RedirectToAction("AccessDenied", "Account", new { area = "Identity" });
         }
 
 
@@ -76,7 +50,7 @@ namespace SistemaMerck.Controllers
         {
             var username = HttpContext.Session.GetString("UserName");
 
-            if (!string.IsNullOrEmpty(username))
+            if (_signInManager.IsSignedIn(User))
             {
                 DateTime? fechaInicioParsed = !string.IsNullOrEmpty(fechaInicio) ? DateTime.Parse(fechaInicio) : (DateTime?)null;
                 DateTime? fechaFinParsed = !string.IsNullOrEmpty(fechaFin) ? DateTime.Parse(fechaFin) : (DateTime?)null;

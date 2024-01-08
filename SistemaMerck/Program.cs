@@ -9,6 +9,9 @@ using SistemaMerck.Modelos;
 using SistemaMerck.Negocio.Interface;
 using SistemaMerck.Negocio;
 using SistemaMerck.Business;
+using Microsoft.AspNetCore.Identity;
+using SistemaMerck.Utilidades;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,23 @@ builder.Services.AddDbContext<MerckContext>(options =>
 
 
 
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddErrorDescriber<ErrorDescriber>()
+    .AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<MerckContext>();
+
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+builder.Services.AddRazorPages();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+
 // builder.Services.AddScoped<ILocacionRepository, BaseDatosLocacionRepository>();
 builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provider =>
 {
@@ -27,7 +47,7 @@ builder.Services.AddScoped<ILocacionRepository, ArchivoLocacionRepository>(provi
     var filePath = config.GetValue<string>("FileUrls:LocacionRepositoryUrl");
     return new ArchivoLocacionRepository(filePath);
 });
-
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddDistributedMemoryCache(); 
 
 builder.Services.AddSession(options =>
@@ -62,12 +82,13 @@ app.UseRouting();
 
 app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Bienvenida}/{id?}");
-
+app.MapRazorPages();
 IWebHostEnvironment env = app.Environment;
 Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "..\\Rotativa\\Windows\\");
 

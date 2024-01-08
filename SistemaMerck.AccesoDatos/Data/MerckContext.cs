@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SistemaMerck.Modelos;
-using SistemaMerck.Modelos.ViewModels;
 
 namespace SistemaMerck.AccesoDatos.Data;
 
-public partial class MerckContext : DbContext
+public partial class MerckContext : IdentityDbContext
 {
     public MerckContext()
     {
@@ -33,6 +33,7 @@ public partial class MerckContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Administradores>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Administ__3214EC07E4BE0A9E");
