@@ -12,6 +12,7 @@ using SistemaMerck.Utilidades;
 
 namespace SistemaMerck.Controllers
 {
+
     [Authorize(Roles = DS.Role_Admin)]
     public class AdministradorController : Controller
     {
@@ -24,11 +25,10 @@ namespace SistemaMerck.Controllers
         }
 
 
-
         [HttpGet]
         public IActionResult Dashboard()
         {
-            if (_signInManager.IsSignedIn(User))
+            if (User.Identity.IsAuthenticated)
             {
                 var viewModel = new DashboardViewModel
                 {
@@ -39,7 +39,7 @@ namespace SistemaMerck.Controllers
             }
 
             // Si llegas aquí, la autenticación no es válida
-            return RedirectToAction("AccessDenied", "Account", new { area = "Identity" });
+            return RedirectToAction("Login", "Account", new { area = "Identity" });
         }
 
 
@@ -48,12 +48,12 @@ namespace SistemaMerck.Controllers
         [HttpPost]
         public IActionResult FiltrarDashboard(string fechaInicio, string fechaFin)
         {
-            var username = HttpContext.Session.GetString("UserName");
 
-            if (_signInManager.IsSignedIn(User))
+
+            if (User.Identity.IsAuthenticated)
             {
-                DateTime? fechaInicioParsed = !string.IsNullOrEmpty(fechaInicio) ? DateTime.Parse(fechaInicio) : (DateTime?)null;
-                DateTime? fechaFinParsed = !string.IsNullOrEmpty(fechaFin) ? DateTime.Parse(fechaFin) : (DateTime?)null;
+                DateTime? fechaInicioParsed = !string.IsNullOrEmpty(fechaInicio) ? DateTime.Parse(fechaInicio) : null;
+                DateTime? fechaFinParsed = !string.IsNullOrEmpty(fechaFin) ? DateTime.Parse(fechaFin) : null;
 
                 var query = _dbContext.DatosFormularios.AsQueryable();
 

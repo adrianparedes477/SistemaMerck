@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SistemaMerck.AccesoDatos.Data;
 using SistemaMerck.AccesoDatos.Repositorio;
 using SistemaMerck.AccesoDatos.Repositorio.Interfaces;
 using SistemaMerck.Helpers;
 using SistemaMerck.Helpers.Interface;
-using SistemaMerck.Modelos;
 using SistemaMerck.Negocio.Interface;
 using SistemaMerck.Negocio;
 using SistemaMerck.Business;
@@ -20,9 +18,6 @@ builder.Services.AddControllersWithViews();
 // Add DbContext
 builder.Services.AddDbContext<MerckContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL")));
-
-
-
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddErrorDescriber<ErrorDescriber>()
@@ -61,6 +56,7 @@ builder.Services.AddScoped<LocacionService>();
 builder.Services.AddTransient<ICorreoService, CorreoService>();
 builder.Services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
 builder.Services.AddScoped<IFormularioBusiness, FormularioBusiness>();
+builder.Services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
 builder.Services.AddHttpContextAccessor();
 
 
